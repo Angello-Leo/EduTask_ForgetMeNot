@@ -15,6 +15,8 @@ namespace Design
         {
             panel1.Width = 0;
             panel1.Visible = true;
+
+            lblUsername.Text = GetInfo.Username;
         }
 
 
