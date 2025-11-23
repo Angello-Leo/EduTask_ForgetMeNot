@@ -15,12 +15,11 @@ namespace Design
         public Form6()
         {
             InitializeComponent();
-            panel1.Width = 0;
-            panel1.Visible = true;
+            panel1.Visible = false;
         }
         private bool panelIsExpanded = false;
-        private int panelMaxWidth = 170;
-        private int slideSpeed = 98;
+        private int panelMaxWidth = 200;
+        private int slideSpeed = 10;
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
@@ -39,28 +38,31 @@ namespace Design
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (panelIsExpanded)
+            if (panelIsExpanded == false)
             {
-                panel1.Width -= slideSpeed;
-                if (panel1.Width <= 0)
+                panel1.Visible = true;
+                int distance = panelMaxWidth - panel1.Width;
+                int dynamicSpeed = Math.Max(2, distance / 4);
+                panel1.Width += dynamicSpeed;
+
+                if (panel1.Width >= panelMaxWidth)
                 {
-                    panel1.Visible = false;
-                    panel1.Width = 0;
-                    panelIsExpanded = false;
+                    panel1.Width = panelMaxWidth;
+                    panelIsExpanded = true;
                     timer1.Stop();
                 }
             }
             else
             {
-                panel1.Width += slideSpeed;
-                if (panel1.Width >= panelMaxWidth)
+                panel1.Width -= slideSpeed;
+
+                if (panel1.Width <= 0)
                 {
-                    panel1.Visible = true;
-                    panel1.Width = panelMaxWidth;
-                    panelIsExpanded = true;
+                    panel1.Width = 0;
+                    panel1.Visible = false;
+                    panelIsExpanded = false;
                     timer1.Stop();
                 }
-
             }
         }
 
@@ -110,6 +112,16 @@ namespace Design
             Form1 f1 = new Form1();
             f1.Show();
             this.Hide();
+        }
+
+        private void Form6_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
