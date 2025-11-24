@@ -63,15 +63,16 @@ namespace Design
                     Console.WriteLine("[DEBUG] Database connection opened successfully.");
 
                     string query = (GetInfo.Role == "teacher")
-                            ? @"SELECT c.class_id, c.class_name, c.class_code, u.username AS adviser
-                                    FROM classes c
-                                    LEFT JOIN users u ON c.adviser_id = u.user_id
-                                    WHERE c.adviser_id = @aid"
-                            : @"SELECT c.class_id, c.class_name, c.class_code, u.username AS adviser
-                                    FROM classes c
-                                    LEFT JOIN users u ON c.adviser_id = u.user_id
-                                    LEFT JOIN class_students cs ON c.class_id = cs.class_id
-                                    WHERE cs.student_id = @sid OR c.creator_id = @sid";
+                        ? @"SELECT c.class_id, c.class_name, c.class_code, u.username AS adviser
+                            FROM classes c
+                            LEFT JOIN users u ON c.adviser_id = u.user_id
+                            WHERE c.adviser_id = @aid"
+                        : @"SELECT DISTINCT c.class_id, c.class_name, c.class_code, u.username AS adviser
+                            FROM classes c
+                            LEFT JOIN users u ON c.adviser_id = u.user_id
+                            LEFT JOIN class_students cs ON c.class_id = cs.class_id
+                            WHERE cs.student_id = @sid OR c.creator_id = @sid";
+
 
                     using (MySqlCommand cmd = new MySqlCommand(query, con))
                     {
@@ -96,8 +97,6 @@ namespace Design
                                     ? "Student-created"
                                     : reader.GetString("adviser");
 
-                                Console.WriteLine($"[DEBUG] Row {rowCount}: {className} ({classCode}), Adviser: {adviser}");
-
                                 CreateClassCard(classId, className, classCode, adviser);
                             }
 
@@ -110,12 +109,7 @@ namespace Design
                 }
 
                 // Make sure the FlowLayoutPanel is visible
-                if (!flowPanelClasses.Visible)
-                {
-                    Console.WriteLine("[DEBUG] FlowLayoutPanel was hidden. Making it visible.");
-                    flowPanelClasses.Visible = true;
-                }
-
+                flowPanelClasses.Visible = true;
                 flowPanelClasses.Refresh();
             }
             catch (Exception ex)

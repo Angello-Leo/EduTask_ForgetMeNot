@@ -79,17 +79,16 @@ namespace Design
                     } while (codeExists);
 
                     // 3️⃣ Insert class
-                    string insertQuery = @"INSERT INTO classes (class_name, class_code, adviser_id, creator_id) 
-                       VALUES (@name, @code, @adviser, @creator)";
+                    string insertQuery = @"INSERT INTO classes (class_name, class_code, adviser_id, creator_id, max_students) 
+                       VALUES (@name, @code, @adviser, @creator, @max)";
 
                     using (var cmd = new MySqlCommand(insertQuery, con))
                     {
                         cmd.Parameters.AddWithValue("@name", className);
                         cmd.Parameters.AddWithValue("@code", classCode);
-                        cmd.Parameters.AddWithValue("@max", maxStudents);
+                        cmd.Parameters.AddWithValue("@adviser", GetInfo.Role == "teacher" ? GetInfo.UserID : (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@creator", GetInfo.UserID);
-                        if (GetInfo.Role == "teacher")
-                            cmd.Parameters.AddWithValue("@aid", GetInfo.UserID);
+                        cmd.Parameters.AddWithValue("@max", maxStudents);
 
                         cmd.ExecuteNonQuery();
                         newClassId = cmd.LastInsertedId;
@@ -98,22 +97,12 @@ namespace Design
                     // 4️⃣ Auto-enroll student if not a teacher
                     if (GetInfo.Role != "teacher" && newClassId > 0)
                     {
-                        using (var enrollCmd = new MySqlCommand(
-                            "INSERT IGNORE INTO class_students (class_id, student_id) VALUES (@cid, @sid)", con))
+                        string enrollQuery = "INSERT IGNORE INTO class_students (class_id, student_id) VALUES (@cid, @sid)";
+                        using (var enrollCmd = new MySqlCommand(enrollQuery, con))
                         {
                             enrollCmd.Parameters.AddWithValue("@cid", newClassId);
                             enrollCmd.Parameters.AddWithValue("@sid", GetInfo.UserID);
-
-                            try
-                            {
-                                enrollCmd.ExecuteNonQuery();
-                            }
-                            catch (MySqlException ex)
-                            {
-                                // Only throw if it is a real error
-                                if (ex.Number != 1062) // 1062 = duplicate key
-                                    throw;
-                            }
+                            enrollCmd.ExecuteNonQuery();
                         }
                     }
                 }
@@ -137,11 +126,6 @@ namespace Design
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
-
-
-
-
-
 
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -298,6 +282,8 @@ namespace Design
                 {
                     MessageBox.Show("Invalid class code.");
                 }
+
+
             }
         }
 
