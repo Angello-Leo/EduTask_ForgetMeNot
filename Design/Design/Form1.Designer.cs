@@ -51,6 +51,7 @@
             pictureBox2 = new PictureBox();
             pictureBox15 = new PictureBox();
             lblUsername = new Label();
+            flowPanelClasses = new FlowLayoutPanel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox14).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox13).BeginInit();
@@ -344,6 +345,15 @@
             lblUsername.Size = new Size(0, 37);
             lblUsername.TabIndex = 22;
             // 
+            // flowPanelClasses
+            // 
+            flowPanelClasses.AutoScroll = true;
+            flowPanelClasses.Location = new Point(261, 153);
+            flowPanelClasses.Name = "flowPanelClasses";
+            flowPanelClasses.Size = new Size(1010, 637);
+            flowPanelClasses.TabIndex = 23;
+            flowPanelClasses.Paint += flowLayoutPanel1_Paint;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -352,11 +362,12 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1326, 821);
+            Controls.Add(pictureBox3);
+            Controls.Add(flowPanelClasses);
             Controls.Add(lblUsername);
             Controls.Add(pictureBox15);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox4);
-            Controls.Add(pictureBox3);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(pictureBox1);
@@ -408,5 +419,6 @@
         private Panel panel2;
         private PictureBox pictureBox15;
         private Label lblUsername;
+        private FlowLayoutPanel flowPanelClasses;
     }
 }

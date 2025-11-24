@@ -7,19 +7,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace Design
 {
     public partial class Form2 : Form
     {
-        public Form2()
-        {
-            InitializeComponent();
-            panel1.Visible = false;
-        }
+        private Form1 _dashboard;
         private bool panelIsExpanded = false;
         private int panelMaxWidth = 200;
         private int slideSpeed = 10;
+
+        public Form2(Form1 dashboard = null)
+        {
+            InitializeComponent();
+            panel1.Visible = false;
+            lblUsername.Text = GetInfo.Username;
+            _dashboard = dashboard;// store reference to dashboard
+        }
+        private string GenerateClassCode()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            Random rand = new Random();
+
+            return new string(Enumerable.Repeat(chars, 7)
+                        .Select(s => s[rand.Next(s.Length)]).ToArray());
+        }
         private void label2_Click(object sender, EventArgs e)
         {
 
@@ -27,11 +40,109 @@ namespace Design
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //button for create class
-            Class f3 = new Class();
-            f3.Show();
-            this.Hide();
+            // 1️⃣ Validate inputs
+            if (string.IsNullOrWhiteSpace(richTextBoxClassName.Text))
+            {
+                MessageBox.Show("Please enter a class name.");
+                return;
+            }
+
+            if (!int.TryParse(richTextBoxClassmates.Text.Trim(), out int maxStudents))
+            {
+                MessageBox.Show("Max students must be a number.");
+                return;
+            }
+
+            string className = richTextBoxClassName.Text.Trim();
+            string classCode;
+            long newClassId = 0; // Use long to match MySQL LastInsertedId
+
+            string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
+
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(conString))
+                {
+                    con.Open();
+
+                    // 2️⃣ Ensure unique class code
+                    bool codeExists;
+                    do
+                    {
+                        classCode = GenerateClassCode();
+                        string checkQuery = "SELECT COUNT(*) FROM classes WHERE class_code=@code";
+                        using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, con))
+                        {
+                            checkCmd.Parameters.AddWithValue("@code", classCode);
+                            codeExists = Convert.ToInt32(checkCmd.ExecuteScalar()) > 0;
+                        }
+                    } while (codeExists);
+
+                    // 3️⃣ Insert class
+                    string insertQuery = (GetInfo.Role == "teacher") ?
+                        "INSERT INTO classes (class_name, class_code, adviser_id, max_students) VALUES (@name, @code, @aid, @max)" :
+                        "INSERT INTO classes (class_name, class_code, adviser_id, max_students) VALUES (@name, @code, NULL, @max)";
+
+                    using (var cmd = new MySqlCommand(insertQuery, con))
+                    {
+                        cmd.Parameters.AddWithValue("@name", className);
+                        cmd.Parameters.AddWithValue("@code", classCode);
+                        cmd.Parameters.AddWithValue("@max", maxStudents);
+                        if (GetInfo.Role == "teacher")
+                            cmd.Parameters.AddWithValue("@aid", GetInfo.UserID);
+
+                        cmd.ExecuteNonQuery();
+                        newClassId = cmd.LastInsertedId;
+                    }
+
+                    // 4️⃣ Auto-enroll student if not a teacher
+                    if (GetInfo.Role != "teacher" && newClassId > 0)
+                    {
+                        using (var enrollCmd = new MySqlCommand(
+                            "INSERT IGNORE INTO class_students (class_id, student_id) VALUES (@cid, @sid)", con))
+                        {
+                            enrollCmd.Parameters.AddWithValue("@cid", newClassId);
+                            enrollCmd.Parameters.AddWithValue("@sid", GetInfo.UserID);
+
+                            try
+                            {
+                                enrollCmd.ExecuteNonQuery();
+                            }
+                            catch (MySqlException ex)
+                            {
+                                // Only throw if it is a real error
+                                if (ex.Number != 1062) // 1062 = duplicate key
+                                    throw;
+                            }
+                        }
+                    }
+                }
+
+                // 5️⃣ Refresh dashboard safely
+                _dashboard?.LoadClasses();
+
+                // 6️⃣ Open the newly created class page
+                Class cls = new Class((int)newClassId, _dashboard);
+                cls.Show();
+                this.Hide();
+            }
+            catch (MySqlException ex)
+            {
+                // Only show real errors
+                MessageBox.Show("MySQL Error: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                // Any other error
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
+
+
+
+
+
+
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
@@ -77,8 +188,8 @@ namespace Design
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             //add icon 
-            Form1 f1 = new Form1();
-            f1.Show();
+            _dashboard?.LoadClasses(); // reload the dashboard
+            _dashboard?.Show();        // make it visible
             this.Close();
         }
 
@@ -114,22 +225,81 @@ namespace Design
         private void pictureBox9_Click(object sender, EventArgs e)
         {
             //home 
-            Form1 f1 = new Form1();
-            f1.Show();
-            this.Hide();
+            _dashboard?.LoadClasses(); // reload the dashboard
+            _dashboard?.Show();        // make it visible
+            this.Close();
         }
 
         private void pictureBox5_Click(object sender, EventArgs e)
         {
             //home
-            Form1 f1 = new Form1();
-            f1.Show();
-            this.Hide();
+            _dashboard?.LoadClasses(); // reload the dashboard
+            _dashboard?.Show();        // make it visible
+            this.Close();
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
 
         }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //Join class
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string enteredCode = richTextBoxClassCode.Text.Trim();
+            if (string.IsNullOrEmpty(enteredCode))
+            {
+                MessageBox.Show("Please enter a class code.");
+                return;
+            }
+
+            string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
+
+            using (MySqlConnection con = new MySqlConnection(conString))
+            {
+                con.Open();
+
+                string findClass = "SELECT class_id FROM classes WHERE class_code = @code";
+                MySqlCommand cmd = new MySqlCommand(findClass, con);
+                cmd.Parameters.AddWithValue("@code", enteredCode);
+
+                object result = cmd.ExecuteScalar();
+
+                if (result != null)
+                {
+                    int classId = Convert.ToInt32(result);
+
+                    string enrollQuery = "INSERT IGNORE INTO class_students (class_id, student_id) VALUES (@cid, @sid)";
+                    MySqlCommand enrollCmd = new MySqlCommand(enrollQuery, con);
+                    enrollCmd.Parameters.AddWithValue("@cid", classId);
+                    enrollCmd.Parameters.AddWithValue("@sid", GetInfo.UserID);
+                    enrollCmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Successfully joined the class!");
+
+                    // Refresh dashboard before showing
+                    _dashboard?.LoadClasses();
+                    _dashboard?.Show();
+
+                    // Open the newly joined class page
+                    Class clsPage = new Class(classId, _dashboard);
+                    clsPage.Show();
+                    this.Close();
+
+                    // Close this join form
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid class code.");
+                }
+            }
+        }
+
     }
 }

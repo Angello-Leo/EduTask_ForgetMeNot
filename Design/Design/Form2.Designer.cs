@@ -49,13 +49,18 @@
             pictureBox5 = new PictureBox();
             pictureBox15 = new PictureBox();
             label2 = new Label();
-            richTextBox1 = new RichTextBox();
+            richTextBoxClassName = new RichTextBox();
             label3 = new Label();
-            richTextBox2 = new RichTextBox();
+            richTextBoxClassmates = new RichTextBox();
             button1 = new Button();
             label4 = new Label();
             pictureBox16 = new PictureBox();
             timer1 = new System.Windows.Forms.Timer(components);
+            lblUsername = new Label();
+            btnJoinClass = new Button();
+            pictureBox17 = new PictureBox();
+            label5 = new Label();
+            richTextBoxClassCode = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
@@ -73,6 +78,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox16).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox17).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -306,7 +312,7 @@
             pictureBox15.BackColor = Color.Transparent;
             pictureBox15.BackgroundImage = (Image)resources.GetObject("pictureBox15.BackgroundImage");
             pictureBox15.Image = (Image)resources.GetObject("pictureBox15.Image");
-            pictureBox15.Location = new Point(976, 508);
+            pictureBox15.Location = new Point(459, 276);
             pictureBox15.Margin = new Padding(3, 4, 3, 4);
             pictureBox15.Name = "pictureBox15";
             pictureBox15.Size = new Size(247, 201);
@@ -321,25 +327,25 @@
             label2.BackColor = Color.Gainsboro;
             label2.Font = new Font("Leelawadee UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.FromArgb(64, 64, 64);
-            label2.Location = new Point(992, 521);
+            label2.Location = new Point(475, 289);
             label2.Name = "label2";
             label2.Size = new Size(117, 20);
             label2.TabIndex = 13;
             label2.Text = "Name of Class: ";
             label2.Click += label2_Click;
             // 
-            // richTextBox1
+            // richTextBoxClassName
             // 
-            richTextBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            richTextBox1.BackColor = Color.LightGray;
-            richTextBox1.BorderStyle = BorderStyle.None;
-            richTextBox1.ForeColor = Color.FromArgb(64, 64, 64);
-            richTextBox1.Location = new Point(992, 548);
-            richTextBox1.Margin = new Padding(3, 4, 3, 4);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(217, 25);
-            richTextBox1.TabIndex = 14;
-            richTextBox1.Text = "";
+            richTextBoxClassName.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            richTextBoxClassName.BackColor = Color.LightGray;
+            richTextBoxClassName.BorderStyle = BorderStyle.None;
+            richTextBoxClassName.ForeColor = Color.FromArgb(64, 64, 64);
+            richTextBoxClassName.Location = new Point(475, 316);
+            richTextBoxClassName.Margin = new Padding(3, 4, 3, 4);
+            richTextBoxClassName.Name = "richTextBoxClassName";
+            richTextBoxClassName.Size = new Size(217, 25);
+            richTextBoxClassName.TabIndex = 14;
+            richTextBoxClassName.Text = "";
             // 
             // label3
             // 
@@ -348,24 +354,24 @@
             label3.BackColor = Color.Gainsboro;
             label3.Font = new Font("Leelawadee UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.FromArgb(64, 64, 64);
-            label3.Location = new Point(992, 584);
+            label3.Location = new Point(475, 352);
             label3.Name = "label3";
             label3.Size = new Size(172, 20);
             label3.TabIndex = 15;
             label3.Text = "Number of Classmates:";
             // 
-            // richTextBox2
+            // richTextBoxClassmates
             // 
-            richTextBox2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            richTextBox2.BackColor = Color.LightGray;
-            richTextBox2.BorderStyle = BorderStyle.None;
-            richTextBox2.ForeColor = Color.FromArgb(64, 64, 64);
-            richTextBox2.Location = new Point(992, 612);
-            richTextBox2.Margin = new Padding(3, 4, 3, 4);
-            richTextBox2.Name = "richTextBox2";
-            richTextBox2.Size = new Size(217, 25);
-            richTextBox2.TabIndex = 16;
-            richTextBox2.Text = "";
+            richTextBoxClassmates.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            richTextBoxClassmates.BackColor = Color.LightGray;
+            richTextBoxClassmates.BorderStyle = BorderStyle.None;
+            richTextBoxClassmates.ForeColor = Color.FromArgb(64, 64, 64);
+            richTextBoxClassmates.Location = new Point(475, 380);
+            richTextBoxClassmates.Margin = new Padding(3, 4, 3, 4);
+            richTextBoxClassmates.Name = "richTextBoxClassmates";
+            richTextBoxClassmates.Size = new Size(217, 25);
+            richTextBoxClassmates.TabIndex = 16;
+            richTextBoxClassmates.Text = "";
             // 
             // button1
             // 
@@ -375,7 +381,7 @@
             button1.FlatStyle = FlatStyle.Popup;
             button1.Font = new Font("Leelawadee UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.FromArgb(64, 64, 64);
-            button1.Location = new Point(1035, 663);
+            button1.Location = new Point(518, 431);
             button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
             button1.Size = new Size(125, 31);
@@ -414,6 +420,76 @@
             // 
             timer1.Tick += timer1_Tick;
             // 
+            // lblUsername
+            // 
+            lblUsername.AutoSize = true;
+            lblUsername.BackColor = Color.Transparent;
+            lblUsername.Font = new Font("Malgun Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblUsername.ForeColor = Color.White;
+            lblUsername.Location = new Point(1173, 9);
+            lblUsername.Name = "lblUsername";
+            lblUsername.RightToLeft = RightToLeft.Yes;
+            lblUsername.Size = new Size(0, 37);
+            lblUsername.TabIndex = 23;
+            // 
+            // btnJoinClass
+            // 
+            btnJoinClass.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnJoinClass.BackColor = Color.White;
+            btnJoinClass.Cursor = Cursors.Hand;
+            btnJoinClass.FlatStyle = FlatStyle.Popup;
+            btnJoinClass.Font = new Font("Leelawadee UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnJoinClass.ForeColor = Color.FromArgb(64, 64, 64);
+            btnJoinClass.Location = new Point(885, 391);
+            btnJoinClass.Margin = new Padding(3, 4, 3, 4);
+            btnJoinClass.Name = "btnJoinClass";
+            btnJoinClass.Size = new Size(125, 31);
+            btnJoinClass.TabIndex = 24;
+            btnJoinClass.Text = "Join Class";
+            btnJoinClass.UseVisualStyleBackColor = false;
+            btnJoinClass.Click += button2_Click;
+            // 
+            // pictureBox17
+            // 
+            pictureBox17.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            pictureBox17.BackColor = Color.Transparent;
+            pictureBox17.BackgroundImage = (Image)resources.GetObject("pictureBox17.BackgroundImage");
+            pictureBox17.Image = (Image)resources.GetObject("pictureBox17.Image");
+            pictureBox17.Location = new Point(827, 276);
+            pictureBox17.Margin = new Padding(3, 4, 3, 4);
+            pictureBox17.Name = "pictureBox17";
+            pictureBox17.Size = new Size(247, 201);
+            pictureBox17.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox17.TabIndex = 25;
+            pictureBox17.TabStop = false;
+            // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label5.AutoSize = true;
+            label5.BackColor = Color.Gainsboro;
+            label5.Font = new Font("Leelawadee UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = Color.FromArgb(64, 64, 64);
+            label5.Location = new Point(838, 321);
+            label5.Name = "label5";
+            label5.Size = new Size(91, 20);
+            label5.TabIndex = 26;
+            label5.Text = "Class Code: ";
+            label5.Click += label5_Click;
+            // 
+            // richTextBoxClassCode
+            // 
+            richTextBoxClassCode.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            richTextBoxClassCode.BackColor = Color.LightGray;
+            richTextBoxClassCode.BorderStyle = BorderStyle.None;
+            richTextBoxClassCode.ForeColor = Color.FromArgb(64, 64, 64);
+            richTextBoxClassCode.Location = new Point(838, 352);
+            richTextBoxClassCode.Margin = new Padding(3, 4, 3, 4);
+            richTextBoxClassCode.Name = "richTextBoxClassCode";
+            richTextBoxClassCode.Size = new Size(217, 25);
+            richTextBoxClassCode.TabIndex = 27;
+            richTextBoxClassCode.Text = "";
+            // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -421,13 +497,17 @@
             BackgroundImage = Properties.Resources.Untitled_design__1_;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1326, 821);
+            Controls.Add(richTextBoxClassCode);
+            Controls.Add(label5);
+            Controls.Add(btnJoinClass);
+            Controls.Add(lblUsername);
             Controls.Add(pictureBox16);
             Controls.Add(label4);
             Controls.Add(button1);
-            Controls.Add(richTextBox2);
+            Controls.Add(richTextBoxClassmates);
             Controls.Add(label3);
             Controls.Add(label2);
-            Controls.Add(richTextBox1);
+            Controls.Add(richTextBoxClassName);
             Controls.Add(pictureBox15);
             Controls.Add(panel1);
             Controls.Add(pictureBox3);
@@ -435,6 +515,7 @@
             Controls.Add(pictureBox2);
             Controls.Add(label1);
             Controls.Add(pictureBox1);
+            Controls.Add(pictureBox17);
             Margin = new Padding(3, 4, 3, 4);
             Name = "Form2";
             Text = " Creating Class";
@@ -456,6 +537,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox16).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox17).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -481,12 +563,17 @@
         private PictureBox pictureBox5;
         private PictureBox pictureBox15;
         private Label label2;
-        private RichTextBox richTextBox1;
+        private RichTextBox richTextBoxClassName;
         private Label label3;
-        private RichTextBox richTextBox2;
+        private RichTextBox richTextBoxClassmates;
         private Button button1;
         private Label label4;
         private PictureBox pictureBox16;
         private System.Windows.Forms.Timer timer1;
+        private Label lblUsername;
+        private Button btnJoinClass;
+        private PictureBox pictureBox17;
+        private Label label5;
+        private RichTextBox richTextBoxClassCode;
     }
 }

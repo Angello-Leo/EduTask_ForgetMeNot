@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,14 @@ namespace Design
 {
     public partial class Class : Form
     {
-        public Class()
+        private Form1 _dashboard;
+        private int _classId;
+        public Class(int classId, Form1 dashboard)
         {
             InitializeComponent();
+            _classId = classId;
+            _dashboard = dashboard;   // store dashboard reference
+            lblUsername.Text = GetInfo.Username;
             panel1.Visible = false;
         }
         private bool panelIsExpanded = false;
@@ -91,20 +97,60 @@ namespace Design
         private void pictureBox9_Click(object sender, EventArgs e)
         {
             //home
-            Form1 f1 = new Form1();
-            f1.Show();
-            this.Hide();
+            _dashboard?.LoadClasses();
+            _dashboard?.Show();
+            this.Close();
         }
 
         private void pictureBox5_Click(object sender, EventArgs e)
         {
             //home
-            Form1 f1 = new Form1();
-            f1.Show();
-            this.Hide();
+            _dashboard?.LoadClasses();
+            _dashboard?.Show();
+            this.Close();
         }
 
         private void Class_Load(object sender, EventArgs e)
+        {
+            LoadClassInfo();
+        }
+
+        private void LoadClassInfo()
+        {
+            string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
+
+            using (MySqlConnection con = new MySqlConnection(conString))
+            {
+                con.Open();
+                string query = @"SELECT c.class_name, c.class_code, c.max_students, u.username AS adviser
+                                 FROM classes c
+                                 LEFT JOIN users u ON c.adviser_id = u.user_id
+                                 WHERE c.class_id = @cid";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@cid", _classId);
+
+                    using (var rd = cmd.ExecuteReader())
+                    {
+                        if (rd.Read())
+                        {
+                            lblClassName.Text = rd.GetString("class_name");
+                            lblClassCode.Text = rd.GetString("class_code");
+                            lblAdviser.Text = rd.IsDBNull(rd.GetOrdinal("adviser")) ? "Student-created" : rd.GetString("adviser");
+                        }
+                    }
+                }
+            }
+        }
+
+
+        private void pictureBox17_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblClassName_Click(object sender, EventArgs e)
         {
 
         }

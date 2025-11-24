@@ -53,6 +53,11 @@
             timer1 = new System.Windows.Forms.Timer(components);
             pictureBox17 = new PictureBox();
             pictureBox18 = new PictureBox();
+            lblClassName = new Label();
+            lblClassCode = new Label();
+            lblAdviser = new Label();
+            lblMaxStud = new Label();
+            lblUsername = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox16).BeginInit();
             panel1.SuspendLayout();
@@ -351,6 +356,7 @@
             pictureBox17.Size = new Size(65, 36);
             pictureBox17.TabIndex = 30;
             pictureBox17.TabStop = false;
+            pictureBox17.Click += pictureBox17_Click;
             // 
             // pictureBox18
             // 
@@ -364,6 +370,56 @@
             pictureBox18.TabIndex = 31;
             pictureBox18.TabStop = false;
             // 
+            // lblClassName
+            // 
+            lblClassName.AutoSize = true;
+            lblClassName.Font = new Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblClassName.Location = new Point(460, 240);
+            lblClassName.Name = "lblClassName";
+            lblClassName.Size = new Size(30, 23);
+            lblClassName.TabIndex = 32;
+            lblClassName.Text = "    ";
+            lblClassName.Click += lblClassName_Click;
+            // 
+            // lblClassCode
+            // 
+            lblClassCode.AutoSize = true;
+            lblClassCode.Location = new Point(1080, 350);
+            lblClassCode.Name = "lblClassCode";
+            lblClassCode.Size = new Size(17, 20);
+            lblClassCode.TabIndex = 33;
+            lblClassCode.Text = "  ";
+            // 
+            // lblAdviser
+            // 
+            lblAdviser.AutoSize = true;
+            lblAdviser.Location = new Point(440, 275);
+            lblAdviser.Name = "lblAdviser";
+            lblAdviser.Size = new Size(17, 20);
+            lblAdviser.TabIndex = 34;
+            lblAdviser.Text = "  ";
+            // 
+            // lblMaxStud
+            // 
+            lblMaxStud.AutoSize = true;
+            lblMaxStud.Location = new Point(531, 357);
+            lblMaxStud.Name = "lblMaxStud";
+            lblMaxStud.Size = new Size(50, 20);
+            lblMaxStud.TabIndex = 35;
+            lblMaxStud.Text = "label6";
+            // 
+            // lblUsername
+            // 
+            lblUsername.AutoSize = true;
+            lblUsername.BackColor = Color.Transparent;
+            lblUsername.Font = new Font("Malgun Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblUsername.ForeColor = Color.White;
+            lblUsername.Location = new Point(1171, 7);
+            lblUsername.Name = "lblUsername";
+            lblUsername.RightToLeft = RightToLeft.Yes;
+            lblUsername.Size = new Size(0, 37);
+            lblUsername.TabIndex = 36;
+            // 
             // Class
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -371,6 +427,11 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1326, 821);
+            Controls.Add(lblUsername);
+            Controls.Add(lblMaxStud);
+            Controls.Add(lblAdviser);
+            Controls.Add(lblClassCode);
+            Controls.Add(lblClassName);
             Controls.Add(pictureBox18);
             Controls.Add(pictureBox17);
             Controls.Add(pictureBox15);
@@ -434,5 +495,10 @@
         private System.Windows.Forms.Timer timer1;
         private PictureBox pictureBox17;
         private PictureBox pictureBox18;
+        private Label lblClassName;
+        private Label lblClassCode;
+        private Label lblAdviser;
+        private Label lblMaxStud;
+        private Label lblUsername;
     }
 }
