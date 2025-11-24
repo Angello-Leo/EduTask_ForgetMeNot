@@ -79,15 +79,15 @@ namespace Design
                     } while (codeExists);
 
                     // 3️⃣ Insert class
-                    string insertQuery = (GetInfo.Role == "teacher") ?
-                        "INSERT INTO classes (class_name, class_code, adviser_id, max_students) VALUES (@name, @code, @aid, @max)" :
-                        "INSERT INTO classes (class_name, class_code, adviser_id, max_students) VALUES (@name, @code, NULL, @max)";
+                    string insertQuery = @"INSERT INTO classes (class_name, class_code, adviser_id, creator_id) 
+                       VALUES (@name, @code, @adviser, @creator)";
 
                     using (var cmd = new MySqlCommand(insertQuery, con))
                     {
                         cmd.Parameters.AddWithValue("@name", className);
                         cmd.Parameters.AddWithValue("@code", classCode);
                         cmd.Parameters.AddWithValue("@max", maxStudents);
+                        cmd.Parameters.AddWithValue("@creator", GetInfo.UserID);
                         if (GetInfo.Role == "teacher")
                             cmd.Parameters.AddWithValue("@aid", GetInfo.UserID);
 
