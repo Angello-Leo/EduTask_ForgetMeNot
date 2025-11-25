@@ -73,6 +73,16 @@ namespace Design.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Add_a_heading__1_ {
+            get {
+                object obj = ResourceManager.GetObject("Add a heading (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Add_a_heading__17_ {
             get {
                 object obj = ResourceManager.GetObject("Add a heading (17)", resourceCulture);
@@ -143,9 +153,69 @@ namespace Design.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Add_a_heading__30_ {
+            get {
+                object obj = ResourceManager.GetObject("Add a heading (30)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Add_a_heading__30_1 {
+            get {
+                object obj = ResourceManager.GetObject("Add a heading (30)1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Add_a_heading__3840_x_1080_px___1_ {
             get {
                 object obj = ResourceManager.GetObject("Add a heading (3840 x 1080 px) (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Add_a_heading__3840_x_1080_px___17_ {
+            get {
+                object obj = ResourceManager.GetObject("Add a heading (3840 x 1080 px) (17)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Add_a_heading__3840_x_1080_px___18_ {
+            get {
+                object obj = ResourceManager.GetObject("Add a heading (3840 x 1080 px) (18)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Add_a_heading__3840_x_1080_px___20_ {
+            get {
+                object obj = ResourceManager.GetObject("Add a heading (3840 x 1080 px) (20)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Add_a_heading__3840_x_1080_px___3_ {
+            get {
+                object obj = ResourceManager.GetObject("Add a heading (3840 x 1080 px) (3)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -216,6 +286,16 @@ namespace Design.Properties {
         internal static System.Drawing.Bitmap Untitled_design__1_2 {
             get {
                 object obj = ResourceManager.GetObject("Untitled design (1)2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Untitled_design__1_3 {
+            get {
+                object obj = ResourceManager.GetObject("Untitled design (1)3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

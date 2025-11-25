@@ -21,7 +21,7 @@ namespace Design
         public Form2(frmDashBoard dashboard = null)
         {
             InitializeComponent();
-            panel1.Visible = false;
+            panel1.Visible = true;
             lblUsername.Text = GetInfo.Username;
             _dashboard = dashboard;// store reference to dashboard
         }
@@ -172,9 +172,7 @@ namespace Design
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             //add icon 
-            _dashboard?.LoadClasses(); // reload the dashboard
-            _dashboard?.Show();        // make it visible
-            this.Close();
+
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -266,17 +264,14 @@ namespace Design
 
                     MessageBox.Show("Successfully joined the class!");
 
-                    // Refresh dashboard before showing
-                    _dashboard?.LoadClasses();
-                    _dashboard?.Show();
 
                     // Open the newly joined class page
                     Class clsPage = new Class(classId, _dashboard);
                     clsPage.Show();
-                    this.Close();
+                    this.Hide();
 
                     // Close this join form
-                    this.Close();
+                    this.Hide();
                 }
                 else
                 {
@@ -287,5 +282,65 @@ namespace Design
             }
         }
 
+        private void pictureBox10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox9_Click_1(object sender, EventArgs e)
+        {
+            _dashboard?.LoadClasses(); // reload the dashboard
+            _dashboard?.Show();        // make it visible
+            this.Hide();
+        }
+
+        private void pictureBox5_Click_1(object sender, EventArgs e)
+        {
+            _dashboard?.LoadClasses(); // reload the dashboard
+            _dashboard?.Show();        // make it visible
+            this.Hide();
+        }
+
+        private void pictureBox10_Click_1(object sender, EventArgs e)
+        {
+            frmPending p = new frmPending();
+            p.Show();
+            this.Hide();
+        }
+
+        private void pictureBox11_Click(object sender, EventArgs e)
+        {
+            frmCallendar c = new frmCallendar();
+            c.Show();
+            this.Hide();
+        }
+
+        private void pictureBox7_Click(object sender, EventArgs e)
+        {
+            frmCallendar c = new frmCallendar();
+            c.Show();
+            this.Hide();
+        }
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            frmPending p = new frmPending();
+            p.Show();
+            this.Hide();
+        }
+
+        private void pictureBox12_Click_1(object sender, EventArgs e)
+        {
+            frmFlashcard ff = new frmFlashcard();
+            ff.Show();
+            this.Hide();
+        }
+
+        private void pictureBox8_Click_1(object sender, EventArgs e)
+        {
+            frmFlashcard ff = new frmFlashcard();
+            ff.Show();
+            this.Hide();
+        }
     }
 }

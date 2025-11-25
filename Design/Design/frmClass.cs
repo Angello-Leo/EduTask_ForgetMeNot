@@ -154,5 +154,33 @@ namespace Design
         {
 
         }
+
+        private void pictureBox10_Click(object sender, EventArgs e)
+        {
+            frmPending p = new frmPending();
+            p.Show();
+            this.Hide();
+        }
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            frmPending p = new frmPending();
+            p.Show();
+            this.Hide();
+        }
+
+        private void pictureBox11_Click(object sender, EventArgs e)
+        {
+            frmCallendar c = new frmCallendar();
+            c.Show();
+            this.Hide();
+        }
+
+        private void pictureBox7_Click(object sender, EventArgs e)
+        {
+            frmCallendar c = new frmCallendar();
+            c.Show();
+            this.Hide();
+        }
     }
 }

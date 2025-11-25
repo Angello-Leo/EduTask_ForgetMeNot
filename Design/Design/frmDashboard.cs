@@ -64,11 +64,31 @@ namespace Design
                     if (GetInfo.Role == "teacher")
                     {
                         query = @"
-                        SELECT c.class_id, c.class_name, c.class_code, u.username AS adviser
-                        FROM classes c
-                        LEFT JOIN users u ON c.adviser_id = u.user_id
-                        WHERE c.adviser_id = @aid
-                        ORDER BY c.class_name ASC";
+                        SELECT * FROM (
+                            -- classes where teacher is adviser
+                            SELECT c.class_id, c.class_name, c.class_code, u.username AS adviser
+                            FROM classes c
+                            LEFT JOIN users u ON c.adviser_id = u.user_id
+                            WHERE c.adviser_id = @tid
+
+                            UNION
+
+                            -- classes the teacher created
+                            SELECT c.class_id, c.class_name, c.class_code, u.username AS adviser
+                            FROM classes c
+                            LEFT JOIN users u ON c.adviser_id = u.user_id
+                            WHERE c.creator_id = @tid
+
+                            UNION
+
+                            -- classes the teacher JOINED (added in class_students)
+                            SELECT c.class_id, c.class_name, c.class_code, u.username AS adviser
+                            FROM classes c
+                            LEFT JOIN users u ON c.adviser_id = u.user_id
+                            INNER JOIN class_students cs ON c.class_id = cs.class_id
+                            WHERE cs.student_id = @tid
+                        ) t
+                        ORDER BY class_name ASC";
                     }
                     else
                     {
@@ -94,7 +114,7 @@ namespace Design
                     using (MySqlCommand cmd = new MySqlCommand(query, con))
                     {
                         if (GetInfo.Role == "teacher")
-                            cmd.Parameters.AddWithValue("@aid", GetInfo.UserID);
+                            cmd.Parameters.AddWithValue("@tid", GetInfo.UserID);
                         else
                             cmd.Parameters.AddWithValue("@sid", GetInfo.UserID);
 
@@ -269,36 +289,56 @@ namespace Design
         private void pictureBox5_Click(object sender, EventArgs e)
         {
             // e2 ay home icon button
+            frmDashBoard frmDashBoard = new frmDashBoard();
+            frmDashBoard.Show();
+            this.Hide();
         }
 
         private void pictureBox6_Click(object sender, EventArgs e)
         {
             //e2 ay pending icom button
+            frmPending pending = new frmPending();
+            pending.Show();
+            this.Hide();
         }
 
         private void pictureBox7_Click(object sender, EventArgs e)
         {
             //e2 ay schedule icon button
+            frmCallendar  callendar = new frmCallendar();
+            callendar.Show();
+            this.Hide();
         }
 
         private void pictureBox8_Click(object sender, EventArgs e)
         {
             //e2 ay flashcards icon button
+            frmFlashcard ff = new frmFlashcard();
+            ff.Show();
+            this.Hide();
         }
 
         private void pictureBox9_Click(object sender, EventArgs e)
         {
             //e2 ay home label button
+            frmDashBoard f = new frmDashBoard();
+            f.Show();
         }
 
         private void pictureBox10_Click(object sender, EventArgs e)
         {
             //e2 ay pending label button
+            frmPending p = new frmPending();
+            p.Show();
+            this.Hide();
         }
 
         private void pictureBox11_Click(object sender, EventArgs e)
         {
             //e2 ay schedule label button
+            frmCallendar c = new frmCallendar();
+            c.Show();
+            this.Hide();
         }
 
         private void pictureBox12_Click(object sender, EventArgs e)

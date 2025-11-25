@@ -35,6 +35,19 @@
             pictureBox2 = new PictureBox();
             pictureBox4 = new PictureBox();
             pictureBox3 = new PictureBox();
+            pictureBox15 = new PictureBox();
+            label2 = new Label();
+            richTextBoxClassName = new RichTextBox();
+            label3 = new Label();
+            richTextBoxClassmates = new RichTextBox();
+            button1 = new Button();
+            label4 = new Label();
+            timer1 = new System.Windows.Forms.Timer(components);
+            lblUsername = new Label();
+            btnJoinClass = new Button();
+            pictureBox17 = new PictureBox();
+            label5 = new Label();
+            richTextBoxClassCode = new RichTextBox();
             panel1 = new Panel();
             panel2 = new Panel();
             pictureBox14 = new PictureBox();
@@ -47,24 +60,13 @@
             pictureBox7 = new PictureBox();
             pictureBox6 = new PictureBox();
             pictureBox5 = new PictureBox();
-            pictureBox15 = new PictureBox();
-            label2 = new Label();
-            richTextBoxClassName = new RichTextBox();
-            label3 = new Label();
-            richTextBoxClassmates = new RichTextBox();
-            button1 = new Button();
-            label4 = new Label();
             pictureBox16 = new PictureBox();
-            timer1 = new System.Windows.Forms.Timer(components);
-            lblUsername = new Label();
-            btnJoinClass = new Button();
-            pictureBox17 = new PictureBox();
-            label5 = new Label();
-            richTextBoxClassCode = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox17).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox14).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox13).BeginInit();
@@ -76,16 +78,14 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox16).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox17).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
             // 
             pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.BackgroundImage = Properties.Resources.Add_a_heading__1_;
+            pictureBox1.BackgroundImageLayout = ImageLayout.None;
             pictureBox1.Location = new Point(1, 12);
             pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
@@ -110,7 +110,6 @@
             // 
             pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pictureBox2.BackColor = Color.Transparent;
-            pictureBox2.BackgroundImage = (Image)resources.GetObject("pictureBox2.BackgroundImage");
             pictureBox2.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox2.Location = new Point(1247, 75);
             pictureBox2.Margin = new Padding(3, 4, 3, 4);
@@ -124,7 +123,6 @@
             // 
             pictureBox4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pictureBox4.BackColor = Color.Transparent;
-            pictureBox4.BackgroundImage = (Image)resources.GetObject("pictureBox4.BackgroundImage");
             pictureBox4.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox4.Location = new Point(1189, 77);
             pictureBox4.Margin = new Padding(3, 4, 3, 4);
@@ -138,7 +136,6 @@
             // 
             pictureBox3.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             pictureBox3.BackColor = Color.Transparent;
-            pictureBox3.BackgroundImage = (Image)resources.GetObject("pictureBox3.BackgroundImage");
             pictureBox3.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox3.Location = new Point(1191, 701);
             pictureBox3.Margin = new Padding(3, 4, 3, 4);
@@ -148,170 +145,10 @@
             pictureBox3.TabStop = false;
             pictureBox3.Click += pictureBox3_Click;
             // 
-            // panel1
-            // 
-            panel1.BackColor = Color.Transparent;
-            panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
-            panel1.Controls.Add(panel2);
-            panel1.Controls.Add(pictureBox14);
-            panel1.Controls.Add(pictureBox13);
-            panel1.Controls.Add(pictureBox12);
-            panel1.Controls.Add(pictureBox11);
-            panel1.Controls.Add(pictureBox10);
-            panel1.Controls.Add(pictureBox9);
-            panel1.Controls.Add(pictureBox8);
-            panel1.Controls.Add(pictureBox7);
-            panel1.Controls.Add(pictureBox6);
-            panel1.Controls.Add(pictureBox5);
-            panel1.Location = new Point(0, 59);
-            panel1.Margin = new Padding(3, 4, 3, 4);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(194, 767);
-            panel1.TabIndex = 11;
-            panel1.Paint += panel1_Paint;
-            // 
-            // panel2
-            // 
-            panel2.AutoScroll = true;
-            panel2.BackColor = Color.Transparent;
-            panel2.BackgroundImage = Properties.Resources.Untitled_design__2_;
-            panel2.Location = new Point(7, 472);
-            panel2.Margin = new Padding(3, 4, 3, 4);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(175, 291);
-            panel2.TabIndex = 8;
-            panel2.Visible = false;
-            // 
-            // pictureBox14
-            // 
-            pictureBox14.BackColor = Color.Transparent;
-            pictureBox14.BackgroundImage = (Image)resources.GetObject("pictureBox14.BackgroundImage");
-            pictureBox14.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox14.Location = new Point(61, 409);
-            pictureBox14.Margin = new Padding(3, 4, 3, 4);
-            pictureBox14.Name = "pictureBox14";
-            pictureBox14.Size = new Size(121, 55);
-            pictureBox14.TabIndex = 20;
-            pictureBox14.TabStop = false;
-            // 
-            // pictureBox13
-            // 
-            pictureBox13.BackColor = Color.Transparent;
-            pictureBox13.BackgroundImage = (Image)resources.GetObject("pictureBox13.BackgroundImage");
-            pictureBox13.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox13.Location = new Point(7, 409);
-            pictureBox13.Margin = new Padding(3, 4, 3, 4);
-            pictureBox13.Name = "pictureBox13";
-            pictureBox13.Size = new Size(47, 55);
-            pictureBox13.TabIndex = 19;
-            pictureBox13.TabStop = false;
-            // 
-            // pictureBox12
-            // 
-            pictureBox12.BackColor = Color.Transparent;
-            pictureBox12.BackgroundImage = (Image)resources.GetObject("pictureBox12.BackgroundImage");
-            pictureBox12.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox12.Location = new Point(67, 327);
-            pictureBox12.Margin = new Padding(3, 4, 3, 4);
-            pictureBox12.Name = "pictureBox12";
-            pictureBox12.Size = new Size(125, 69);
-            pictureBox12.TabIndex = 18;
-            pictureBox12.TabStop = false;
-            pictureBox12.Click += pictureBox12_Click;
-            // 
-            // pictureBox11
-            // 
-            pictureBox11.BackColor = Color.Transparent;
-            pictureBox11.BackgroundImage = (Image)resources.GetObject("pictureBox11.BackgroundImage");
-            pictureBox11.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox11.Location = new Point(59, 255);
-            pictureBox11.Margin = new Padding(3, 4, 3, 4);
-            pictureBox11.Name = "pictureBox11";
-            pictureBox11.Size = new Size(127, 63);
-            pictureBox11.TabIndex = 17;
-            pictureBox11.TabStop = false;
-            // 
-            // pictureBox10
-            // 
-            pictureBox10.BackColor = Color.Transparent;
-            pictureBox10.BackgroundImage = (Image)resources.GetObject("pictureBox10.BackgroundImage");
-            pictureBox10.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox10.Location = new Point(59, 181);
-            pictureBox10.Margin = new Padding(3, 4, 3, 4);
-            pictureBox10.Name = "pictureBox10";
-            pictureBox10.Size = new Size(121, 55);
-            pictureBox10.TabIndex = 16;
-            pictureBox10.TabStop = false;
-            // 
-            // pictureBox9
-            // 
-            pictureBox9.BackColor = Color.Transparent;
-            pictureBox9.BackgroundImage = (Image)resources.GetObject("pictureBox9.BackgroundImage");
-            pictureBox9.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox9.Location = new Point(61, 104);
-            pictureBox9.Margin = new Padding(3, 4, 3, 4);
-            pictureBox9.Name = "pictureBox9";
-            pictureBox9.Size = new Size(121, 55);
-            pictureBox9.TabIndex = 15;
-            pictureBox9.TabStop = false;
-            pictureBox9.Click += pictureBox9_Click;
-            // 
-            // pictureBox8
-            // 
-            pictureBox8.BackColor = Color.Transparent;
-            pictureBox8.BackgroundImage = (Image)resources.GetObject("pictureBox8.BackgroundImage");
-            pictureBox8.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox8.Location = new Point(7, 332);
-            pictureBox8.Margin = new Padding(3, 4, 3, 4);
-            pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(47, 55);
-            pictureBox8.TabIndex = 11;
-            pictureBox8.TabStop = false;
-            pictureBox8.Click += pictureBox8_Click;
-            // 
-            // pictureBox7
-            // 
-            pictureBox7.BackColor = Color.Transparent;
-            pictureBox7.BackgroundImage = (Image)resources.GetObject("pictureBox7.BackgroundImage");
-            pictureBox7.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox7.Location = new Point(7, 256);
-            pictureBox7.Margin = new Padding(3, 4, 3, 4);
-            pictureBox7.Name = "pictureBox7";
-            pictureBox7.Size = new Size(47, 55);
-            pictureBox7.TabIndex = 10;
-            pictureBox7.TabStop = false;
-            // 
-            // pictureBox6
-            // 
-            pictureBox6.BackColor = Color.Transparent;
-            pictureBox6.BackgroundImage = (Image)resources.GetObject("pictureBox6.BackgroundImage");
-            pictureBox6.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox6.Location = new Point(7, 181);
-            pictureBox6.Margin = new Padding(3, 4, 3, 4);
-            pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(47, 55);
-            pictureBox6.TabIndex = 9;
-            pictureBox6.TabStop = false;
-            // 
-            // pictureBox5
-            // 
-            pictureBox5.BackColor = Color.Transparent;
-            pictureBox5.BackgroundImage = (Image)resources.GetObject("pictureBox5.BackgroundImage");
-            pictureBox5.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox5.Location = new Point(7, 103);
-            pictureBox5.Margin = new Padding(3, 4, 3, 4);
-            pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(47, 55);
-            pictureBox5.TabIndex = 8;
-            pictureBox5.TabStop = false;
-            pictureBox5.Click += pictureBox5_Click;
-            // 
             // pictureBox15
             // 
             pictureBox15.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             pictureBox15.BackColor = Color.Transparent;
-            pictureBox15.BackgroundImage = (Image)resources.GetObject("pictureBox15.BackgroundImage");
-            pictureBox15.Image = (Image)resources.GetObject("pictureBox15.Image");
             pictureBox15.Location = new Point(459, 276);
             pictureBox15.Margin = new Padding(3, 4, 3, 4);
             pictureBox15.Name = "pictureBox15";
@@ -403,19 +240,6 @@
             label4.TabIndex = 18;
             label4.Text = ",Welcome";
             // 
-            // pictureBox16
-            // 
-            pictureBox16.BackColor = Color.Transparent;
-            pictureBox16.BackgroundImage = (Image)resources.GetObject("pictureBox16.BackgroundImage");
-            pictureBox16.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox16.Location = new Point(53, -9);
-            pictureBox16.Margin = new Padding(3, 4, 3, 4);
-            pictureBox16.Name = "pictureBox16";
-            pictureBox16.Size = new Size(90, 87);
-            pictureBox16.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox16.TabIndex = 22;
-            pictureBox16.TabStop = false;
-            // 
             // timer1
             // 
             timer1.Tick += timer1_Tick;
@@ -453,8 +277,6 @@
             // 
             pictureBox17.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             pictureBox17.BackColor = Color.Transparent;
-            pictureBox17.BackgroundImage = (Image)resources.GetObject("pictureBox17.BackgroundImage");
-            pictureBox17.Image = (Image)resources.GetObject("pictureBox17.Image");
             pictureBox17.Location = new Point(827, 276);
             pictureBox17.Margin = new Padding(3, 4, 3, 4);
             pictureBox17.Name = "pictureBox17";
@@ -490,6 +312,180 @@
             richTextBoxClassCode.TabIndex = 27;
             richTextBoxClassCode.Text = "";
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Transparent;
+            panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
+            panel1.Controls.Add(panel2);
+            panel1.Controls.Add(pictureBox14);
+            panel1.Controls.Add(pictureBox13);
+            panel1.Controls.Add(pictureBox12);
+            panel1.Controls.Add(pictureBox11);
+            panel1.Controls.Add(pictureBox10);
+            panel1.Controls.Add(pictureBox9);
+            panel1.Controls.Add(pictureBox8);
+            panel1.Controls.Add(pictureBox7);
+            panel1.Controls.Add(pictureBox6);
+            panel1.Controls.Add(pictureBox5);
+            panel1.Location = new Point(4, 77);
+            panel1.Margin = new Padding(3, 4, 3, 4);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(194, 767);
+            panel1.TabIndex = 28;
+            // 
+            // panel2
+            // 
+            panel2.AutoScroll = true;
+            panel2.BackColor = Color.Transparent;
+            panel2.BackgroundImage = Properties.Resources.Untitled_design__2_;
+            panel2.Location = new Point(7, 472);
+            panel2.Margin = new Padding(3, 4, 3, 4);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(175, 291);
+            panel2.TabIndex = 8;
+            panel2.Visible = false;
+            // 
+            // pictureBox14
+            // 
+            pictureBox14.BackColor = Color.Transparent;
+            pictureBox14.BackgroundImage = (Image)resources.GetObject("pictureBox14.BackgroundImage");
+            pictureBox14.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox14.Location = new Point(61, 409);
+            pictureBox14.Margin = new Padding(3, 4, 3, 4);
+            pictureBox14.Name = "pictureBox14";
+            pictureBox14.Size = new Size(121, 55);
+            pictureBox14.TabIndex = 20;
+            pictureBox14.TabStop = false;
+            // 
+            // pictureBox13
+            // 
+            pictureBox13.BackColor = Color.Transparent;
+            pictureBox13.BackgroundImage = (Image)resources.GetObject("pictureBox13.BackgroundImage");
+            pictureBox13.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox13.Location = new Point(7, 409);
+            pictureBox13.Margin = new Padding(3, 4, 3, 4);
+            pictureBox13.Name = "pictureBox13";
+            pictureBox13.Size = new Size(47, 55);
+            pictureBox13.TabIndex = 19;
+            pictureBox13.TabStop = false;
+            // 
+            // pictureBox12
+            // 
+            pictureBox12.BackColor = Color.Transparent;
+            pictureBox12.BackgroundImage = (Image)resources.GetObject("pictureBox12.BackgroundImage");
+            pictureBox12.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox12.Location = new Point(67, 327);
+            pictureBox12.Margin = new Padding(3, 4, 3, 4);
+            pictureBox12.Name = "pictureBox12";
+            pictureBox12.Size = new Size(125, 69);
+            pictureBox12.TabIndex = 18;
+            pictureBox12.TabStop = false;
+            pictureBox12.Click += pictureBox12_Click_1;
+            // 
+            // pictureBox11
+            // 
+            pictureBox11.BackColor = Color.Transparent;
+            pictureBox11.BackgroundImage = (Image)resources.GetObject("pictureBox11.BackgroundImage");
+            pictureBox11.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox11.Location = new Point(59, 255);
+            pictureBox11.Margin = new Padding(3, 4, 3, 4);
+            pictureBox11.Name = "pictureBox11";
+            pictureBox11.Size = new Size(127, 63);
+            pictureBox11.TabIndex = 17;
+            pictureBox11.TabStop = false;
+            pictureBox11.Click += pictureBox11_Click;
+            // 
+            // pictureBox10
+            // 
+            pictureBox10.BackColor = Color.Transparent;
+            pictureBox10.BackgroundImage = (Image)resources.GetObject("pictureBox10.BackgroundImage");
+            pictureBox10.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox10.Location = new Point(59, 181);
+            pictureBox10.Margin = new Padding(3, 4, 3, 4);
+            pictureBox10.Name = "pictureBox10";
+            pictureBox10.Size = new Size(121, 55);
+            pictureBox10.TabIndex = 16;
+            pictureBox10.TabStop = false;
+            pictureBox10.Click += pictureBox10_Click_1;
+            // 
+            // pictureBox9
+            // 
+            pictureBox9.BackColor = Color.Transparent;
+            pictureBox9.BackgroundImage = (Image)resources.GetObject("pictureBox9.BackgroundImage");
+            pictureBox9.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox9.Location = new Point(61, 104);
+            pictureBox9.Margin = new Padding(3, 4, 3, 4);
+            pictureBox9.Name = "pictureBox9";
+            pictureBox9.Size = new Size(121, 55);
+            pictureBox9.TabIndex = 15;
+            pictureBox9.TabStop = false;
+            pictureBox9.Click += pictureBox9_Click_1;
+            // 
+            // pictureBox8
+            // 
+            pictureBox8.BackColor = Color.Transparent;
+            pictureBox8.BackgroundImage = (Image)resources.GetObject("pictureBox8.BackgroundImage");
+            pictureBox8.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox8.Location = new Point(7, 332);
+            pictureBox8.Margin = new Padding(3, 4, 3, 4);
+            pictureBox8.Name = "pictureBox8";
+            pictureBox8.Size = new Size(47, 55);
+            pictureBox8.TabIndex = 11;
+            pictureBox8.TabStop = false;
+            pictureBox8.Click += pictureBox8_Click_1;
+            // 
+            // pictureBox7
+            // 
+            pictureBox7.BackColor = Color.Transparent;
+            pictureBox7.BackgroundImage = (Image)resources.GetObject("pictureBox7.BackgroundImage");
+            pictureBox7.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox7.Location = new Point(7, 256);
+            pictureBox7.Margin = new Padding(3, 4, 3, 4);
+            pictureBox7.Name = "pictureBox7";
+            pictureBox7.Size = new Size(47, 55);
+            pictureBox7.TabIndex = 10;
+            pictureBox7.TabStop = false;
+            pictureBox7.Click += pictureBox7_Click;
+            // 
+            // pictureBox6
+            // 
+            pictureBox6.BackColor = Color.Transparent;
+            pictureBox6.BackgroundImage = (Image)resources.GetObject("pictureBox6.BackgroundImage");
+            pictureBox6.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox6.Location = new Point(7, 181);
+            pictureBox6.Margin = new Padding(3, 4, 3, 4);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(47, 55);
+            pictureBox6.TabIndex = 9;
+            pictureBox6.TabStop = false;
+            pictureBox6.Click += pictureBox6_Click;
+            // 
+            // pictureBox5
+            // 
+            pictureBox5.BackColor = Color.Transparent;
+            pictureBox5.BackgroundImage = (Image)resources.GetObject("pictureBox5.BackgroundImage");
+            pictureBox5.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox5.Location = new Point(7, 103);
+            pictureBox5.Margin = new Padding(3, 4, 3, 4);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(47, 55);
+            pictureBox5.TabIndex = 8;
+            pictureBox5.TabStop = false;
+            pictureBox5.Click += pictureBox5_Click_1;
+            // 
+            // pictureBox16
+            // 
+            pictureBox16.BackColor = Color.Transparent;
+            pictureBox16.BackgroundImage = (Image)resources.GetObject("pictureBox16.BackgroundImage");
+            pictureBox16.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox16.Location = new Point(53, -3);
+            pictureBox16.Margin = new Padding(3, 4, 3, 4);
+            pictureBox16.Name = "pictureBox16";
+            pictureBox16.Size = new Size(90, 87);
+            pictureBox16.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox16.TabIndex = 24;
+            pictureBox16.TabStop = false;
+            // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -497,11 +493,12 @@
             BackgroundImage = Properties.Resources.Untitled_design__1_;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1326, 821);
+            Controls.Add(pictureBox16);
+            Controls.Add(panel1);
             Controls.Add(richTextBoxClassCode);
             Controls.Add(label5);
             Controls.Add(btnJoinClass);
             Controls.Add(lblUsername);
-            Controls.Add(pictureBox16);
             Controls.Add(label4);
             Controls.Add(button1);
             Controls.Add(richTextBoxClassmates);
@@ -509,7 +506,6 @@
             Controls.Add(label2);
             Controls.Add(richTextBoxClassName);
             Controls.Add(pictureBox15);
-            Controls.Add(panel1);
             Controls.Add(pictureBox3);
             Controls.Add(pictureBox4);
             Controls.Add(pictureBox2);
@@ -524,6 +520,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox17).EndInit();
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox14).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox13).EndInit();
@@ -535,9 +533,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox16).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox17).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -549,6 +545,19 @@
         private PictureBox pictureBox2;
         private PictureBox pictureBox4;
         private PictureBox pictureBox3;
+        private PictureBox pictureBox15;
+        private Label label2;
+        private RichTextBox richTextBoxClassName;
+        private Label label3;
+        private RichTextBox richTextBoxClassmates;
+        private Button button1;
+        private Label label4;
+        private System.Windows.Forms.Timer timer1;
+        private Label lblUsername;
+        private Button btnJoinClass;
+        private PictureBox pictureBox17;
+        private Label label5;
+        private RichTextBox richTextBoxClassCode;
         private Panel panel1;
         private Panel panel2;
         private PictureBox pictureBox14;
@@ -561,19 +570,6 @@
         private PictureBox pictureBox7;
         private PictureBox pictureBox6;
         private PictureBox pictureBox5;
-        private PictureBox pictureBox15;
-        private Label label2;
-        private RichTextBox richTextBoxClassName;
-        private Label label3;
-        private RichTextBox richTextBoxClassmates;
-        private Button button1;
-        private Label label4;
         private PictureBox pictureBox16;
-        private System.Windows.Forms.Timer timer1;
-        private Label lblUsername;
-        private Button btnJoinClass;
-        private PictureBox pictureBox17;
-        private Label label5;
-        private RichTextBox richTextBoxClassCode;
     }
 }

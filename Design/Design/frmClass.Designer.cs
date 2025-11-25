@@ -198,6 +198,7 @@
             pictureBox11.Size = new Size(127, 63);
             pictureBox11.TabIndex = 17;
             pictureBox11.TabStop = false;
+            pictureBox11.Click += pictureBox11_Click;
             // 
             // pictureBox10
             // 
@@ -210,6 +211,7 @@
             pictureBox10.Size = new Size(121, 55);
             pictureBox10.TabIndex = 16;
             pictureBox10.TabStop = false;
+            pictureBox10.Click += pictureBox10_Click;
             // 
             // pictureBox9
             // 
@@ -248,6 +250,7 @@
             pictureBox7.Size = new Size(47, 55);
             pictureBox7.TabIndex = 10;
             pictureBox7.TabStop = false;
+            pictureBox7.Click += pictureBox7_Click;
             // 
             // pictureBox6
             // 
@@ -260,6 +263,7 @@
             pictureBox6.Size = new Size(47, 55);
             pictureBox6.TabIndex = 9;
             pictureBox6.TabStop = false;
+            pictureBox6.Click += pictureBox6_Click;
             // 
             // pictureBox5
             // 
