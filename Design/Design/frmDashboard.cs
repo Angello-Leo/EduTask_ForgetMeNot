@@ -53,26 +53,43 @@ namespace Design
 
             string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
 
-            Console.WriteLine($"[DEBUG] Starting LoadClasses for user {GetInfo.UserID} with role '{GetInfo.Role}'");
-
             try
             {
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
                     con.Open();
-                    Console.WriteLine("[DEBUG] Database connection opened successfully.");
 
-                    string query = (GetInfo.Role == "teacher")
-                        ? @"SELECT c.class_id, c.class_name, c.class_code, u.username AS adviser
+                    string query = "";
+
+                    if (GetInfo.Role == "teacher")
+                    {
+                        query = @"
+                        SELECT c.class_id, c.class_name, c.class_code, u.username AS adviser
+                        FROM classes c
+                        LEFT JOIN users u ON c.adviser_id = u.user_id
+                        WHERE c.adviser_id = @aid
+                        ORDER BY c.class_name ASC";
+                    }
+                    else
+                    {
+                        query = @"
+                        SELECT * FROM
+                        (
+                            SELECT c.class_id, c.class_name, c.class_code, u.username AS adviser
                             FROM classes c
                             LEFT JOIN users u ON c.adviser_id = u.user_id
-                            WHERE c.adviser_id = @aid"
-                        : @"SELECT DISTINCT c.class_id, c.class_name, c.class_code, u.username AS adviser
+                            WHERE c.creator_id = @sid
+
+                            UNION
+
+                            SELECT c.class_id, c.class_name, c.class_code, u.username AS adviser
                             FROM classes c
                             LEFT JOIN users u ON c.adviser_id = u.user_id
-                            LEFT JOIN class_students cs ON c.class_id = cs.class_id
-                            WHERE cs.student_id = @sid OR c.creator_id = @sid";
-
+                            INNER JOIN class_students cs ON c.class_id = cs.class_id
+                            WHERE cs.student_id = @sid
+                        ) AS student_classes
+                        ORDER BY class_name ASC";
+                    }
 
                     using (MySqlCommand cmd = new MySqlCommand(query, con))
                     {
@@ -81,15 +98,10 @@ namespace Design
                         else
                             cmd.Parameters.AddWithValue("@sid", GetInfo.UserID);
 
-                        Console.WriteLine("[DEBUG] SQL command prepared. Executing query...");
-
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
-                            int rowCount = 0;
-
                             while (reader.Read())
                             {
-                                rowCount++;
                                 int classId = reader.GetInt32("class_id");
                                 string className = reader.GetString("class_name");
                                 string classCode = reader.GetString("class_code");
@@ -99,28 +111,18 @@ namespace Design
 
                                 CreateClassCard(classId, className, classCode, adviser);
                             }
-
-                            if (rowCount == 0)
-                                Console.WriteLine("[DEBUG] No classes found for this user.");
-                            else
-                                Console.WriteLine($"[DEBUG] Total {rowCount} class(es) loaded.");
                         }
                     }
                 }
 
-                // Make sure the FlowLayoutPanel is visible
                 flowPanelClasses.Visible = true;
                 flowPanelClasses.Refresh();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[ERROR] Exception in LoadClasses: " + ex.Message);
                 MessageBox.Show("LoadClasses error: " + ex.Message);
             }
         }
-
-
-
 
         private void CreateClassCard(int classId, string className, string classCode, string adviser)
         {

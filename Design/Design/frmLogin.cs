@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace Design
 {
     public partial class frmLogin : Form
     {
+        string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
         public frmLogin()
         {
             InitializeComponent();
@@ -24,7 +26,7 @@ namespace Design
                 CenterControlsInPanel();
             }
         }
-      
+
         private void CenterControlsInPanel()
         {
             int panelWidth = this.panel1.ClientSize.Width;
@@ -43,11 +45,62 @@ namespace Design
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Dito ka na magvalidation para pumunta sa dashboard
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Text.Trim();
 
-            frmDashBoard frmDashBoard = new frmDashBoard();
-            frmDashBoard.Show();
-            this.Hide();
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Please enter both username and password.");
+                return;
+            }
+
+            using (MySqlConnection conn = new MySqlConnection(conString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    // Get stored hash and role for the username
+                    string query = "SELECT user_id, password_hash, role FROM users WHERE username=@username";
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@username", username);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string storedHash = reader.GetString("password_hash");
+                            string role = reader.GetString("role");
+
+                            if (BCrypt.Net.BCrypt.Verify(password, storedHash))
+                            {
+                                MessageBox.Show("Login successful!");
+
+                                // Store user info
+                                GetInfo.UserID = reader.GetInt32("user_id");   // FIXED
+                                GetInfo.Username = username;
+                                GetInfo.Role = role;
+
+                                frmDashBoard dash = new frmDashBoard();
+                                this.Hide();
+                                dash.Show();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Invalid password!");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Username not found!");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -55,6 +108,11 @@ namespace Design
             frmSignup signup = new frmSignup();
             signup.Show();
             this.Hide();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
