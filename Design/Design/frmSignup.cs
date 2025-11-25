@@ -144,10 +144,16 @@ namespace Design
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form1 dash = new Form1();
+            frmDashBoard dash = new frmDashBoard();
             this.Hide();
             dash.Show();
-            
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmLogin f1 = new frmLogin();
+            f1.Show();
+            this.Hide();
         }
     }
 }
