@@ -231,3 +231,8 @@ C:\Users\gello\Desktop\test\EduTask_ForgetMeNot-main\Design\Design\obj\Debug\net
 C:\Users\gello\Desktop\test\EduTask_ForgetMeNot-main\Design\Design\obj\Debug\net8.0-windows\Design.pdb
 C:\Users\gello\Desktop\test\EduTask_ForgetMeNot-main\Design\Design\obj\Debug\net8.0-windows\Design.genruntimeconfig.cache
 C:\Users\gello\Desktop\test\EduTask_ForgetMeNot-main\Design\Design\obj\Debug\net8.0-windows\ref\Design.dll
+C:\Users\gello\Desktop\EduTask_Main\Design\Design\obj\Debug\net8.0-windows\Design.frmAccomplished.resources
+C:\Users\gello\Desktop\EduTask_Main\Design\Design\obj\Debug\net8.0-windows\Design.frmAddSchedule.resources
+C:\Users\gello\Desktop\EduTask_Main\Design\Design\obj\Debug\net8.0-windows\Design.frmCallendar.resources
+C:\Users\gello\Desktop\EduTask_Main\Design\Design\obj\Debug\net8.0-windows\Design.frmMissing.resources
+C:\Users\gello\Desktop\EduTask_Main\Design\Design\obj\Debug\net8.0-windows\Design.frmPending.resources

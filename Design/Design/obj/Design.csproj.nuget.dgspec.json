@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gello\\Desktop\\test\\EduTask_ForgetMeNot-main\\Design\\Design\\Design.csproj": {}
+    "C:\\Users\\gello\\Desktop\\EduTask_Main\\Design\\Design\\Design.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gello\\Desktop\\test\\EduTask_ForgetMeNot-main\\Design\\Design\\Design.csproj": {
+    "C:\\Users\\gello\\Desktop\\EduTask_Main\\Design\\Design\\Design.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gello\\Desktop\\test\\EduTask_ForgetMeNot-main\\Design\\Design\\Design.csproj",
+        "projectUniqueName": "C:\\Users\\gello\\Desktop\\EduTask_Main\\Design\\Design\\Design.csproj",
         "projectName": "Design",
-        "projectPath": "C:\\Users\\gello\\Desktop\\test\\EduTask_ForgetMeNot-main\\Design\\Design\\Design.csproj",
+        "projectPath": "C:\\Users\\gello\\Desktop\\EduTask_Main\\Design\\Design\\Design.csproj",
         "packagesPath": "C:\\Users\\gello\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gello\\Desktop\\test\\EduTask_ForgetMeNot-main\\Design\\Design\\obj\\",
+        "outputPath": "C:\\Users\\gello\\Desktop\\EduTask_Main\\Design\\Design\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
