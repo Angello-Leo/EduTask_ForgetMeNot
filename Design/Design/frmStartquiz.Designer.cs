@@ -48,13 +48,13 @@
             label2 = new Label();
             pictureBox4 = new PictureBox();
             pictureBox2 = new PictureBox();
-            pictureBox17 = new PictureBox();
+            quizCard = new PictureBox();
             label3 = new Label();
             label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
+            lblCorrect = new Label();
+            lblMiss = new Label();
             txtAnswer = new TextBox();
-            timer1 = new System.Windows.Forms.Timer(components);
+            QuizTimer = new System.Windows.Forms.Timer(components);
             Time = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
@@ -71,7 +71,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox17).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)quizCard).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -306,15 +306,15 @@
             pictureBox2.TabIndex = 34;
             pictureBox2.TabStop = false;
             // 
-            // pictureBox17
+            // quizCard
             // 
-            pictureBox17.BackgroundImage = (Image)resources.GetObject("pictureBox17.BackgroundImage");
-            pictureBox17.Location = new Point(510, 203);
-            pictureBox17.Margin = new Padding(4, 5, 4, 5);
-            pictureBox17.Name = "pictureBox17";
-            pictureBox17.Size = new Size(880, 485);
-            pictureBox17.TabIndex = 36;
-            pictureBox17.TabStop = false;
+            quizCard.BackgroundImage = (Image)resources.GetObject("quizCard.BackgroundImage");
+            quizCard.Location = new Point(510, 203);
+            quizCard.Margin = new Padding(4, 5, 4, 5);
+            quizCard.Name = "quizCard";
+            quizCard.Size = new Size(880, 485);
+            quizCard.TabIndex = 36;
+            quizCard.TabStop = false;
             // 
             // label3
             // 
@@ -338,27 +338,27 @@
             label4.TabIndex = 38;
             label4.Text = "Miss:";
             // 
-            // label5
+            // lblCorrect
             // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.ForeColor = Color.Black;
-            label5.Location = new Point(600, 756);
-            label5.Name = "label5";
-            label5.Size = new Size(26, 29);
-            label5.TabIndex = 39;
-            label5.Text = "0";
+            lblCorrect.AutoSize = true;
+            lblCorrect.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblCorrect.ForeColor = Color.Black;
+            lblCorrect.Location = new Point(600, 756);
+            lblCorrect.Name = "lblCorrect";
+            lblCorrect.Size = new Size(26, 29);
+            lblCorrect.TabIndex = 39;
+            lblCorrect.Text = "0";
             // 
-            // label6
+            // lblMiss
             // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.ForeColor = Color.Black;
-            label6.Location = new Point(1330, 756);
-            label6.Name = "label6";
-            label6.Size = new Size(26, 29);
-            label6.TabIndex = 40;
-            label6.Text = "0";
+            lblMiss.AutoSize = true;
+            lblMiss.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblMiss.ForeColor = Color.Black;
+            lblMiss.Location = new Point(1330, 756);
+            lblMiss.Name = "lblMiss";
+            lblMiss.Size = new Size(26, 29);
+            lblMiss.TabIndex = 40;
+            lblMiss.Text = "0";
             // 
             // txtAnswer
             // 
@@ -368,9 +368,10 @@
             txtAnswer.TabIndex = 41;
             txtAnswer.KeyDown += txtAnswer_KeyDown;
             // 
-            // timer1
+            // QuizTimer
             // 
-            timer1.Tick += timer1_Tick;
+            QuizTimer.Interval = 1000;
+            QuizTimer.Tick += QuizTimer_Tick;
             // 
             // Time
             // 
@@ -391,11 +392,11 @@
             ClientSize = new Size(1658, 1026);
             Controls.Add(Time);
             Controls.Add(txtAnswer);
-            Controls.Add(label6);
-            Controls.Add(label5);
+            Controls.Add(lblMiss);
+            Controls.Add(lblCorrect);
             Controls.Add(label4);
             Controls.Add(label3);
-            Controls.Add(pictureBox17);
+            Controls.Add(quizCard);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox4);
             Controls.Add(label2);
@@ -405,6 +406,7 @@
             Controls.Add(pictureBox1);
             Name = "frmStartquiz";
             Text = "Flash Card Quiz";
+            Load += frmStartquiz_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             panel1.ResumeLayout(false);
@@ -420,7 +422,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox17).EndInit();
+            ((System.ComponentModel.ISupportInitialize)quizCard).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -445,13 +447,13 @@
         private Label label2;
         private PictureBox pictureBox4;
         private PictureBox pictureBox2;
-        private PictureBox pictureBox17;
+        private PictureBox quizCard;
         private Label label3;
         private Label label4;
-        private Label label5;
-        private Label label6;
+        private Label lblCorrect;
+        private Label lblMiss;
         private TextBox txtAnswer;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer QuizTimer;
         private Label Time;
     }
 }
