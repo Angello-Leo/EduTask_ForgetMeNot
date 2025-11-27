@@ -246,41 +246,52 @@ namespace Design
             {
                 con.Open();
 
-                string findClass = "SELECT class_id FROM classes WHERE class_code = @code";
+                // 1️⃣ Find the class info (id and max_students)
+                string findClass = "SELECT class_id, max_students FROM classes WHERE class_code = @code";
                 MySqlCommand cmd = new MySqlCommand(findClass, con);
                 cmd.Parameters.AddWithValue("@code", enteredCode);
-
-                object result = cmd.ExecuteScalar();
-
-                if (result != null)
+                using (var reader = cmd.ExecuteReader())
                 {
-                    int classId = Convert.ToInt32(result);
+                    if (reader.Read())
+                    {
+                        int classId = reader.GetInt32("class_id");
+                        int maxStudents = reader.GetInt32("max_students");
+                        reader.Close();
 
-                    string enrollQuery = "INSERT IGNORE INTO class_students (class_id, student_id) VALUES (@cid, @sid)";
-                    MySqlCommand enrollCmd = new MySqlCommand(enrollQuery, con);
-                    enrollCmd.Parameters.AddWithValue("@cid", classId);
-                    enrollCmd.Parameters.AddWithValue("@sid", GetInfo.UserID);
-                    enrollCmd.ExecuteNonQuery();
+                        // 2️⃣ Count current students
+                        string countQuery = "SELECT COUNT(*) FROM class_students WHERE class_id = @cid";
+                        MySqlCommand countCmd = new MySqlCommand(countQuery, con);
+                        countCmd.Parameters.AddWithValue("@cid", classId);
+                        int currentCount = Convert.ToInt32(countCmd.ExecuteScalar());
 
-                    MessageBox.Show("Successfully joined the class!");
+                        if (currentCount >= maxStudents)
+                        {
+                            MessageBox.Show("This class has already reached its maximum number of students.");
+                            return;
+                        }
 
+                        // 3️⃣ Enroll student
+                        string enrollQuery = "INSERT IGNORE INTO class_students (class_id, student_id) VALUES (@cid, @sid)";
+                        MySqlCommand enrollCmd = new MySqlCommand(enrollQuery, con);
+                        enrollCmd.Parameters.AddWithValue("@cid", classId);
+                        enrollCmd.Parameters.AddWithValue("@sid", GetInfo.UserID);
+                        enrollCmd.ExecuteNonQuery();
 
-                    // Open the newly joined class page
-                    Class clsPage = new Class(classId, _dashboard);
-                    clsPage.Show();
-                    this.Hide();
+                        MessageBox.Show("Successfully joined the class!");
 
-                    // Close this join form
-                    this.Hide();
+                        // Open the class page
+                        Class clsPage = new Class(classId, _dashboard);
+                        clsPage.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid class code.");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Invalid class code.");
-                }
-
-
             }
         }
+
 
         private void pictureBox10_Click(object sender, EventArgs e)
         {

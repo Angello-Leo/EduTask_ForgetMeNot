@@ -58,6 +58,18 @@
             lblAdviser = new Label();
             lblMaxStud = new Label();
             lblUsername = new Label();
+            panelStatus = new Panel();
+            lblStatusMessage = new Label();
+            panelVoting = new Panel();
+            lblInstruction = new Label();
+            btnSubmitVote = new Button();
+            dgvCandidates = new DataGridView();
+            panelResults = new Panel();
+            btnNextPosition = new Button();
+            lblWinner = new Label();
+            lblResultsTitle = new Label();
+            timerCheckStudents = new System.Windows.Forms.Timer(components);
+            timerCheckVotes = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox16).BeginInit();
             panel1.SuspendLayout();
@@ -77,6 +89,10 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox17).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox18).BeginInit();
+            panelStatus.SuspendLayout();
+            panelVoting.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCandidates).BeginInit();
+            panelResults.SuspendLayout();
             SuspendLayout();
             // 
             // pictureBox1
@@ -424,6 +440,122 @@
             lblUsername.Size = new Size(0, 37);
             lblUsername.TabIndex = 36;
             // 
+            // panelStatus
+            // 
+            panelStatus.Anchor = AnchorStyles.None;
+            panelStatus.Controls.Add(lblStatusMessage);
+            panelStatus.Location = new Point(357, 394);
+            panelStatus.Name = "panelStatus";
+            panelStatus.Size = new Size(773, 415);
+            panelStatus.TabIndex = 37;
+            // 
+            // lblStatusMessage
+            // 
+            lblStatusMessage.AutoSize = true;
+            lblStatusMessage.ForeColor = SystemColors.ControlDarkDark;
+            lblStatusMessage.Location = new Point(280, 386);
+            lblStatusMessage.Name = "lblStatusMessage";
+            lblStatusMessage.Size = new Size(218, 20);
+            lblStatusMessage.TabIndex = 0;
+            lblStatusMessage.Text = "Waiting for all students to join...";
+            // 
+            // panelVoting
+            // 
+            panelVoting.Anchor = AnchorStyles.None;
+            panelVoting.Controls.Add(lblInstruction);
+            panelVoting.Controls.Add(btnSubmitVote);
+            panelVoting.Controls.Add(dgvCandidates);
+            panelVoting.Location = new Point(357, 391);
+            panelVoting.Name = "panelVoting";
+            panelVoting.Size = new Size(778, 415);
+            panelVoting.TabIndex = 38;
+            panelVoting.Visible = false;
+            // 
+            // lblInstruction
+            // 
+            lblInstruction.AutoSize = true;
+            lblInstruction.Location = new Point(11, 392);
+            lblInstruction.Name = "lblInstruction";
+            lblInstruction.Size = new Size(50, 20);
+            lblInstruction.TabIndex = 2;
+            lblInstruction.Text = "label2";
+            lblInstruction.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // btnSubmitVote
+            // 
+            btnSubmitVote.Location = new Point(610, 383);
+            btnSubmitVote.Name = "btnSubmitVote";
+            btnSubmitVote.Size = new Size(130, 29);
+            btnSubmitVote.TabIndex = 1;
+            btnSubmitVote.Text = "Submit Vote";
+            btnSubmitVote.UseVisualStyleBackColor = true;
+            btnSubmitVote.Click += btnSubmitVote_Click;
+            // 
+            // dgvCandidates
+            // 
+            dgvCandidates.AllowUserToAddRows = false;
+            dgvCandidates.AllowUserToDeleteRows = false;
+            dgvCandidates.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCandidates.Dock = DockStyle.Fill;
+            dgvCandidates.Location = new Point(0, 0);
+            dgvCandidates.MultiSelect = false;
+            dgvCandidates.Name = "dgvCandidates";
+            dgvCandidates.ReadOnly = true;
+            dgvCandidates.RowHeadersVisible = false;
+            dgvCandidates.RowHeadersWidth = 51;
+            dgvCandidates.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvCandidates.Size = new Size(778, 415);
+            dgvCandidates.TabIndex = 0;
+            // 
+            // panelResults
+            // 
+            panelResults.Anchor = AnchorStyles.None;
+            panelResults.Controls.Add(btnNextPosition);
+            panelResults.Controls.Add(lblWinner);
+            panelResults.Controls.Add(lblResultsTitle);
+            panelResults.Location = new Point(357, 391);
+            panelResults.Name = "panelResults";
+            panelResults.Size = new Size(778, 415);
+            panelResults.TabIndex = 39;
+            panelResults.Visible = false;
+            // 
+            // btnNextPosition
+            // 
+            btnNextPosition.Location = new Point(338, 212);
+            btnNextPosition.Name = "btnNextPosition";
+            btnNextPosition.Size = new Size(107, 28);
+            btnNextPosition.TabIndex = 2;
+            btnNextPosition.Text = "Next Position";
+            btnNextPosition.UseVisualStyleBackColor = true;
+            // 
+            // lblWinner
+            // 
+            lblWinner.AutoSize = true;
+            lblWinner.Location = new Point(364, 189);
+            lblWinner.Name = "lblWinner";
+            lblWinner.Size = new Size(50, 20);
+            lblWinner.TabIndex = 1;
+            lblWinner.Text = "label2";
+            // 
+            // lblResultsTitle
+            // 
+            lblResultsTitle.AutoSize = true;
+            lblResultsTitle.Location = new Point(364, 153);
+            lblResultsTitle.Name = "lblResultsTitle";
+            lblResultsTitle.Size = new Size(50, 20);
+            lblResultsTitle.TabIndex = 0;
+            lblResultsTitle.Text = "label2";
+            // 
+            // timerCheckStudents
+            // 
+            timerCheckStudents.Enabled = true;
+            timerCheckStudents.Interval = 5000;
+            // 
+            // timerCheckVotes
+            // 
+            timerCheckVotes.Enabled = true;
+            timerCheckVotes.Interval = 3000;
+            // 
             // Class
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -431,6 +563,9 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1326, 821);
+            Controls.Add(panelResults);
+            Controls.Add(panelVoting);
+            Controls.Add(panelStatus);
             Controls.Add(lblUsername);
             Controls.Add(lblMaxStud);
             Controls.Add(lblAdviser);
@@ -470,6 +605,13 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox17).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox18).EndInit();
+            panelStatus.ResumeLayout(false);
+            panelStatus.PerformLayout();
+            panelVoting.ResumeLayout(false);
+            panelVoting.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCandidates).EndInit();
+            panelResults.ResumeLayout(false);
+            panelResults.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -504,5 +646,17 @@
         private Label lblAdviser;
         private Label lblMaxStud;
         private Label lblUsername;
+        private Panel panelStatus;
+        private Label lblStatusMessage;
+        private Panel panelVoting;
+        private Button btnSubmitVote;
+        private DataGridView dgvCandidates;
+        private Panel panelResults;
+        private Button btnNextPosition;
+        private Label lblWinner;
+        private Label lblResultsTitle;
+        private System.Windows.Forms.Timer timerCheckStudents;
+        private System.Windows.Forms.Timer timerCheckVotes;
+        private Label lblInstruction;
     }
 }
