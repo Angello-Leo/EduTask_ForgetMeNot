@@ -19,6 +19,7 @@ namespace Design
         Queue<string> orderedAnswers = new Queue<string>();
         int totalSecs = 0;
         int remainingSecs = 0;
+
         public frmStartquiz(List<string> questions, List<string> answers)
         {
             InitializeComponent();
@@ -27,11 +28,12 @@ namespace Design
         }
         private void frmStartquiz_Load(object sender, EventArgs e)
         {
+            HideItems();
             totalSecs = 1 * 60;
             remainingSecs = totalSecs;
             Shuffle();
-            GenerateQuestions();
-            QuizTimer.Start();
+            CreateStartLabel();
+            StartingTimer.Start();
         }
 
         private void QuizTimer_Tick(object sender, EventArgs e)
@@ -62,9 +64,10 @@ namespace Design
                 e.Handled = true;
 
                 string answer = txtAnswer.Text.Trim();
+                string queAnswer = orderedAnswers.Dequeue();
 
                 // Make sure orderedAnswers is a string or convert it to string to compare
-                if (answer == Convert.ToString(orderedAnswers))
+                if (answer == queAnswer)
                 {
                     int correct = int.Parse(lblCorrect.Text);
                     lblCorrect.Text = (correct + 1).ToString();
@@ -81,11 +84,13 @@ namespace Design
         private void Shuffle()
         {
             Random rand = new Random();
-            int x = rand.Next(0, questions.Count);
-            for (int i = 0; i < questions.Count; i++)
+            List<int> indices = Enumerable.Range(0, questions.Count).ToList(); // Create a list of indices from 0 to questions.Count - 1
+            indices = indices.OrderBy(x => rand.Next()).ToList(); // Shuffle the indices randomly
+
+            foreach (int index in indices)
             {
-                orderedQuestions.Enqueue(questions[x]);
-                orderedAnswers.Enqueue(answers[x]);
+                orderedQuestions.Enqueue(questions[index]);
+                orderedAnswers.Enqueue(answers[index]);
             }
         }
 
@@ -111,8 +116,85 @@ namespace Design
 
             // Add the label to the quizCard (make sure quizCard is a container control)
             quizCard.Controls.Add(questionLabel);
+            QuizTimer.Start();
         }
 
-      
+        private void HideItems()
+        {
+            quizCard.Visible = false;
+            txtAnswer.Visible = false;
+            Time.Visible = false;
+            lblCorrect.Visible = false;
+            lblMiss.Visible = false;
+            label3.Visible = false;
+            label4.Visible = false;
+        }
+
+        Label lblStart = new Label();
+        private void CreateStartLabel()
+        {
+            lblStart.Text = "3";
+            lblStart.AutoSize = true;
+            lblStart.Font = new Font("Arial", 48, FontStyle.Bold);
+            lblStart.BackColor = Color.Transparent;
+            lblStart.ForeColor = Color.Red;
+            lblStart.Location = new Point((this.Width - lblStart.Width) / 2, ((this.Height - lblStart.Height) / 2 ) + 5);
+            this.Controls.Add(lblStart);
+        }
+
+        Label lblGo = new Label();
+        private void CreateGoLabel()
+        {
+            lblStart.Text = "GO";
+            lblStart.AutoSize = true;
+            lblStart.Font = new Font("Arial", 48, FontStyle.Bold);
+            lblStart.BackColor = Color.Transparent;
+            lblStart.ForeColor = Color.Black;
+            lblStart.Location = new Point((this.Width - lblGo.Width) / 2, ((this.Height - lblGo.Height) / 2) + 5);
+            this.Controls.Add(lblStart);
+        }
+
+        int start = 3;
+        private void StartingTimer_Tick(object sender, EventArgs e)
+        {
+            if (start > 0)
+            {
+                start--;
+                lblStart.Text = Convert.ToString(start);
+            }
+            else
+            {
+                this.Controls.Remove(lblStart);
+                CreateGoLabel();
+                GoTimer.Start();
+            }
+        }
+        int goTime = 1;
+        private void GoTimer_Tick(object sender, EventArgs e)
+        {
+            if (goTime > 0)
+            {
+                goTime--;
+            }
+            else
+            {
+                this.Controls.Remove(lblGo);
+                BringBackItems();
+                GenerateQuestions();
+            }
+        }
+
+        private void BringBackItems()
+        {
+            quizCard.Visible = true;
+            txtAnswer.Visible = true;
+            Time.Visible = true;
+            lblCorrect.Visible = true;
+            lblMiss.Visible = true;
+            label3.Visible = true;
+            label4.Visible = true;
+        }
+
+        
     }
 }

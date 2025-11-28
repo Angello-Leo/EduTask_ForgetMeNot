@@ -56,6 +56,8 @@
             txtAnswer = new TextBox();
             QuizTimer = new System.Windows.Forms.Timer(components);
             Time = new Label();
+            StartingTimer = new System.Windows.Forms.Timer(components);
+            GoTimer = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             panel1.SuspendLayout();
@@ -383,6 +385,16 @@
             Time.TabIndex = 42;
             Time.Text = "1:00";
             // 
+            // StartingTimer
+            // 
+            StartingTimer.Interval = 1000;
+            StartingTimer.Tick += StartingTimer_Tick;
+            // 
+            // GoTimer
+            // 
+            GoTimer.Interval = 1000;
+            GoTimer.Tick += GoTimer_Tick;
+            // 
             // frmStartquiz
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -455,5 +467,7 @@
         private TextBox txtAnswer;
         private System.Windows.Forms.Timer QuizTimer;
         private Label Time;
+        private System.Windows.Forms.Timer StartingTimer;
+        private System.Windows.Forms.Timer GoTimer;
     }
 }
