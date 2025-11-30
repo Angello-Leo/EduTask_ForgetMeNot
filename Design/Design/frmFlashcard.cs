@@ -116,5 +116,10 @@ namespace Design
         {
 
         }
+
+        private void pictureBox14_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

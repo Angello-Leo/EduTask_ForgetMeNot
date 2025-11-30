@@ -28,6 +28,11 @@ namespace Design
         }
         private void frmStartquiz_Load(object sender, EventArgs e)
         {
+            StartQuiz();
+        }
+
+        private void StartQuiz()
+        {
             HideItems();
             totalSecs = 1 * 60;
             remainingSecs = totalSecs;
@@ -46,6 +51,13 @@ namespace Design
             {
                 QuizTimer.Stop();
                 MessageBox.Show("Time's up!");
+                miss = int.Parse(lblMiss.Text) + 1;
+                lblMiss.Text = miss.ToString();
+                remainingSecs = totalSecs;
+                RevealAnswers(queAnswer);
+                IntervalTimer.Start();
+                interval = 2;
+                txtAnswer.Clear();
             }
             UpdateTimerDisplay();
         }
@@ -57,27 +69,36 @@ namespace Design
 
             Time.Text = $"{mins:D2}:{secs:D2}";
         }
+        string queAnswer;
+        int correct;
+        int miss;
         private void txtAnswer_KeyDown(object sender, KeyEventArgs e)
         {
+            bool isCorrect = false;
             if (e.KeyCode == Keys.Enter)
             {
                 e.Handled = true;
 
                 string answer = txtAnswer.Text.Trim();
-                string queAnswer = orderedAnswers.Dequeue();
+                queAnswer = orderedAnswers.Dequeue();
 
                 // Make sure orderedAnswers is a string or convert it to string to compare
                 if (answer == queAnswer)
                 {
-                    int correct = int.Parse(lblCorrect.Text);
-                    lblCorrect.Text = (correct + 1).ToString();
+                    correct = int.Parse(lblCorrect.Text) + 1;
+                    lblCorrect.Text = correct.ToString();
+                    isCorrect = true;
                 }
                 else
                 {
-                    int miss = int.Parse(lblMiss.Text);
-                    lblMiss.Text = (miss + 1).ToString();
+                    miss = int.Parse(lblMiss.Text) + 1;
+                    lblMiss.Text = miss.ToString();
                 }
-
+                QuizTimer.Stop();
+                remainingSecs = totalSecs;
+                GenerateAnswers(queAnswer, isCorrect);
+                IntervalTimer.Start();
+                interval = 2;
                 txtAnswer.Clear();
             }
         }
@@ -93,30 +114,69 @@ namespace Design
                 orderedAnswers.Enqueue(answers[index]);
             }
         }
-
+        Label questionLabel = new Label();
         private void GenerateQuestions()
         {
+            if (orderedQuestions.Count > 0)
+            {
+                int height = quizCard.Height;
+                int width = quizCard.Width;
+
+                // Create a new label for the question
+                questionLabel.Text = orderedQuestions.Dequeue();
+                questionLabel.Font = new Font("Arial", 14);
+                questionLabel.BackColor = Color.Transparent;
+                questionLabel.ForeColor = Color.Black; 
+                CenterLabel(questionLabel, width, height);
+
+                // Add the label to the quizCard (make sure quizCard is a container control)
+                quizCard.Controls.Add(questionLabel);
+            }
+        }
+
+        Label lblAnswer = new Label(); 
+        private void GenerateAnswers(string answer, bool isCorrect)
+        {
+            quizCard.Controls.Remove(questionLabel);
             int height = quizCard.Height;
             int width = quizCard.Width;
 
-            // Create a new label for the question
-            Label questionLabel = new Label();
-            questionLabel.Text = orderedQuestions.Dequeue();
-            questionLabel.AutoSize = true;
-            questionLabel.Font = new Font("Arial", 14);
-            questionLabel.BackColor = Color.Transparent;
-            questionLabel.ForeColor = Color.Black;
+            // Create a new label for the answer
+            lblAnswer.Text = answer;
+            lblAnswer.Font = new Font("Arial", 34);
+            lblAnswer.BackColor = Color.Transparent;
+            lblAnswer.ForeColor = isCorrect ? Color.Green : Color.Red;
+            CenterLabel(lblAnswer, width, height);
+            quizCard.Controls.Add(lblAnswer);
+        }
+        private void CenterLabel(Label label, int containerWidth, int containerHeight)
+        {
+            
+            label.AutoSize = true;
+            label.PerformLayout();
 
-            // Calculate the center position
-            int x = (width - questionLabel.Width) / 2;
-            int y = (height - questionLabel.Height) / 2;
+            // Calculate the position to center the label
+            int x = (containerWidth - label.Width) / 2;
+            int y = (containerHeight - label.Height) / 2;
 
-            // Set the location of the label to the calculated center
-            questionLabel.Location = new Point(x, y);
+            label.Location = new Point(x, y);
+        }
+
+        private void RevealAnswers(string answer)
+        {
+            quizCard.Controls.Remove(questionLabel);
+            int height = quizCard.Height;
+            int width = quizCard.Width;
+
+            // Create a new label for the answer
+            lblAnswer.Text = answer;
+            lblAnswer.Font = new Font("Arial", 34);
+            lblAnswer.BackColor = Color.Transparent;
+            lblAnswer.ForeColor = Color.Red;
+            CenterLabel(lblAnswer, width, height);
 
             // Add the label to the quizCard (make sure quizCard is a container control)
-            quizCard.Controls.Add(questionLabel);
-            QuizTimer.Start();
+            quizCard.Controls.Add(lblAnswer);
         }
 
         private void HideItems()
@@ -138,7 +198,7 @@ namespace Design
             lblStart.Font = new Font("Arial", 48, FontStyle.Bold);
             lblStart.BackColor = Color.Transparent;
             lblStart.ForeColor = Color.Red;
-            lblStart.Location = new Point((this.Width - lblStart.Width) / 2, ((this.Height - lblStart.Height) / 2 ) + 5);
+            lblStart.Location = new Point((this.Width - lblStart.Width) / 2, ((this.Height - lblStart.Height) / 2) + 5);
             this.Controls.Add(lblStart);
         }
 
@@ -167,6 +227,7 @@ namespace Design
                 this.Controls.Remove(lblStart);
                 CreateGoLabel();
                 GoTimer.Start();
+                StartingTimer.Stop();
             }
         }
         int goTime = 1;
@@ -181,6 +242,8 @@ namespace Design
                 this.Controls.Remove(lblGo);
                 BringBackItems();
                 GenerateQuestions();
+                QuizTimer.Start();
+                GoTimer.Stop();
             }
         }
 
@@ -195,6 +258,109 @@ namespace Design
             label4.Visible = true;
         }
 
-        
+        int interval = 2;
+        private void IntervalTimer_Tick(object sender, EventArgs e)
+        {
+            if (interval > 0)
+            {
+                interval--;
+            }
+            else
+            {
+                quizCard.Controls.Remove(lblAnswer);
+
+                if (orderedQuestions.Count > 0)
+                {
+                    GenerateQuestions();
+                    QuizTimer.Start();
+                }
+                else
+                {
+                    QuizTimer.Stop();
+                    MessageBox.Show("Quiz Over!");
+                    Result();
+                }
+                IntervalTimer.Stop();
+            }
+        }
+        private void Result()
+        {
+            HideItems();
+            Label lblResult = new Label();
+            if (correct >= questions.Count * 0.75)
+            {
+                lblResult.Text = "YOU PASSED!";
+                lblResult.ForeColor = Color.Green;
+            }
+            else
+            {
+                lblResult.Text = "YOU FAILED!";
+                lblResult.ForeColor = Color.Red;
+            }
+            lblResult.AutoSize = true;
+            lblResult.Font = new Font("Arial", 72, FontStyle.Bold);
+            lblResult.BackColor = Color.Transparent;
+            lblResult.Location = new Point(484, 146);
+            this.Controls.Add(lblResult);
+
+            Label lblCorrect = new Label();
+            lblCorrect.Text = "Correct:";
+            lblCorrect.AutoSize = true;
+            lblCorrect.Font = new Font("Arial", 24, FontStyle.Bold);
+            lblCorrect.BackColor = Color.Transparent;
+            lblCorrect.ForeColor = Color.Green;
+            lblCorrect.Location = new Point(675, 407);
+            this.Controls.Add(lblCorrect);
+
+            Label lblNumAnswer = new Label();
+            lblNumAnswer.Text = correct.ToString();
+            lblNumAnswer.AutoSize = true;
+            lblNumAnswer.Font = new Font("Arial", 24, FontStyle.Bold);
+            lblNumAnswer.BackColor = Color.Transparent;
+            lblNumAnswer.ForeColor = Color.Black;
+            lblNumAnswer.Location = new Point(906, 407);
+            this.Controls.Add(lblNumAnswer);
+
+            Label lblNumMiss = new Label();
+            lblNumMiss.Text = miss.ToString();
+            lblNumMiss.AutoSize = true;
+            lblNumMiss.Font = new Font("Arial", 24, FontStyle.Bold);
+            lblNumMiss.BackColor = Color.Transparent;
+            lblNumMiss.ForeColor = Color.Black;
+            lblNumMiss.Location = new Point(906, 513);
+            this.Controls.Add(lblNumMiss);
+
+            Label lblMiss = new Label();
+            lblMiss.Text = "Miss:";
+            lblMiss.AutoSize = true;
+            lblMiss.Font = new Font("Arial", 24, FontStyle.Bold);
+            lblMiss.BackColor = Color.Transparent;
+            lblCorrect.ForeColor = Color.Green;
+            lblMiss.Location = new Point(675, 517);
+            this.Controls.Add(lblMiss);
+
+            Label input = new Label();
+            input.Text = "Do you want to retake again? (y/n).";
+            input.AutoSize = true;
+            input.Font = new Font("Arial", 12, FontStyle.Bold);
+            input.BackColor = Color.Transparent;
+            input.Location = new Point(774, 742);
+            this.Controls.Add(input);
+
+            this.KeyPreview = true;
+            this.KeyDown += KeyPresses;
+        }
+
+        private void KeyPresses(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Y)
+            {
+                StartQuiz();
+            }
+            else if (e.KeyCode == Keys.N)
+            {
+                
+            }
+        }
     }
 }

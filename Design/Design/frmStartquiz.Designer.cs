@@ -58,6 +58,7 @@
             Time = new Label();
             StartingTimer = new System.Windows.Forms.Timer(components);
             GoTimer = new System.Windows.Forms.Timer(components);
+            IntervalTimer = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             panel1.SuspendLayout();
@@ -395,6 +396,11 @@
             GoTimer.Interval = 1000;
             GoTimer.Tick += GoTimer_Tick;
             // 
+            // IntervalTimer
+            // 
+            IntervalTimer.Interval = 1000;
+            IntervalTimer.Tick += IntervalTimer_Tick;
+            // 
             // frmStartquiz
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -469,5 +475,6 @@
         private Label Time;
         private System.Windows.Forms.Timer StartingTimer;
         private System.Windows.Forms.Timer GoTimer;
+        private System.Windows.Forms.Timer IntervalTimer;
     }
 }
