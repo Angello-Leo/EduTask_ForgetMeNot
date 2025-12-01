@@ -218,7 +218,7 @@ namespace Design
             lblStart.Font = new Font("Arial", 48, FontStyle.Bold);
             lblStart.BackColor = Color.Transparent;
             lblStart.ForeColor = Color.Red;
-            lblStart.Location = new Point((this.Width - lblStart.Width) / 2, ((this.Height - lblStart.Height) / 2) + 5);
+            lblStart.Location = new Point(907, 390);
             this.Controls.Add(lblStart);
         }
         private void CreateGoLabel()
@@ -228,7 +228,7 @@ namespace Design
             lblGo.Font = new Font("Arial", 48, FontStyle.Bold);
             lblGo.BackColor = Color.Transparent;
             lblGo.ForeColor = Color.Black;
-            lblGo.Location = new Point((this.Width - lblGo.Width) / 2, ((this.Height - lblGo.Height) / 2) + 5);
+            lblGo.Location = new Point(864, 394);
             this.Controls.Add(lblGo);
         }
         private void StartingTimer_Tick(object sender, EventArgs e)

@@ -380,7 +380,7 @@
             // 
             Time.AutoSize = true;
             Time.Font = new Font("Tahoma", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Time.Location = new Point(952, 156);
+            Time.Location = new Point(926, 152);
             Time.Name = "Time";
             Time.Size = new Size(70, 34);
             Time.TabIndex = 42;
