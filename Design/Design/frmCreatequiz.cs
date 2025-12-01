@@ -166,7 +166,7 @@ namespace Design
             if (questions.Count >= 10)
             {
                 MessageBox.Show($"Starting Quiz with {questions.Count.ToString()} Flashcards!");
-                frmStartquiz f7 = new frmStartquiz(questions, answers);
+                frmStartquiz f7 = new frmStartquiz(questions, answers, this);
                 this.Hide();
                 f7.Show();
             }
