@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Design
 {
-    public partial class fmrNotification : Form
+    public partial class frmNotification : Form
     {
-        public fmrNotification()
+        public frmNotification()
         {
             InitializeComponent();
         }

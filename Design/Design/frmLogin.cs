@@ -43,7 +43,7 @@ namespace Design
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void login_Click(object sender, EventArgs e)
         {
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
@@ -121,16 +121,11 @@ namespace Design
             }
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void lnkSignup_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            frmSignup signup = new frmSignup();
-            signup.Show();
+            frmSignup signupFrm = new frmSignup(this);
+            signupFrm.Show();
             this.Hide();
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

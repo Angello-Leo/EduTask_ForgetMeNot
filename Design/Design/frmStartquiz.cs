@@ -13,6 +13,7 @@ namespace Design
 {
     public partial class frmStartquiz : Form
     {
+
         List<string> questions = new List<string>();
         List<string> answers = new List<string>();
         Stack<string> orderedQuestions = new Stack<string>();
@@ -36,17 +37,19 @@ namespace Design
         Label lblNumMiss = new Label();
         Label lblMisses = new Label();
         Label input = new Label();
+        PictureBox picBackground = new PictureBox();
 
-        public frmStartquiz(List<string> questions, List<string> answers, frmCreatequiz form)
+        public frmStartquiz(/*List<string> questions, List<string> answers, frmCreatequiz form*/)
         {
             InitializeComponent();
             this.questions = questions;
             this.answers = answers;
-            createQuizForm = form;
+            //createQuizForm = form;
         }
         private void frmStartquiz_Load(object sender, EventArgs e)
         {
-            StartQuiz();
+            Result();
+           //StartQuiz();
         }
 
         private void StartQuiz()
@@ -94,7 +97,7 @@ namespace Design
 
             Time.Text = $"{mins:D2}:{secs:D2}";
         }
-        
+
         private void txtAnswer_KeyDown(object sender, KeyEventArgs e)
         {
             bool isCorrect = false;
@@ -149,7 +152,7 @@ namespace Design
                 questionLabel.Text = orderedQuestions.Pop();
                 questionLabel.Font = new Font("Arial", 14);
                 questionLabel.BackColor = Color.Transparent;
-                questionLabel.ForeColor = Color.Black; 
+                questionLabel.ForeColor = Color.Black;
                 CenterLabel(questionLabel, width, height);
 
                 // Add the label to the quizCard (make sure quizCard is a container control)
@@ -300,6 +303,18 @@ namespace Design
         private void Result()
         {
             HideItems();
+            byte[] imageBytes = Properties.Resources.BgResultFlashCard_1;
+            using (MemoryStream ms = new MemoryStream(imageBytes))
+            {
+                picBackground.BackgroundImage = Image.FromStream(ms);  // Convert byte array to Image
+            }
+            picBackground.BackgroundImageLayout = ImageLayout.Stretch;
+            picBackground.Location = new Point(465, 116);
+            picBackground.Size = new Size(1014, 807);
+            this.Controls.Add(picBackground);
+            picBackground.SendToBack();
+
+            // Update label sizes and positioning
             if (correct >= questions.Count * 0.75)
             {
                 lblResult.Text = "YOU PASSED!";
@@ -313,48 +328,58 @@ namespace Design
             lblResult.AutoSize = true;
             lblResult.Font = new Font("Arial", 72, FontStyle.Bold);
             lblResult.BackColor = Color.Transparent;
-            lblResult.Location = new Point(484, 146);
-            this.Controls.Add(lblResult);
+            lblResult.Location = new Point(picBackground.Width / 25, (picBackground.Height / 2) - 350); // Centered at top
+            picBackground.Controls.Add(lblResult);
+            lblResult.BringToFront();
 
+            // Correct Label
             lblCorrects.Text = "Correct:";
             lblCorrects.AutoSize = true;
             lblCorrects.Font = new Font("Arial", 24, FontStyle.Bold);
             lblCorrects.BackColor = Color.Transparent;
             lblCorrects.ForeColor = Color.Green;
-            lblCorrects.Location = new Point(675, 407);
-            this.Controls.Add(lblCorrects);
+            lblCorrects.Location = new Point(picBackground.Width / 2 - 200, picBackground.Height / 2 - 50); // Adjusted position
+            picBackground.Controls.Add(lblCorrects);
+            lblCorrects.BringToFront();
 
+            // Correct Answer Number
             lblNumAnswer.Text = correct.ToString();
             lblNumAnswer.AutoSize = true;
             lblNumAnswer.Font = new Font("Arial", 24, FontStyle.Bold);
             lblNumAnswer.BackColor = Color.Transparent;
             lblNumAnswer.ForeColor = Color.Black;
-            lblNumAnswer.Location = new Point(906, 407);
-            this.Controls.Add(lblNumAnswer);
+            lblNumAnswer.Location = new Point(picBackground.Width / 2 + 50, picBackground.Height / 2 - 50); // Adjusted position
+            picBackground.Controls.Add(lblNumAnswer);
+            lblNumAnswer.BringToFront();
 
-            lblNumMiss.Text = miss.ToString();
-            lblNumMiss.AutoSize = true;
-            lblNumMiss.Font = new Font("Arial", 24, FontStyle.Bold);
-            lblNumMiss.BackColor = Color.Transparent;
-            lblNumMiss.ForeColor = Color.Black;
-            lblNumMiss.Location = new Point(906, 513);
-            this.Controls.Add(lblNumMiss);
-
+            // Misses Label
             lblMisses.Text = "Miss:";
             lblMisses.AutoSize = true;
             lblMisses.Font = new Font("Arial", 24, FontStyle.Bold);
             lblMisses.BackColor = Color.Transparent;
             lblMisses.ForeColor = Color.Red;
-            lblMisses.Location = new Point(675, 517);
-            this.Controls.Add(lblMisses);
+            lblMisses.Location = new Point(picBackground.Width / 2 - 200, picBackground.Height / 2 + 50); // Adjusted position
+            picBackground.Controls.Add(lblMisses);
+            lblMisses.BringToFront();
 
+            // Missed Answers Number
+            lblNumMiss.Text = miss.ToString();
+            lblNumMiss.AutoSize = true;
+            lblNumMiss.Font = new Font("Arial", 24, FontStyle.Bold);
+            lblNumMiss.BackColor = Color.Transparent;
+            lblNumMiss.ForeColor = Color.Black;
+            lblNumMiss.Location = new Point(picBackground.Width / 2 + 50, picBackground.Height / 2 + 50); // Adjusted position
+            picBackground.Controls.Add(lblNumMiss);
+            lblNumMiss.BringToFront();
+
+            // Retake Prompt Input Text
             input.Text = "Do you want to retake again? (y/n).";
             input.AutoSize = true;
             input.Font = new Font("Arial", 12, FontStyle.Bold);
             input.BackColor = Color.Transparent;
             input.ForeColor = Color.Yellow;
-            input.Location = new Point(774, 742);
-            this.Controls.Add(input);
+            input.Location = new Point(picBackground.Width / 2 - 190, picBackground.Height - 100); // Adjusted position for better placement
+            picBackground.Controls.Add(input);
 
             this.KeyPreview = true;
             this.KeyDown += KeyPresses;
@@ -362,12 +387,13 @@ namespace Design
 
         private void RemoveResultLabels()
         {
-            this.Controls.Remove(lblResult);
-            this.Controls.Remove(lblCorrects);
-            this.Controls.Remove(lblNumAnswer);
-            this.Controls.Remove(lblNumMiss);
-            this.Controls.Remove(lblMisses);
-            this.Controls.Remove(input);
+            picBackground.Controls.Remove(lblResult);
+            picBackground.Controls.Remove(lblCorrects);
+            picBackground.Controls.Remove(lblNumAnswer);
+            picBackground.Controls.Remove(lblNumMiss);
+            picBackground.Controls.Remove(lblMisses);
+            picBackground.Controls.Remove(input);
+            this.Controls.Remove(picBackground);
         }
 
         private void KeyPresses(object sender, KeyEventArgs e)
@@ -383,6 +409,11 @@ namespace Design
                 this.Hide();
                 createQuizForm.Show();
             }
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

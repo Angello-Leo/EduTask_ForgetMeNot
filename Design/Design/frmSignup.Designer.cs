@@ -45,8 +45,9 @@
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
             label1.Font = new Font("Arial Rounded MT Bold", 19.8000011F);
             label1.Location = new Point(241, 84);
             label1.Margin = new Padding(4, 0, 4, 0);
@@ -55,12 +56,12 @@
             label1.TabIndex = 0;
             label1.Text = "Welcome to EduTask:ForgetMeNot";
             label1.TextAlign = ContentAlignment.TopCenter;
-            label1.Click += label1_Click;
             // 
             // lblUsername
             // 
-            lblUsername.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lblUsername.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblUsername.AutoSize = true;
+            lblUsername.BackColor = Color.Transparent;
             lblUsername.Font = new Font("Arial Rounded MT Bold", 12F);
             lblUsername.Location = new Point(246, 178);
             lblUsername.Margin = new Padding(4, 0, 4, 0);
@@ -69,10 +70,10 @@
             lblUsername.TabIndex = 1;
             lblUsername.Text = "Username:";
             lblUsername.TextAlign = ContentAlignment.MiddleLeft;
-            lblUsername.Click += label2_Click;
             // 
             // txtUsername
             // 
+            txtUsername.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtUsername.Location = new Point(395, 178);
             txtUsername.Margin = new Padding(4);
             txtUsername.Name = "txtUsername";
@@ -88,19 +89,22 @@
             // 
             // btnSubmit
             // 
-            btnSubmit.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnSubmit.Anchor = AnchorStyles.None;
+            btnSubmit.BackColor = Color.Transparent;
             btnSubmit.Location = new Point(862, 431);
             btnSubmit.Margin = new Padding(4);
             btnSubmit.Name = "btnSubmit";
             btnSubmit.Size = new Size(118, 36);
             btnSubmit.TabIndex = 8;
             btnSubmit.Text = "SUBMIT";
-            btnSubmit.UseVisualStyleBackColor = true;
+            btnSubmit.UseVisualStyleBackColor = false;
             btnSubmit.Click += btnSubmit_Click;
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.None;
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.BackgroundImage = Properties.Resources.BgSignup;
+            panel1.BackgroundImageLayout = ImageLayout.Stretch;
             panel1.Controls.Add(linkLabel1);
             panel1.Controls.Add(button1);
             panel1.Controls.Add(chkTeacher);
@@ -117,10 +121,10 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1208, 589);
             panel1.TabIndex = 9;
-            panel1.Paint += panel1_Paint;
             // 
             // linkLabel1
             // 
+            linkLabel1.Anchor = AnchorStyles.None;
             linkLabel1.AutoSize = true;
             linkLabel1.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             linkLabel1.Location = new Point(615, 440);
@@ -129,11 +133,11 @@
             linkLabel1.TabIndex = 12;
             linkLabel1.TabStop = true;
             linkLabel1.Text = "I already have an account";
-            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
+            linkLabel1.LinkClicked += lnkLogin_LinkClicked;
             // 
             // button1
             // 
-            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             button1.Location = new Point(0, 549);
             button1.Margin = new Padding(4);
             button1.Name = "button1";
@@ -141,34 +145,37 @@
             button1.TabIndex = 11;
             button1.Text = "Dash";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            button1.Click += btnLogin_Click;
             // 
             // chkTeacher
             // 
-            chkTeacher.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            chkTeacher.Anchor = AnchorStyles.None;
             chkTeacher.AutoSize = true;
+            chkTeacher.BackColor = Color.Transparent;
             chkTeacher.Location = new Point(395, 372);
             chkTeacher.Margin = new Padding(4);
             chkTeacher.Name = "chkTeacher";
             chkTeacher.Size = new Size(150, 29);
             chkTeacher.TabIndex = 10;
             chkTeacher.Text = "I am a Teacher";
-            chkTeacher.UseVisualStyleBackColor = true;
+            chkTeacher.UseVisualStyleBackColor = false;
             // 
             // chkStudent
             // 
-            chkStudent.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            chkStudent.Anchor = AnchorStyles.None;
             chkStudent.AutoSize = true;
+            chkStudent.BackColor = Color.Transparent;
             chkStudent.Location = new Point(395, 335);
             chkStudent.Margin = new Padding(4);
             chkStudent.Name = "chkStudent";
             chkStudent.Size = new Size(148, 29);
             chkStudent.TabIndex = 9;
             chkStudent.Text = "I am a Sudent";
-            chkStudent.UseVisualStyleBackColor = true;
+            chkStudent.UseVisualStyleBackColor = false;
             // 
             // txtPassword
             // 
+            txtPassword.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtPassword.Location = new Point(395, 252);
             txtPassword.Margin = new Padding(4);
             txtPassword.Name = "txtPassword";
@@ -177,8 +184,9 @@
             // 
             // lblPassword
             // 
-            lblPassword.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lblPassword.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblPassword.AutoSize = true;
+            lblPassword.BackColor = Color.Transparent;
             lblPassword.Font = new Font("Arial Rounded MT Bold", 12F);
             lblPassword.Location = new Point(246, 252);
             lblPassword.Margin = new Padding(4, 0, 4, 0);
@@ -187,7 +195,6 @@
             lblPassword.TabIndex = 7;
             lblPassword.Text = "Password:";
             lblPassword.TextAlign = ContentAlignment.MiddleLeft;
-            lblPassword.Click += label3_Click;
             // 
             // frmSignup
             // 

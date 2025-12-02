@@ -137,6 +137,7 @@
             // 
             // panel2
             // 
+            panel2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             panel2.AutoScroll = true;
             panel2.BackColor = Color.Transparent;
             panel2.BackgroundImage = Properties.Resources.Untitled_design__2_;
@@ -149,6 +150,7 @@
             // 
             // pictureBox14
             // 
+            pictureBox14.Anchor = AnchorStyles.Left;
             pictureBox14.BackColor = Color.Transparent;
             pictureBox14.BackgroundImage = (Image)resources.GetObject("pictureBox14.BackgroundImage");
             pictureBox14.BackgroundImageLayout = ImageLayout.Zoom;
@@ -174,6 +176,7 @@
             // 
             // pictureBox12
             // 
+            pictureBox12.Anchor = AnchorStyles.Left;
             pictureBox12.BackColor = Color.Transparent;
             pictureBox12.BackgroundImage = (Image)resources.GetObject("pictureBox12.BackgroundImage");
             pictureBox12.BackgroundImageLayout = ImageLayout.Zoom;
@@ -187,6 +190,7 @@
             // 
             // pictureBox11
             // 
+            pictureBox11.Anchor = AnchorStyles.Left;
             pictureBox11.BackColor = Color.Transparent;
             pictureBox11.BackgroundImage = (Image)resources.GetObject("pictureBox11.BackgroundImage");
             pictureBox11.BackgroundImageLayout = ImageLayout.Zoom;
@@ -199,6 +203,7 @@
             // 
             // pictureBox10
             // 
+            pictureBox10.Anchor = AnchorStyles.Left;
             pictureBox10.BackColor = Color.Transparent;
             pictureBox10.BackgroundImage = (Image)resources.GetObject("pictureBox10.BackgroundImage");
             pictureBox10.BackgroundImageLayout = ImageLayout.Zoom;
@@ -315,6 +320,7 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Malgun Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -353,6 +359,7 @@
             // 
             // pictureBox18
             // 
+            pictureBox18.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pictureBox18.BackColor = Color.Transparent;
             pictureBox18.BackgroundImage = (Image)resources.GetObject("pictureBox18.BackgroundImage");
             pictureBox18.BackgroundImageLayout = ImageLayout.Zoom;

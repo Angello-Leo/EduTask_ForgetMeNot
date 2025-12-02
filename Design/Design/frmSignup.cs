@@ -14,36 +14,17 @@ namespace Design
     public partial class frmSignup : Form
     {
         string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
-        public frmSignup()
+        frmLogin loginForm;
+        public frmSignup(frmLogin loginForm)
         {
             InitializeComponent();
+            this.loginForm = loginForm;
         }
 
         private void frmSignup_Load(object sender, EventArgs e)
         {
 
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void MainForm_Resize(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Maximized)
@@ -142,17 +123,16 @@ namespace Design
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnLogin_Click(object sender, EventArgs e)
         {
             frmDashBoard dash = new frmDashBoard();
             this.Hide();
             dash.Show();
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void lnkLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            frmLogin f1 = new frmLogin();
-            f1.Show();
+            loginForm.Show();
             this.Hide();
         }
     }

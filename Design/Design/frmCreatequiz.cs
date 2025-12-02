@@ -106,7 +106,7 @@ namespace Design
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             //notif
-            fmrNotification f4 = new fmrNotification();
+            frmNotification f4 = new frmNotification();
             f4.Show();
             this.Hide();
         }
@@ -166,9 +166,9 @@ namespace Design
             if (questions.Count >= 10)
             {
                 MessageBox.Show($"Starting Quiz with {questions.Count.ToString()} Flashcards!");
-                frmStartquiz f7 = new frmStartquiz(questions, answers, this);
+                /*frmStartquiz f7 = new frmStartquiz(questions, answers, this);
                 this.Hide();
-                f7.Show();
+                f7.Show();*/
             }
             else
             {

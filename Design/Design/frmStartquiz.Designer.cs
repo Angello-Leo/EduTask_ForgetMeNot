@@ -271,6 +271,7 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Malgun Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -311,6 +312,7 @@
             // 
             // quizCard
             // 
+            quizCard.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             quizCard.BackgroundImage = (Image)resources.GetObject("quizCard.BackgroundImage");
             quizCard.Location = new Point(510, 203);
             quizCard.Margin = new Padding(4, 5, 4, 5);
@@ -321,6 +323,7 @@
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.None;
             label3.AutoSize = true;
             label3.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.FromArgb(0, 192, 0);
@@ -332,6 +335,7 @@
             // 
             // label4
             // 
+            label4.Anchor = AnchorStyles.None;
             label4.AutoSize = true;
             label4.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.FromArgb(192, 0, 0);
@@ -343,6 +347,7 @@
             // 
             // lblCorrect
             // 
+            lblCorrect.Anchor = AnchorStyles.None;
             lblCorrect.AutoSize = true;
             lblCorrect.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblCorrect.ForeColor = Color.Black;
@@ -354,6 +359,7 @@
             // 
             // lblMiss
             // 
+            lblMiss.Anchor = AnchorStyles.None;
             lblMiss.AutoSize = true;
             lblMiss.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblMiss.ForeColor = Color.Black;
@@ -365,6 +371,7 @@
             // 
             // txtAnswer
             // 
+            txtAnswer.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtAnswer.Location = new Point(675, 708);
             txtAnswer.Name = "txtAnswer";
             txtAnswer.Size = new Size(563, 31);
@@ -378,6 +385,7 @@
             // 
             // Time
             // 
+            Time.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             Time.AutoSize = true;
             Time.Font = new Font("Tahoma", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Time.Location = new Point(926, 152);

@@ -267,7 +267,7 @@ namespace Design
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             // e2 ay sa notification button
-            fmrNotification f4 = new fmrNotification();
+            frmNotification f4 = new frmNotification();
             f4.Show();
             this.Hide();
         }

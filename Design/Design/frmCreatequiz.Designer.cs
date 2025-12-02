@@ -280,6 +280,7 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Malgun Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -335,6 +336,7 @@
             // 
             // pboxStartquiz
             // 
+            pboxStartquiz.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pboxStartquiz.BackColor = Color.Transparent;
             pboxStartquiz.BackgroundImage = (Image)resources.GetObject("pboxStartquiz.BackgroundImage");
             pboxStartquiz.BackgroundImageLayout = ImageLayout.Zoom;
@@ -360,6 +362,7 @@
             // 
             // pictureBox17
             // 
+            pictureBox17.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             pictureBox17.BackgroundImage = (Image)resources.GetObject("pictureBox17.BackgroundImage");
             pictureBox17.Location = new Point(384, 256);
             pictureBox17.Margin = new Padding(4, 5, 4, 5);
@@ -371,6 +374,7 @@
             // 
             // rtxtInput
             // 
+            rtxtInput.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             rtxtInput.BackColor = Color.FromArgb(192, 255, 255);
             rtxtInput.BorderStyle = BorderStyle.None;
             rtxtInput.ForeColor = Color.DimGray;
@@ -384,6 +388,7 @@
             // 
             // pboxSaveCard
             // 
+            pboxSaveCard.Anchor = AnchorStyles.Right;
             pboxSaveCard.BackColor = Color.Transparent;
             pboxSaveCard.BackgroundImage = (Image)resources.GetObject("pboxSaveCard.BackgroundImage");
             pboxSaveCard.BackgroundImageLayout = ImageLayout.Zoom;
@@ -401,6 +406,7 @@
             // 
             // lblCountCards
             // 
+            lblCountCards.Anchor = AnchorStyles.Right;
             lblCountCards.AutoSize = true;
             lblCountCards.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblCountCards.ForeColor = Color.Firebrick;
@@ -412,6 +418,7 @@
             // 
             // txtAnswer
             // 
+            txtAnswer.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtAnswer.BackColor = Color.FromArgb(192, 255, 255);
             txtAnswer.Location = new Point(564, 722);
             txtAnswer.Name = "txtAnswer";
