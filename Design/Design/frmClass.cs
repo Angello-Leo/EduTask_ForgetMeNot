@@ -753,7 +753,7 @@ namespace Design
                             reader.GetBoolean("is_done"),
                             reader.GetInt32("user_id"),          // Creator ID
                             reader.GetString("username"),        // Creator username
-                            reader.GetString("role"),            // Creator role
+                            reader.GetString("role"),
                             GetInfo.Role                         // Logged-in user role
                         );
 
