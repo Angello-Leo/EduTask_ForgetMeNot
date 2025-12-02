@@ -41,6 +41,7 @@ namespace Design
             timerCheckStudents.Interval = 1000;
             timerCheckStudents.Tick += timerCheckStudents_Tick;
             timerCheckStudents.Start();
+
         }
         private bool panelIsExpanded = false;
         private int panelMaxWidth = 200;
@@ -55,6 +56,7 @@ namespace Design
         {
             LoadPositions();
             LoadClassInfo();
+            SetupAnnouncementPosting();
             dgvCandidates.SelectionChanged += dgvCandidates_SelectionChanged;
 
             timerCheckStudents.Tick += timerCheckStudents_Tick;
@@ -63,7 +65,10 @@ namespace Design
 
             timerCheckVotes.Tick += timerCheckVotes_Tick;
             timerCheckVotes.Interval = 1000;
+
+            SetPlaceholderText();
         }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (panelIsExpanded == false)
@@ -184,7 +189,7 @@ namespace Design
             panelResults.Visible = false;
             panelStatus.Visible = false;
 
-            LoadCandidates(); 
+            LoadCandidates();
         }
 
 
@@ -267,7 +272,7 @@ namespace Design
                 currentPositionIndex++;
 
                 // Check if there are more positions to vote for
-                if (currentPositionIndex >= positions.Count)    
+                if (currentPositionIndex >= positions.Count)
                 {
                     // If all positions are voted for, finish the election
                     FinishElection();
@@ -365,11 +370,11 @@ namespace Design
             {
                 con.Open();
                 string q = @"SELECT candidate_id, COUNT(*) AS votes
-                     FROM election_votes
-                     WHERE class_id=@cid AND position_id=@pos
-                     GROUP BY candidate_id
-                     ORDER BY votes DESC
-                     LIMIT 1";
+                 FROM election_votes
+                 WHERE class_id=@cid AND position_id=@pos
+                 GROUP BY candidate_id
+                 ORDER BY votes DESC
+                 LIMIT 1";
                 using (MySqlCommand cmd = new MySqlCommand(q, con))
                 {
                     cmd.Parameters.AddWithValue("@cid", _classId);
@@ -384,24 +389,44 @@ namespace Design
                         }
                     }
                 }
-
+                int electionId = GetOrCreateElectionId();
                 // Save winner in elected_positions
                 if (winnerId != 0)
                 {
-                    string insertQuery = @"INSERT INTO elected_positions (election_id, position, user_id)
-                           VALUES (@eid, @pos, @uid)";
-                    using (MySqlCommand cmd2 = new MySqlCommand(insertQuery, con))
+                    if (winnerId == GetInfo.UserID)
                     {
-                        int electionId = GetOrCreateElectionId();
-                        cmd2.Parameters.AddWithValue("@eid", electionId);
+                        GetInfo.Role = positionName;
+                        SetupAnnouncementPosting();
+                    }
+                    string checkQuery = "SELECT COUNT(*) FROM elected_positions WHERE election_id=@eid AND position=@pos";
+                    using (MySqlCommand cmdCheck = new MySqlCommand(checkQuery, con))
+                    {
+                        cmdCheck.Parameters.AddWithValue("@eid", electionId);
+                        cmdCheck.Parameters.AddWithValue("@pos", positions.First(p => p.id == positionId).name.ToLower());
 
-                        cmd2.Parameters.AddWithValue("@pos", positions.First(p => p.id == positionId).name.ToLower());
-                        cmd2.Parameters.AddWithValue("@uid", winnerId);
-                        cmd2.ExecuteNonQuery();
+                        int existingCount = Convert.ToInt32(cmdCheck.ExecuteScalar());
+                        if (existingCount == 0)
+                        {
+                            // Insert the elected position if it doesn't already exist
+                            string insertQuery = @"INSERT INTO elected_positions (election_id, position, user_id)
+                                       VALUES (@eid, @pos, @uid)";
+                            using (MySqlCommand cmd2 = new MySqlCommand(insertQuery, con))
+                            {
+                                cmd2.Parameters.AddWithValue("@eid", electionId);
+                                cmd2.Parameters.AddWithValue("@pos", positions.First(p => p.id == positionId).name.ToLower());
+                                cmd2.Parameters.AddWithValue("@uid", winnerId);
+                                cmd2.ExecuteNonQuery();
+                            }
+                        }
                     }
                 }
 
                 lblWinner.Text = winnerId == 0 ? "No votes submitted." : $"{GetStudentName(winnerId)} ({voteCount} votes)";
+                if (winnerId == GetInfo.UserID)
+                {
+                    GetInfo.Role = positionName;
+                    SetupAnnouncementPosting(); // show announcement controls if VP/President
+                }
             }
         }
         private void ShowAllElectedPositions()
@@ -409,31 +434,37 @@ namespace Design
             using (MySqlConnection con = new MySqlConnection(conString))
             {
                 con.Open();
-                string q = @"SELECT p.position_name, u.username, ep.votes
+
+                int electionId = GetOrCreateElectionId();
+
+                string q = @"SELECT ep.position, u.username
                      FROM elected_positions ep
-                     JOIN users u ON ep.student_id = u.user_id
-                     JOIN positions p ON ep.position_id = p.position_id
-                     WHERE ep.class_id=@cid
-                     ORDER BY p.position_id";
+                     JOIN users u ON ep.user_id = u.user_id
+                     WHERE ep.election_id = @eid
+                     ORDER BY FIELD(ep.position, 'president','vice president','secretary','treasurer')";
 
                 using (MySqlCommand cmd = new MySqlCommand(q, con))
                 {
-                    cmd.Parameters.AddWithValue("@cid", _classId);
+                    cmd.Parameters.AddWithValue("@eid", electionId);
+
                     using (var rd = cmd.ExecuteReader())
                     {
                         StringBuilder sb = new StringBuilder();
+
                         while (rd.Read())
                         {
-                            sb.AppendLine($"{rd.GetString("position_name")}: {rd.GetString("username")} ({rd.GetInt32("votes")} votes)");
+                            string pos = rd.GetString("position");
+                            string name = rd.GetString("username");
+
+                            sb.AppendLine($"{char.ToUpper(pos[0]) + pos.Substring(1)}: {name}");
                         }
+
+                        // IMPORTANT: write to lblResults, NOT lblWinner in status panel
                         lblWinner.Text = sb.ToString();
                     }
                 }
             }
         }
-
-
-
 
         private int CountStudents()
         {
@@ -485,9 +516,6 @@ namespace Design
         }
 
 
-
-
-
         private string GetStudentName(int id)
         {
             using (MySqlConnection con = new MySqlConnection(conString))
@@ -519,25 +547,13 @@ namespace Design
 
         private void FinishElection()
         {
-            panelResults.Visible = false;
-            panelStatus.Visible = true;
+            panelResults.Visible = true;
+            panelStatus.Visible = false;
 
-            lblStatusMessage.Text = "Election completed! Clearing results…";
-
-            using (MySqlConnection con = new MySqlConnection(conString))
-            {
-                con.Open();
-                string query = "DELETE FROM election_votes WHERE class_id=@cid";
-                using (MySqlCommand cmd = new MySqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@cid", _classId);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-
+            lblStatusMessage.Text = "Election completed! ";
             ShowAllElectedPositions();
+            timerClearResults.Start();
 
-            MessageBox.Show("Election finished and cleared!");
         }
         private int GetOrCreateElectionId()
         {
@@ -545,7 +561,7 @@ namespace Design
             {
                 con.Open();
 
-                // 1. Check if an election exists for this class
+                // Check if an election already exists for this class
                 string checkQuery = "SELECT election_id FROM elections WHERE class_id=@cid LIMIT 1";
                 using (MySqlCommand cmd = new MySqlCommand(checkQuery, con))
                 {
@@ -553,11 +569,11 @@ namespace Design
                     object result = cmd.ExecuteScalar();
                     if (result != null)
                     {
-                        return Convert.ToInt32(result);
+                        return Convert.ToInt32(result); // Return existing election_id
                     }
                 }
 
-                // 2. If not, create a new election
+                // If no election exists, create a new election
                 string insertQuery = @"INSERT INTO elections (class_id, election_name, start_date)
                                VALUES (@cid, @ename, NOW())";
                 using (MySqlCommand cmd = new MySqlCommand(insertQuery, con))
@@ -567,7 +583,7 @@ namespace Design
                     cmd.ExecuteNonQuery();
                 }
 
-                // 3. Return the newly created election_id
+                // Return the newly created election_id
                 using (MySqlCommand cmd = new MySqlCommand("SELECT LAST_INSERT_ID()", con))
                 {
                     return Convert.ToInt32(cmd.ExecuteScalar());
@@ -575,7 +591,25 @@ namespace Design
             }
         }
 
+        private void timerClearResults_Tick(object sender, EventArgs e)
+        {
+            timerClearResults.Stop();
 
+            // Clear the display
+            lblWinner.Text = "";
+            lblResultsTitle.Text = "";
+
+            // Hide result panel, show status panel
+            panelResults.Visible = false;
+            panelStatus.Visible = true;
+
+            lblStatusMessage.Text = "Election completed!";
+
+            panelStatus.Visible = false;
+            flowLayoutPanelAnnouncements.Visible = true;
+            flowLayoutPanelAnnouncements.BringToFront();
+            LoadAnnouncements();
+        }
 
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -588,10 +622,18 @@ namespace Design
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
-            //add class
-            Form2 f2 = new Form2();
-            f2.Show();
-            this.Hide();
+            string role = (GetInfo.Role ?? "").Trim().ToLower();
+            bool canPost = role == "president" || role == "vice president";
+
+            if(canPost)
+            {
+                panelCreateAnnouncement.Visible = true;
+                panelCreateAnnouncement.BringToFront();
+            }
+            else
+            {
+                MessageBox.Show("You don't have permission to create an announcement.");
+            }
         }
 
         private void pictureBox8_Click(object sender, EventArgs e)
@@ -663,6 +705,167 @@ namespace Design
             frmCallendar c = new frmCallendar();
             c.Show();
             this.Hide();
+        }
+
+        private void LoadAnnouncements()
+        {
+            flowLayoutPanelAnnouncements.Controls.Clear();
+
+            using (MySqlConnection con = new MySqlConnection(conString))
+            {
+                con.Open();
+                string query = @"
+            SELECT 
+                a.announcement_id,
+                a.title,
+                a.content,
+                a.created_at,
+                a.is_done,
+                a.user_id,  -- Added this line to select the user_id from the announcements table
+                u.username,
+                COALESCE(
+                    (SELECT position 
+                     FROM elected_positions 
+                     WHERE user_id = u.user_id 
+                     ORDER BY id DESC 
+                     LIMIT 1),
+                    u.role
+                ) AS role
+            FROM announcements a
+            JOIN users u ON a.user_id = u.user_id
+            WHERE a.class_id = @cid
+            ORDER BY a.created_at DESC;";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@cid", _classId);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        var announcementCard = new ctrlAnnouncement();
+                        string userRole = reader.GetString("role");  
+                        announcementCard.LoadAnnouncementData(
+                            reader.GetInt32("announcement_id"),
+                            reader.GetString("title"),
+                            reader.GetString("content"),
+                            reader.GetDateTime("created_at"),
+                            reader.GetBoolean("is_done"),
+                            reader.GetInt32("user_id"),          // Creator ID
+                            reader.GetString("username"),        // Creator username
+                            reader.GetString("role"),            // Creator role
+                            GetInfo.Role                         // Logged-in user role
+                        );
+
+                        // Add the card to the FlowLayoutPanel
+                        flowLayoutPanelAnnouncements.Controls.Add(announcementCard);
+                    }
+                }
+            }
+        }
+
+        private void SetupAnnouncementPosting()
+        {
+            string role = (GetInfo.Role ?? "").Trim().ToLower();
+
+            bool canPost = role == "president" || role == "vice president";
+            txtAnnouncementTitle.Visible = canPost;
+            txtAnnouncementContent.Visible = canPost;
+            btnNewAnnouncement.Visible = canPost;
+
+            if (canPost)
+            {
+                txtAnnouncementTitle.Enabled = true;
+                txtAnnouncementContent.Enabled = true;
+                btnNewAnnouncement.Enabled = true;
+            }
+            Console.WriteLine($"User Role={GetInfo.Role}, txtAnnouncementTitle.Visible={txtAnnouncementTitle.Visible}");
+
+        }
+
+
+        private void Card_MarkAsDoneClicked(object sender, EventArgs e)
+        {
+            if (sender is ctrlAnnouncement card)
+            {
+                using (MySqlConnection con = new MySqlConnection(conString))
+                {
+                    con.Open();
+                    string query = "UPDATE announcements SET is_done=1 WHERE announcement_id=@aid";
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@aid", card.AnnouncementId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Announcement marked as done.");
+                LoadAnnouncements(); // Refresh list
+            }
+        }
+
+        private void btnNewAnnouncement_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtAnnouncementTitle.Text) || string.IsNullOrWhiteSpace(txtAnnouncementContent.Text))
+            {
+                MessageBox.Show("Title and content cannot be empty.");
+                return;
+            }
+
+            using (MySqlConnection con = new MySqlConnection(conString))
+            {
+                con.Open();
+                string query = @"INSERT INTO announcements (class_id, user_id, title, content, created_at)
+                         VALUES (@cid, @uid, @title, @content, NOW())";
+                using (MySqlCommand cmd = new MySqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@cid", _classId);
+                    cmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
+                    cmd.Parameters.AddWithValue("@title", txtAnnouncementTitle.Text);
+                    cmd.Parameters.AddWithValue("@content", txtAnnouncementContent.Text);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            // Clear fields
+            txtAnnouncementTitle.Clear();
+            txtAnnouncementContent.Clear();
+
+            // Refresh announcements
+            LoadAnnouncements();
+            panelCreateAnnouncement.Visible = false;
+            flowLayoutPanelAnnouncements.Visible = true;
+            flowLayoutPanelAnnouncements.BringToFront();
+        }
+        private void SetPlaceholderText()
+        {
+            if (string.IsNullOrWhiteSpace(txtAnnouncementContent.Text))
+            {
+                txtAnnouncementContent.Text = "Enter your announcement...";
+                txtAnnouncementContent.ForeColor = Color.Gray;
+            }
+        }
+        private void richTextBoxAnnouncement_Enter(object sender, EventArgs e)
+        {
+            if (txtAnnouncementContent.Text == "Enter your announcement..." && txtAnnouncementContent.ForeColor == Color.Gray)
+            {
+                txtAnnouncementContent.Text = "";
+                txtAnnouncementContent.ForeColor = Color.Black;
+            }
+        }
+
+        // When the user leaves the RichTextBox (Focus Lost)
+        private void richTextBoxAnnouncement_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtAnnouncementContent.Text))
+            {
+                SetPlaceholderText();
+            }
+        }
+
+        private void txtAnnouncementTitle_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

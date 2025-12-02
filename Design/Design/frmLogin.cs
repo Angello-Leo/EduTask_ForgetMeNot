@@ -81,6 +81,24 @@ namespace Design
                                 GetInfo.Username = username;
                                 GetInfo.Role = role;
 
+                                reader.Close();
+
+                                string electedQuery = @"SELECT position 
+                                        FROM elected_positions 
+                                        WHERE user_id = @uid 
+                                        ORDER BY id DESC 
+                                        LIMIT 1";
+
+                                MySqlCommand electedCmd = new MySqlCommand(electedQuery, conn);
+                                electedCmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
+
+                                var electedPosition = electedCmd.ExecuteScalar();
+
+                                if (electedPosition != null)
+                                {
+                                    GetInfo.Role = electedPosition.ToString();  // "vice president", "president", etc.
+                                }
+                                System.Diagnostics.Debug.WriteLine("FINAL ROLE AFTER LOGIN = " + GetInfo.Role);
                                 frmDashBoard dash = new frmDashBoard();
                                 this.Hide();
                                 dash.Show();

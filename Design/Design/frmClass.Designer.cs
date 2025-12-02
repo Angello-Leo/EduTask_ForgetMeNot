@@ -70,6 +70,13 @@
             lblResultsTitle = new Label();
             timerCheckStudents = new System.Windows.Forms.Timer(components);
             timerCheckVotes = new System.Windows.Forms.Timer(components);
+            timerClearResults = new System.Windows.Forms.Timer(components);
+            flowLayoutPanelAnnouncements = new FlowLayoutPanel();
+            panelCreateAnnouncement = new Panel();
+            btnNewAnnouncement = new Button();
+            txtAnnouncementTitle = new TextBox();
+            txtAnnouncementContent = new RichTextBox();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox16).BeginInit();
             panel1.SuspendLayout();
@@ -93,6 +100,7 @@
             panelVoting.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCandidates).BeginInit();
             panelResults.SuspendLayout();
+            panelCreateAnnouncement.SuspendLayout();
             SuspendLayout();
             // 
             // pictureBox1
@@ -521,15 +529,18 @@
             // 
             // btnNextPosition
             // 
+            btnNextPosition.Anchor = AnchorStyles.None;
             btnNextPosition.Location = new Point(338, 212);
             btnNextPosition.Name = "btnNextPosition";
             btnNextPosition.Size = new Size(107, 28);
             btnNextPosition.TabIndex = 2;
             btnNextPosition.Text = "Next Position";
             btnNextPosition.UseVisualStyleBackColor = true;
+            btnNextPosition.Visible = false;
             // 
             // lblWinner
             // 
+            lblWinner.Anchor = AnchorStyles.None;
             lblWinner.AutoSize = true;
             lblWinner.Location = new Point(364, 189);
             lblWinner.Name = "lblWinner";
@@ -539,12 +550,14 @@
             // 
             // lblResultsTitle
             // 
+            lblResultsTitle.Anchor = AnchorStyles.None;
             lblResultsTitle.AutoSize = true;
             lblResultsTitle.Location = new Point(364, 153);
             lblResultsTitle.Name = "lblResultsTitle";
             lblResultsTitle.Size = new Size(50, 20);
             lblResultsTitle.TabIndex = 0;
             lblResultsTitle.Text = "label2";
+            lblResultsTitle.Visible = false;
             // 
             // timerCheckStudents
             // 
@@ -556,6 +569,75 @@
             timerCheckVotes.Enabled = true;
             timerCheckVotes.Interval = 3000;
             // 
+            // timerClearResults
+            // 
+            timerClearResults.Enabled = true;
+            timerClearResults.Interval = 3000;
+            timerClearResults.Tick += timerClearResults_Tick;
+            // 
+            // flowLayoutPanelAnnouncements
+            // 
+            flowLayoutPanelAnnouncements.Location = new Point(357, 386);
+            flowLayoutPanelAnnouncements.Name = "flowLayoutPanelAnnouncements";
+            flowLayoutPanelAnnouncements.Size = new Size(778, 423);
+            flowLayoutPanelAnnouncements.TabIndex = 3;
+            flowLayoutPanelAnnouncements.Visible = false;
+            // 
+            // panelCreateAnnouncement
+            // 
+            panelCreateAnnouncement.Anchor = AnchorStyles.None;
+            panelCreateAnnouncement.BackColor = Color.DarkGreen;
+            panelCreateAnnouncement.Controls.Add(label2);
+            panelCreateAnnouncement.Controls.Add(btnNewAnnouncement);
+            panelCreateAnnouncement.Controls.Add(txtAnnouncementTitle);
+            panelCreateAnnouncement.Controls.Add(txtAnnouncementContent);
+            panelCreateAnnouncement.Location = new Point(368, 397);
+            panelCreateAnnouncement.Name = "panelCreateAnnouncement";
+            panelCreateAnnouncement.Size = new Size(778, 425);
+            panelCreateAnnouncement.TabIndex = 40;
+            panelCreateAnnouncement.Visible = false;
+            // 
+            // btnNewAnnouncement
+            // 
+            btnNewAnnouncement.Anchor = AnchorStyles.None;
+            btnNewAnnouncement.Location = new Point(177, 369);
+            btnNewAnnouncement.Name = "btnNewAnnouncement";
+            btnNewAnnouncement.Size = new Size(94, 29);
+            btnNewAnnouncement.TabIndex = 40;
+            btnNewAnnouncement.Text = "Post";
+            btnNewAnnouncement.UseVisualStyleBackColor = true;
+            btnNewAnnouncement.Click += btnNewAnnouncement_Click;
+            // 
+            // txtAnnouncementTitle
+            // 
+            txtAnnouncementTitle.Anchor = AnchorStyles.Left;
+            txtAnnouncementTitle.Location = new Point(177, 71);
+            txtAnnouncementTitle.Name = "txtAnnouncementTitle";
+            txtAnnouncementTitle.PlaceholderText = "Enter Title";
+            txtAnnouncementTitle.Size = new Size(386, 27);
+            txtAnnouncementTitle.TabIndex = 0;
+            txtAnnouncementTitle.TextChanged += txtAnnouncementTitle_TextChanged;
+            // 
+            // txtAnnouncementContent
+            // 
+            txtAnnouncementContent.Anchor = AnchorStyles.None;
+            txtAnnouncementContent.Location = new Point(177, 126);
+            txtAnnouncementContent.Name = "txtAnnouncementContent";
+            txtAnnouncementContent.Size = new Size(386, 227);
+            txtAnnouncementContent.TabIndex = 1;
+            txtAnnouncementContent.Text = "";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.ForeColor = SystemColors.ButtonFace;
+            label2.Location = new Point(269, 38);
+            label2.Name = "label2";
+            label2.Size = new Size(192, 20);
+            label2.TabIndex = 41;
+            label2.Text = "Create Announcement";
+            // 
             // Class
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -563,6 +645,8 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1326, 821);
+            Controls.Add(panelCreateAnnouncement);
+            Controls.Add(flowLayoutPanelAnnouncements);
             Controls.Add(panelResults);
             Controls.Add(panelVoting);
             Controls.Add(panelStatus);
@@ -612,6 +696,8 @@
             ((System.ComponentModel.ISupportInitialize)dgvCandidates).EndInit();
             panelResults.ResumeLayout(false);
             panelResults.PerformLayout();
+            panelCreateAnnouncement.ResumeLayout(false);
+            panelCreateAnnouncement.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -652,11 +738,18 @@
         private Button btnSubmitVote;
         private DataGridView dgvCandidates;
         private Panel panelResults;
-        private Button btnNextPosition;
         private Label lblWinner;
-        private Label lblResultsTitle;
         private System.Windows.Forms.Timer timerCheckStudents;
         private System.Windows.Forms.Timer timerCheckVotes;
         private Label lblInstruction;
+        private Button btnNextPosition;
+        private Label lblResultsTitle;
+        private System.Windows.Forms.Timer timerClearResults;
+        private FlowLayoutPanel flowLayoutPanelAnnouncements;
+        private Button btnNewAnnouncement;
+        private TextBox txtAnnouncementTitle;
+        private RichTextBox txtAnnouncementContent;
+        private Panel panelCreateAnnouncement;
+        private Label label2;
     }
 }
