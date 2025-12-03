@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -67,6 +68,9 @@ namespace Design
             timerCheckVotes.Interval = 1000;
 
             SetPlaceholderText();
+            dtpDueDateTime.Format = DateTimePickerFormat.Custom;
+            dtpDueDateTime.CustomFormat = "MMMM dd, yyyy HH:mm";
+            dtpDueDateTime.ShowUpDown = true;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -155,12 +159,6 @@ namespace Design
             }
         }
 
-
-
-        private bool AllStudentsJoined()
-        {
-            return CountStudents() >= 1;
-        }
 
         private void StartElection()
         {
@@ -625,7 +623,7 @@ namespace Design
             string role = (GetInfo.Role ?? "").Trim().ToLower();
             bool canPost = role == "president" || role == "vice president";
 
-            if(canPost)
+            if (canPost)
             {
                 panelCreateAnnouncement.Visible = true;
                 panelCreateAnnouncement.BringToFront();
@@ -681,15 +679,16 @@ namespace Design
 
         private void pictureBox10_Click(object sender, EventArgs e)
         {
-            frmPending p = new frmPending();
-            p.Show();
+            frmPending f7 = new frmPending();
+            Debug.WriteLine(GetInfo.ClassID);
+            f7.Show();
             this.Hide();
         }
 
         private void pictureBox6_Click(object sender, EventArgs e)
         {
-            frmPending p = new frmPending();
-            p.Show();
+            frmPending f7 = new frmPending();
+            f7.Show();
             this.Hide();
         }
 
@@ -715,47 +714,62 @@ namespace Design
             {
                 con.Open();
                 string query = @"
-            SELECT 
-                a.announcement_id,
-                a.title,
-                a.content,
-                a.created_at,
-                a.is_done,
-                a.user_id,  -- Added this line to select the user_id from the announcements table
-                u.username,
-                COALESCE(
-                    (SELECT position 
-                     FROM elected_positions 
-                     WHERE user_id = u.user_id 
-                     ORDER BY id DESC 
-                     LIMIT 1),
-                    u.role
-                ) AS role
-            FROM announcements a
-            JOIN users u ON a.user_id = u.user_id
-            WHERE a.class_id = @cid
-            ORDER BY a.created_at DESC;";
+                SELECT 
+                    a.announcement_id,
+                    a.title,
+                    a.content,
+                    a.created_at,
+                    a.due_datetime,
+                    COALESCE(s.status, 'not_done') AS user_status,
+                    u.username,
+                    COALESCE(
+                        (SELECT position 
+                         FROM elected_positions 
+                         WHERE user_id = u.user_id 
+                         ORDER BY id DESC 
+                         LIMIT 1),
+                        u.role
+                    ) AS creator_role
+                FROM announcements a
+                JOIN users u ON a.user_id = u.user_id
+                LEFT JOIN announcement_status s
+                    ON s.announcement_id = a.announcement_id
+                    AND s.user_id = @uid
+                WHERE a.class_id = @cid
+                ORDER BY a.created_at DESC;
+                ";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@cid", _classId);
+                    cmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
                     MySqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
                     {
+                        bool isDone = reader["user_status"].ToString() == "done";
+
+                        // Skip announcements already done by this user
+                        if (isDone)
+                            continue;
+
                         var announcementCard = new ctrlAnnouncement();
-                        string userRole = reader.GetString("role");  
-                        announcementCard.LoadAnnouncementData(
-                            reader.GetInt32("announcement_id"),
-                            reader.GetString("title"),
-                            reader.GetString("content"),
-                            reader.GetDateTime("created_at"),
-                            reader.GetBoolean("is_done"),
-                            reader.GetInt32("user_id"),          // Creator ID
-                            reader.GetString("username"),        // Creator username
-                            reader.GetString("role"),
-                            GetInfo.Role                         // Logged-in user role
-                        );
+
+                        DateTime? due = reader["due_datetime"] != DBNull.Value
+                ? (DateTime?)reader.GetDateTime("due_datetime")
+                : null;
+
+                       announcementCard.LoadAnnouncementData(
+                        reader.GetInt32("announcement_id"),
+                        _classId,
+                        reader.GetString("title"),
+                        reader.GetString("content"),
+                        reader.GetDateTime("created_at"),
+                        isDone,
+                        reader.GetString("username"),
+                        reader.GetString("creator_role"),
+                        reader["due_datetime"] != DBNull.Value ? (DateTime?)reader.GetDateTime("due_datetime") : null
+                    );
 
                         // Add the card to the FlowLayoutPanel
                         flowLayoutPanelAnnouncements.Controls.Add(announcementCard);
@@ -766,7 +780,7 @@ namespace Design
 
         private void SetupAnnouncementPosting()
         {
-            string role = (GetInfo.Role ?? "").Trim().ToLower();
+                    string role = (GetInfo.Role ?? "").Trim().ToLower();
 
             bool canPost = role == "president" || role == "vice president";
             txtAnnouncementTitle.Visible = canPost;
@@ -812,31 +826,61 @@ namespace Design
                 return;
             }
 
+            DateTime? dueDateTime = null;
+            if (chkSetDueDate.Checked)
+                dueDateTime = dtpDueDateTime.Value;
+
             using (MySqlConnection con = new MySqlConnection(conString))
             {
                 con.Open();
-                string query = @"INSERT INTO announcements (class_id, user_id, title, content, created_at)
-                         VALUES (@cid, @uid, @title, @content, NOW())";
+
+                // 1️⃣ Insert new announcement
+                string query = @"INSERT INTO announcements (class_id, user_id, title, content, created_at, due_datetime)
+                         VALUES (@cid, @uid, @title, @content, NOW(), @due)";
+
+                long announcementId;
                 using (MySqlCommand cmd = new MySqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@cid", _classId);
                     cmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
                     cmd.Parameters.AddWithValue("@title", txtAnnouncementTitle.Text);
                     cmd.Parameters.AddWithValue("@content", txtAnnouncementContent.Text);
+                    cmd.Parameters.AddWithValue("@due", dueDateTime.HasValue ? (object)dueDateTime.Value : DBNull.Value);
+
                     cmd.ExecuteNonQuery();
+                    announcementId = cmd.LastInsertedId;
                 }
+
+                // 2️⃣ Insert "Pending" status for all students
+                string statusQuery = @"
+INSERT INTO announcement_status (announcement_id, user_id, status)
+SELECT @aid, uc.user_id, 'pending'
+FROM user_classes uc
+WHERE uc.class_id = @cid;
+";
+
+                using (MySqlCommand statusCmd = new MySqlCommand(statusQuery, con))
+                {
+                    statusCmd.Parameters.AddWithValue("@aid", announcementId);
+                    statusCmd.Parameters.AddWithValue("@cid", _classId);
+
+                    statusCmd.ExecuteNonQuery();
+                }
+
+
+                // Clear fields
+                txtAnnouncementTitle.Clear();
+                txtAnnouncementContent.Clear();
+                chkSetDueDate.Checked = false;
+
+                // Refresh announcements
+                LoadAnnouncements();
+                panelCreateAnnouncement.Visible = false;
+                flowLayoutPanelAnnouncements.Visible = true;
+                flowLayoutPanelAnnouncements.BringToFront();
             }
-
-            // Clear fields
-            txtAnnouncementTitle.Clear();
-            txtAnnouncementContent.Clear();
-
-            // Refresh announcements
-            LoadAnnouncements();
-            panelCreateAnnouncement.Visible = false;
-            flowLayoutPanelAnnouncements.Visible = true;
-            flowLayoutPanelAnnouncements.BringToFront();
         }
+
         private void SetPlaceholderText()
         {
             if (string.IsNullOrWhiteSpace(txtAnnouncementContent.Text))
@@ -866,6 +910,20 @@ namespace Design
         private void txtAnnouncementTitle_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void panelCreateAnnouncement_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void chkSetDueDate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkSetDueDate.Checked == true)
+            {
+                dtpDueDateTime.Visible = true;
+            }
+            else { dtpDueDateTime.Visible = false; }
         }
     }
 }

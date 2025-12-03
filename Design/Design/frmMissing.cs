@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,11 +13,16 @@ namespace Design
 {
     public partial class frmMissing : Form
     {
-        public frmMissing()
+        private string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
+        private int _classId;
+
+        public frmMissing(int classId)
         {
             InitializeComponent();
+            _classId = classId;
             panel1.Width = 60;
             panel1.Visible = true;
+
         }
         private bool panelIsExpanded = false;
         private int panelMaxWidth = 170;
@@ -113,8 +119,8 @@ namespace Design
         private void pictureBox18_Click(object sender, EventArgs e)
         {
             //accomplished
-            frmAccomplished f9 = new frmAccomplished();
-            f9.Show();
+            frmAccomplished f7 = new frmAccomplished();
+            f7.Show();
             this.Hide();
         }
 
@@ -134,5 +140,70 @@ namespace Design
             f2.Show();
             this.Hide();
         }
+
+        private void pictureBox17_Click(object sender, EventArgs e)
+        {
+            LoadMissingAssignments();
+        }
+
+        private void frmMissing_Load(object sender, EventArgs e)
+        {
+
+        }
+        private void LoadMissingAssignments()
+        {
+            flowLayoutPanelMissing.Controls.Clear();
+            flowLayoutPanelMissing.AutoScroll = true;
+
+            using (MySqlConnection con = new MySqlConnection(conString))
+            {
+                con.Open();
+
+                string query = @"
+        SELECT a.assignment_id, a.title, a.description, a.due_date
+        FROM assignments a
+        LEFT JOIN assignment_status s 
+            ON s.assignment_id = a.assignment_id 
+            AND s.student_id = @uid
+        WHERE a.class_id = @cid
+          AND a.due_date < NOW()                -- past due
+          AND (s.status IS NULL OR s.status = 'pending') -- not completed
+        ORDER BY a.due_date ASC;";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
+                    cmd.Parameters.AddWithValue("@cid", _classId);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var assignmentCard = new ctrlAssignment();
+
+                            DateTime? dueDate = reader["due_date"] != DBNull.Value
+                                ? (DateTime?)reader.GetDateTime("due_date")
+                                : null;
+
+                            assignmentCard.LoadAssignmentData(
+                                reader.GetInt32("assignment_id"),
+                                reader.GetString("title"),
+                                reader["description"]?.ToString(),
+                                dueDate
+                            );
+
+                            // Highlight missing assignments
+                            assignmentCard.BackColor = Color.LightCoral;
+
+                            flowLayoutPanelMissing.Controls.Add(assignmentCard);
+                        }
+                    }
+                }
+            }
+
+            flowLayoutPanelMissing.Visible = true;
+            flowLayoutPanelMissing.BringToFront();
+        }
+
     }
 }

@@ -56,6 +56,7 @@
             pictureBox20 = new PictureBox();
             pictureBox21 = new PictureBox();
             timer1 = new System.Windows.Forms.Timer(components);
+            flowLayoutPanelPendingAssignments = new FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             panel1.SuspendLayout();
@@ -330,6 +331,7 @@
             pictureBox3.Size = new Size(125, 89);
             pictureBox3.TabIndex = 34;
             pictureBox3.TabStop = false;
+            pictureBox3.Visible = false;
             pictureBox3.Click += pictureBox3_Click;
             // 
             // pictureBox16
@@ -405,6 +407,15 @@
             // 
             timer1.Tick += timer1_Tick;
             // 
+            // flowLayoutPanelPendingAssignments
+            // 
+            flowLayoutPanelPendingAssignments.Anchor = AnchorStyles.None;
+            flowLayoutPanelPendingAssignments.AutoScroll = true;
+            flowLayoutPanelPendingAssignments.Location = new Point(313, 282);
+            flowLayoutPanelPendingAssignments.Name = "flowLayoutPanelPendingAssignments";
+            flowLayoutPanelPendingAssignments.Size = new Size(759, 483);
+            flowLayoutPanelPendingAssignments.TabIndex = 41;
+            // 
             // frmPending
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -412,6 +423,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1326, 821);
+            Controls.Add(flowLayoutPanelPendingAssignments);
             Controls.Add(pictureBox21);
             Controls.Add(pictureBox20);
             Controls.Add(pictureBox19);
@@ -429,7 +441,7 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "frmPending";
             Text = "Form7";
-            Load += this.frmPending_Load;
+            Load += frmPending_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             panel1.ResumeLayout(false);
@@ -484,5 +496,6 @@
         private PictureBox pictureBox20;
         private PictureBox pictureBox21;
         private System.Windows.Forms.Timer timer1;
+        private FlowLayoutPanel flowLayoutPanelPendingAssignments;
     }
 }

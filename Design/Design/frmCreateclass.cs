@@ -314,8 +314,8 @@ namespace Design
 
         private void pictureBox10_Click_1(object sender, EventArgs e)
         {
-            frmPending p = new frmPending();
-            p.Show();
+            frmPending f7 = new frmPending();
+            f7.Show();
             this.Hide();
         }
 
@@ -335,8 +335,8 @@ namespace Design
 
         private void pictureBox6_Click(object sender, EventArgs e)
         {
-            frmPending p = new frmPending();
-            p.Show();
+            frmPending f7 = new frmPending();
+            f7.Show();
             this.Hide();
         }
 

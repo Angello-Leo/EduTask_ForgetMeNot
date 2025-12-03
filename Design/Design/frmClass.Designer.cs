@@ -73,10 +73,14 @@
             timerClearResults = new System.Windows.Forms.Timer(components);
             flowLayoutPanelAnnouncements = new FlowLayoutPanel();
             panelCreateAnnouncement = new Panel();
+            chkSetDueDate = new CheckBox();
+            lblSetDueDate = new Label();
+            dtpDueDateTime = new DateTimePicker();
+            label2 = new Label();
             btnNewAnnouncement = new Button();
             txtAnnouncementTitle = new TextBox();
             txtAnnouncementContent = new RichTextBox();
-            label2 = new Label();
+            mySqlConnection1 = new MySql.Data.MySqlClient.MySqlConnection();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox16).BeginInit();
             panel1.SuspendLayout();
@@ -587,6 +591,9 @@
             // 
             panelCreateAnnouncement.Anchor = AnchorStyles.None;
             panelCreateAnnouncement.BackColor = Color.DarkGreen;
+            panelCreateAnnouncement.Controls.Add(chkSetDueDate);
+            panelCreateAnnouncement.Controls.Add(lblSetDueDate);
+            panelCreateAnnouncement.Controls.Add(dtpDueDateTime);
             panelCreateAnnouncement.Controls.Add(label2);
             panelCreateAnnouncement.Controls.Add(btnNewAnnouncement);
             panelCreateAnnouncement.Controls.Add(txtAnnouncementTitle);
@@ -596,11 +603,52 @@
             panelCreateAnnouncement.Size = new Size(778, 425);
             panelCreateAnnouncement.TabIndex = 40;
             panelCreateAnnouncement.Visible = false;
+            panelCreateAnnouncement.Paint += panelCreateAnnouncement_Paint;
+            // 
+            // chkSetDueDate
+            // 
+            chkSetDueDate.AutoSize = true;
+            chkSetDueDate.Location = new Point(257, 379);
+            chkSetDueDate.Name = "chkSetDueDate";
+            chkSetDueDate.Size = new Size(18, 17);
+            chkSetDueDate.TabIndex = 44;
+            chkSetDueDate.UseVisualStyleBackColor = true;
+            chkSetDueDate.CheckedChanged += chkSetDueDate_CheckedChanged;
+            // 
+            // lblSetDueDate
+            // 
+            lblSetDueDate.AutoSize = true;
+            lblSetDueDate.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSetDueDate.ForeColor = SystemColors.ButtonFace;
+            lblSetDueDate.Location = new Point(130, 378);
+            lblSetDueDate.Name = "lblSetDueDate";
+            lblSetDueDate.Size = new Size(121, 17);
+            lblSetDueDate.TabIndex = 43;
+            lblSetDueDate.Text = "Set Due Date ?:";
+            // 
+            // dtpDueDateTime
+            // 
+            dtpDueDateTime.Location = new Point(284, 374);
+            dtpDueDateTime.Name = "dtpDueDateTime";
+            dtpDueDateTime.Size = new Size(250, 27);
+            dtpDueDateTime.TabIndex = 42;
+            dtpDueDateTime.Visible = false;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.ForeColor = SystemColors.ButtonFace;
+            label2.Location = new Point(284, 38);
+            label2.Name = "label2";
+            label2.Size = new Size(192, 20);
+            label2.TabIndex = 41;
+            label2.Text = "Create Announcement";
             // 
             // btnNewAnnouncement
             // 
             btnNewAnnouncement.Anchor = AnchorStyles.None;
-            btnNewAnnouncement.Location = new Point(177, 369);
+            btnNewAnnouncement.Location = new Point(548, 372);
             btnNewAnnouncement.Name = "btnNewAnnouncement";
             btnNewAnnouncement.Size = new Size(94, 29);
             btnNewAnnouncement.TabIndex = 40;
@@ -611,32 +659,21 @@
             // txtAnnouncementTitle
             // 
             txtAnnouncementTitle.Anchor = AnchorStyles.Left;
-            txtAnnouncementTitle.Location = new Point(177, 71);
+            txtAnnouncementTitle.Location = new Point(130, 79);
             txtAnnouncementTitle.Name = "txtAnnouncementTitle";
             txtAnnouncementTitle.PlaceholderText = "Enter Title";
-            txtAnnouncementTitle.Size = new Size(386, 27);
+            txtAnnouncementTitle.Size = new Size(512, 27);
             txtAnnouncementTitle.TabIndex = 0;
             txtAnnouncementTitle.TextChanged += txtAnnouncementTitle_TextChanged;
             // 
             // txtAnnouncementContent
             // 
             txtAnnouncementContent.Anchor = AnchorStyles.None;
-            txtAnnouncementContent.Location = new Point(177, 126);
+            txtAnnouncementContent.Location = new Point(130, 134);
             txtAnnouncementContent.Name = "txtAnnouncementContent";
-            txtAnnouncementContent.Size = new Size(386, 227);
+            txtAnnouncementContent.Size = new Size(512, 227);
             txtAnnouncementContent.TabIndex = 1;
             txtAnnouncementContent.Text = "";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.ForeColor = SystemColors.ButtonFace;
-            label2.Location = new Point(269, 38);
-            label2.Name = "label2";
-            label2.Size = new Size(192, 20);
-            label2.TabIndex = 41;
-            label2.Text = "Create Announcement";
             // 
             // Class
             // 
@@ -751,5 +788,9 @@
         private RichTextBox txtAnnouncementContent;
         private Panel panelCreateAnnouncement;
         private Label label2;
+        private DateTimePicker dtpDueDateTime;
+        private Label lblSetDueDate;
+        private MySql.Data.MySqlClient.MySqlConnection mySqlConnection1;
+        private CheckBox chkSetDueDate;
     }
 }

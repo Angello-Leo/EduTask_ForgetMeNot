@@ -52,6 +52,8 @@
             pictureBox15 = new PictureBox();
             lblUsername = new Label();
             flowPanelClasses = new FlowLayoutPanel();
+            notifyIcon1 = new NotifyIcon(components);
+            timerCheckNotification = new System.Windows.Forms.Timer(components);
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox14).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox13).BeginInit();
@@ -86,10 +88,10 @@
             panel1.Controls.Add(pictureBox7);
             panel1.Controls.Add(pictureBox6);
             panel1.Controls.Add(pictureBox5);
-            panel1.Location = new Point(0, 74);
-            panel1.Margin = new Padding(4, 5, 4, 5);
+            panel1.Location = new Point(0, 59);
+            panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(242, 959);
+            panel1.Size = new Size(194, 767);
             panel1.TabIndex = 0;
             panel1.Paint += panel1_Paint;
             // 
@@ -98,10 +100,10 @@
             panel2.AutoScroll = true;
             panel2.BackColor = Color.Transparent;
             panel2.BackgroundImage = Properties.Resources.Untitled_design__2_;
-            panel2.Location = new Point(9, 590);
-            panel2.Margin = new Padding(4, 5, 4, 5);
+            panel2.Location = new Point(7, 472);
+            panel2.Margin = new Padding(3, 4, 3, 4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(219, 364);
+            panel2.Size = new Size(175, 291);
             panel2.TabIndex = 8;
             panel2.Visible = false;
             panel2.Paint += panel2_Paint;
@@ -111,10 +113,10 @@
             pictureBox14.BackColor = Color.Transparent;
             pictureBox14.BackgroundImage = (Image)resources.GetObject("pictureBox14.BackgroundImage");
             pictureBox14.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox14.Location = new Point(76, 511);
-            pictureBox14.Margin = new Padding(4, 5, 4, 5);
+            pictureBox14.Location = new Point(61, 409);
+            pictureBox14.Margin = new Padding(3, 4, 3, 4);
             pictureBox14.Name = "pictureBox14";
-            pictureBox14.Size = new Size(151, 69);
+            pictureBox14.Size = new Size(121, 55);
             pictureBox14.TabIndex = 20;
             pictureBox14.TabStop = false;
             pictureBox14.Click += pictureBox14_Click;
@@ -124,10 +126,10 @@
             pictureBox13.BackColor = Color.Transparent;
             pictureBox13.BackgroundImage = (Image)resources.GetObject("pictureBox13.BackgroundImage");
             pictureBox13.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox13.Location = new Point(9, 511);
-            pictureBox13.Margin = new Padding(4, 5, 4, 5);
+            pictureBox13.Location = new Point(7, 409);
+            pictureBox13.Margin = new Padding(3, 4, 3, 4);
             pictureBox13.Name = "pictureBox13";
-            pictureBox13.Size = new Size(59, 69);
+            pictureBox13.Size = new Size(47, 55);
             pictureBox13.TabIndex = 19;
             pictureBox13.TabStop = false;
             pictureBox13.Click += pictureBox13_Click;
@@ -137,10 +139,10 @@
             pictureBox12.BackColor = Color.Transparent;
             pictureBox12.BackgroundImage = (Image)resources.GetObject("pictureBox12.BackgroundImage");
             pictureBox12.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox12.Location = new Point(82, 409);
-            pictureBox12.Margin = new Padding(4, 5, 4, 5);
+            pictureBox12.Location = new Point(66, 327);
+            pictureBox12.Margin = new Padding(3, 4, 3, 4);
             pictureBox12.Name = "pictureBox12";
-            pictureBox12.Size = new Size(156, 86);
+            pictureBox12.Size = new Size(125, 69);
             pictureBox12.TabIndex = 18;
             pictureBox12.TabStop = false;
             pictureBox12.Click += pictureBox12_Click;
@@ -150,10 +152,10 @@
             pictureBox11.BackColor = Color.Transparent;
             pictureBox11.BackgroundImage = (Image)resources.GetObject("pictureBox11.BackgroundImage");
             pictureBox11.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox11.Location = new Point(74, 319);
-            pictureBox11.Margin = new Padding(4, 5, 4, 5);
+            pictureBox11.Location = new Point(59, 255);
+            pictureBox11.Margin = new Padding(3, 4, 3, 4);
             pictureBox11.Name = "pictureBox11";
-            pictureBox11.Size = new Size(159, 79);
+            pictureBox11.Size = new Size(127, 63);
             pictureBox11.TabIndex = 17;
             pictureBox11.TabStop = false;
             pictureBox11.Click += pictureBox11_Click;
@@ -164,10 +166,10 @@
             pictureBox10.BackColor = Color.Transparent;
             pictureBox10.BackgroundImage = (Image)resources.GetObject("pictureBox10.BackgroundImage");
             pictureBox10.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox10.Location = new Point(74, 226);
-            pictureBox10.Margin = new Padding(4, 5, 4, 5);
+            pictureBox10.Location = new Point(59, 181);
+            pictureBox10.Margin = new Padding(3, 4, 3, 4);
             pictureBox10.Name = "pictureBox10";
-            pictureBox10.Size = new Size(151, 69);
+            pictureBox10.Size = new Size(121, 55);
             pictureBox10.TabIndex = 16;
             pictureBox10.TabStop = false;
             pictureBox10.Click += pictureBox10_Click;
@@ -178,10 +180,10 @@
             pictureBox9.BackColor = Color.Transparent;
             pictureBox9.BackgroundImage = (Image)resources.GetObject("pictureBox9.BackgroundImage");
             pictureBox9.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox9.Location = new Point(76, 130);
-            pictureBox9.Margin = new Padding(4, 5, 4, 5);
+            pictureBox9.Location = new Point(61, 104);
+            pictureBox9.Margin = new Padding(3, 4, 3, 4);
             pictureBox9.Name = "pictureBox9";
-            pictureBox9.Size = new Size(151, 69);
+            pictureBox9.Size = new Size(121, 55);
             pictureBox9.TabIndex = 15;
             pictureBox9.TabStop = false;
             pictureBox9.Click += pictureBox9_Click;
@@ -191,10 +193,10 @@
             pictureBox8.BackColor = Color.Transparent;
             pictureBox8.BackgroundImage = (Image)resources.GetObject("pictureBox8.BackgroundImage");
             pictureBox8.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox8.Location = new Point(9, 415);
-            pictureBox8.Margin = new Padding(4, 5, 4, 5);
+            pictureBox8.Location = new Point(7, 332);
+            pictureBox8.Margin = new Padding(3, 4, 3, 4);
             pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(59, 69);
+            pictureBox8.Size = new Size(47, 55);
             pictureBox8.TabIndex = 11;
             pictureBox8.TabStop = false;
             pictureBox8.Click += pictureBox8_Click_1;
@@ -204,10 +206,10 @@
             pictureBox7.BackColor = Color.Transparent;
             pictureBox7.BackgroundImage = (Image)resources.GetObject("pictureBox7.BackgroundImage");
             pictureBox7.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox7.Location = new Point(9, 320);
-            pictureBox7.Margin = new Padding(4, 5, 4, 5);
+            pictureBox7.Location = new Point(7, 256);
+            pictureBox7.Margin = new Padding(3, 4, 3, 4);
             pictureBox7.Name = "pictureBox7";
-            pictureBox7.Size = new Size(59, 69);
+            pictureBox7.Size = new Size(47, 55);
             pictureBox7.TabIndex = 10;
             pictureBox7.TabStop = false;
             // 
@@ -216,10 +218,10 @@
             pictureBox6.BackColor = Color.Transparent;
             pictureBox6.BackgroundImage = (Image)resources.GetObject("pictureBox6.BackgroundImage");
             pictureBox6.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox6.Location = new Point(9, 226);
-            pictureBox6.Margin = new Padding(4, 5, 4, 5);
+            pictureBox6.Location = new Point(7, 181);
+            pictureBox6.Margin = new Padding(3, 4, 3, 4);
             pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(59, 69);
+            pictureBox6.Size = new Size(47, 55);
             pictureBox6.TabIndex = 9;
             pictureBox6.TabStop = false;
             // 
@@ -229,10 +231,10 @@
             pictureBox5.BackColor = Color.Transparent;
             pictureBox5.BackgroundImage = (Image)resources.GetObject("pictureBox5.BackgroundImage");
             pictureBox5.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox5.Location = new Point(9, 129);
-            pictureBox5.Margin = new Padding(4, 5, 4, 5);
+            pictureBox5.Location = new Point(7, 103);
+            pictureBox5.Margin = new Padding(3, 4, 3, 4);
             pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(59, 69);
+            pictureBox5.Size = new Size(47, 55);
             pictureBox5.TabIndex = 8;
             pictureBox5.TabStop = false;
             // 
@@ -241,10 +243,10 @@
             pictureBox1.BackColor = Color.Transparent;
             pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(1, 15);
-            pictureBox1.Margin = new Padding(4, 5, 4, 5);
+            pictureBox1.Location = new Point(1, 12);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(70, 55);
+            pictureBox1.Size = new Size(56, 44);
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click_1;
@@ -260,10 +262,9 @@
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Leelawadee UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(174, 24);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(139, 19);
             label1.Name = "label1";
-            label1.Size = new Size(264, 32);
+            label1.Size = new Size(217, 28);
             label1.TabIndex = 2;
             label1.Text = "EduTask : ForgetMeNot";
             label1.Click += label1_Click;
@@ -275,11 +276,10 @@
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Malgun Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(1294, 9);
-            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Location = new Point(1035, 7);
             label2.Name = "label2";
             label2.RightToLeft = RightToLeft.Yes;
-            label2.Size = new Size(171, 45);
+            label2.Size = new Size(143, 37);
             label2.TabIndex = 3;
             label2.Text = ",Welcome";
             label2.Click += label2_Click;
@@ -290,10 +290,10 @@
             pictureBox3.BackColor = Color.Transparent;
             pictureBox3.BackgroundImage = (Image)resources.GetObject("pictureBox3.BackgroundImage");
             pictureBox3.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox3.Location = new Point(1489, 876);
-            pictureBox3.Margin = new Padding(4, 5, 4, 5);
+            pictureBox3.Location = new Point(1191, 701);
+            pictureBox3.Margin = new Padding(3, 4, 3, 4);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(156, 111);
+            pictureBox3.Size = new Size(125, 89);
             pictureBox3.TabIndex = 5;
             pictureBox3.TabStop = false;
             pictureBox3.Click += pictureBox3_Click;
@@ -304,10 +304,10 @@
             pictureBox4.BackColor = Color.Transparent;
             pictureBox4.BackgroundImage = (Image)resources.GetObject("pictureBox4.BackgroundImage");
             pictureBox4.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox4.Location = new Point(1486, 96);
-            pictureBox4.Margin = new Padding(4, 5, 4, 5);
+            pictureBox4.Location = new Point(1189, 77);
+            pictureBox4.Margin = new Padding(3, 4, 3, 4);
             pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(61, 69);
+            pictureBox4.Size = new Size(49, 55);
             pictureBox4.TabIndex = 6;
             pictureBox4.TabStop = false;
             pictureBox4.Click += pictureBox4_Click;
@@ -318,10 +318,10 @@
             pictureBox2.BackColor = Color.Transparent;
             pictureBox2.BackgroundImage = (Image)resources.GetObject("pictureBox2.BackgroundImage");
             pictureBox2.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox2.Location = new Point(1559, 94);
-            pictureBox2.Margin = new Padding(4, 5, 4, 5);
+            pictureBox2.Location = new Point(1247, 75);
+            pictureBox2.Margin = new Padding(3, 4, 3, 4);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(64, 69);
+            pictureBox2.Size = new Size(51, 55);
             pictureBox2.TabIndex = 7;
             pictureBox2.TabStop = false;
             pictureBox2.Click += pictureBox2_Click;
@@ -331,10 +331,10 @@
             pictureBox15.BackColor = Color.Transparent;
             pictureBox15.BackgroundImage = (Image)resources.GetObject("pictureBox15.BackgroundImage");
             pictureBox15.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox15.Location = new Point(66, -11);
-            pictureBox15.Margin = new Padding(4, 5, 4, 5);
+            pictureBox15.Location = new Point(53, -9);
+            pictureBox15.Margin = new Padding(3, 4, 3, 4);
             pictureBox15.Name = "pictureBox15";
-            pictureBox15.Size = new Size(112, 109);
+            pictureBox15.Size = new Size(90, 87);
             pictureBox15.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox15.TabIndex = 21;
             pictureBox15.TabStop = false;
@@ -345,32 +345,40 @@
             lblUsername.BackColor = Color.Transparent;
             lblUsername.Font = new Font("Malgun Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblUsername.ForeColor = Color.White;
-            lblUsername.Location = new Point(1466, 9);
-            lblUsername.Margin = new Padding(4, 0, 4, 0);
+            lblUsername.Location = new Point(1173, 7);
             lblUsername.Name = "lblUsername";
             lblUsername.RightToLeft = RightToLeft.Yes;
-            lblUsername.Size = new Size(0, 45);
+            lblUsername.Size = new Size(0, 37);
             lblUsername.TabIndex = 22;
             // 
             // flowPanelClasses
             // 
             flowPanelClasses.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             flowPanelClasses.AutoScroll = true;
-            flowPanelClasses.Location = new Point(326, 191);
-            flowPanelClasses.Margin = new Padding(4);
+            flowPanelClasses.Location = new Point(261, 153);
             flowPanelClasses.Name = "flowPanelClasses";
-            flowPanelClasses.Size = new Size(1262, 796);
+            flowPanelClasses.Size = new Size(1010, 637);
             flowPanelClasses.TabIndex = 23;
             flowPanelClasses.Paint += flowLayoutPanel1_Paint;
             // 
+            // notifyIcon1
+            // 
+            notifyIcon1.Icon = (Icon)resources.GetObject("notifyIcon1.Icon");
+            notifyIcon1.Text = "notifyIcon1";
+            notifyIcon1.Visible = true;
+            // 
+            // timerCheckNotification
+            // 
+            timerCheckNotification.Enabled = true;
+            // 
             // frmDashBoard
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(1658, 1026);
+            ClientSize = new Size(1326, 821);
             Controls.Add(pictureBox3);
             Controls.Add(flowPanelClasses);
             Controls.Add(lblUsername);
@@ -381,7 +389,7 @@
             Controls.Add(label1);
             Controls.Add(pictureBox1);
             Controls.Add(panel1);
-            Margin = new Padding(4, 5, 4, 5);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "frmDashBoard";
             Text = " Dashboard";
             Load += Form1_Load;
@@ -429,5 +437,7 @@
         private PictureBox pictureBox15;
         private Label lblUsername;
         private FlowLayoutPanel flowPanelClasses;
+        private NotifyIcon notifyIcon1;
+        private System.Windows.Forms.Timer timerCheckNotification;
     }
 }

@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmNotification));
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
+            flowLayoutPanelNotif = new FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
@@ -65,16 +66,27 @@
             pictureBox2.TabStop = false;
             pictureBox2.Click += pictureBox2_Click;
             // 
-            // Form4
+            // flowLayoutPanelNotif
+            // 
+            flowLayoutPanelNotif.Anchor = AnchorStyles.None;
+            flowLayoutPanelNotif.AutoScroll = true;
+            flowLayoutPanelNotif.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanelNotif.Location = new Point(58, 127);
+            flowLayoutPanelNotif.Name = "flowLayoutPanelNotif";
+            flowLayoutPanelNotif.Size = new Size(1240, 658);
+            flowLayoutPanelNotif.TabIndex = 6;
+            // 
+            // frmNotification
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1326, 821);
+            Controls.Add(flowLayoutPanelNotif);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
             Margin = new Padding(3, 4, 3, 4);
-            Name = "Form4";
+            Name = "frmNotification";
             Text = "Notification ";
             Load += Form4_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -86,5 +98,6 @@
 
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
+        private FlowLayoutPanel flowLayoutPanelNotif;
     }
 }

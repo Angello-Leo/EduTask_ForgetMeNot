@@ -6,6 +6,9 @@ namespace Design
         public frmDashBoard()
         {
             InitializeComponent();
+            InitializeNotifyIcon();
+            LoadLastNotificaton();
+            StartNotificationTimer();
             this.Load += Form1_Load;
             this.Shown += Form1_Shown;
         }
@@ -13,6 +16,7 @@ namespace Design
         private bool panelIsExpanded = false;
         private int panelMaxWidth = 200;
         private int slideSpeed = 10;
+        private int lastNotifId = 0;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -29,6 +33,68 @@ namespace Design
                 MessageBox.Show("LoadClasses error: " + ex.Message);
             }
         }
+
+        private void InitializeNotifyIcon()
+        {
+            notifyIcon1.Icon = SystemIcons.Information;
+            notifyIcon1.Visible = true;
+
+        }
+        private void LoadLastNotificaton()
+        {
+            string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
+            using (MySqlConnection con = new MySqlConnection(conString))
+            {
+                con.Open();
+                string query = "SELECT IFNULL (MAX(notification_id),0) FROM notificationS";
+                using (MySqlCommand cmd = new MySqlCommand(query, con))
+                {
+                    lastNotifId = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
+        }
+
+        private void StartNotificationTimer()
+        {
+            timerCheckNotification.Tick += TimerCheckNotification_Tick;
+            timerCheckNotification.Start();
+        }
+
+        private void TimerCheckNotification_Tick(object sender, EventArgs e)
+        {
+            string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
+            using (MySqlConnection con = new MySqlConnection(conString))
+            {
+                con.Open();
+                string query = @"SELECT notification_id, message 
+                         FROM notifications 
+                         WHERE notification_id > @lastId 
+                         ORDER BY notification_id ASC";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@lastId", lastNotifId);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int notifId = Convert.ToInt32(reader["notification_id"]);
+                            string msg = reader["message"].ToString();
+
+                            // Show tray notification
+                            ShowTrayNotification(msg);
+
+                            lastNotifId = notifId;
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+
         private void Form1_Shown(object sender, EventArgs e)
         {
             try
@@ -297,9 +363,9 @@ namespace Design
         private void pictureBox6_Click(object sender, EventArgs e)
         {
             //e2 ay pending icom button
-            frmPending pending = new frmPending();
-            pending.Show();
-            this.Hide();
+            frmPending f7 = new frmPending();
+            f7.Show();
+            this.Hide(); ;
         }
 
         private void pictureBox7_Click(object sender, EventArgs e)
@@ -327,9 +393,9 @@ namespace Design
 
         private void pictureBox10_Click(object sender, EventArgs e)
         {
-            //e2 ay pending label button
-            frmPending p = new frmPending();
-            p.Show();
+            //e2 ay pending label button 
+            frmPending f7 = new frmPending();
+            f7.Show();
             this.Hide();
         }
 
@@ -384,5 +450,13 @@ namespace Design
         {
 
         }
+        private void ShowTrayNotification(string message, string title = "EduTask Notification")
+        {
+            notifyIcon1.BalloonTipTitle = title;
+            notifyIcon1.BalloonTipText = message;
+            notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
+            notifyIcon1.ShowBalloonTip(5000); // show for 5 seconds
+        }
+
     }
 }

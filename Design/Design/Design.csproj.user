@@ -4,6 +4,9 @@
     <Compile Update="ctrlAnnouncement.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="ctrlAssignment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="frmPending.cs">
       <SubType>Form</SubType>
     </Compile>
