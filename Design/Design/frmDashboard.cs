@@ -3,14 +3,13 @@ namespace Design
 {
     public partial class frmDashBoard : Form
     {
+
         public frmDashBoard()
         {
             InitializeComponent();
             InitializeNotifyIcon();
-            LoadLastNotificaton();
+            LoadLastNotification();
             StartNotificationTimer();
-            this.Load += Form1_Load;
-            this.Shown += Form1_Shown;
         }
 
         private bool panelIsExpanded = false;
@@ -40,13 +39,13 @@ namespace Design
             notifyIcon1.Visible = true;
 
         }
-        private void LoadLastNotificaton()
+        private void LoadLastNotification()
         {
             string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
             using (MySqlConnection con = new MySqlConnection(conString))
             {
                 con.Open();
-                string query = "SELECT IFNULL (MAX(notification_id),0) FROM notificationS";
+                string query = "SELECT IFNULL(MAX(notification_id), 0) FROM notifications";
                 using (MySqlCommand cmd = new MySqlCommand(query, con))
                 {
                     lastNotifId = Convert.ToInt32(cmd.ExecuteScalar());
@@ -54,25 +53,37 @@ namespace Design
             }
         }
 
+
         private void StartNotificationTimer()
         {
+            timerCheckNotification.Interval = 10000; // check every 10 seconds
             timerCheckNotification.Tick += TimerCheckNotification_Tick;
             timerCheckNotification.Start();
         }
 
+
         private void TimerCheckNotification_Tick(object sender, EventArgs e)
         {
             string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
+
             using (MySqlConnection con = new MySqlConnection(conString))
             {
                 con.Open();
-                string query = @"SELECT notification_id, message 
-                         FROM notifications 
-                         WHERE notification_id > @lastId 
-                         ORDER BY notification_id ASC";
+
+                // Fetch notifications for this user or for classes the user is in
+                string query = @"
+            SELECT n.notification_id, n.message, n.user_id, n.class_id, u.username AS sender, c.class_name
+            FROM notifications n
+            LEFT JOIN users u ON n.user_id = u.user_id
+            LEFT JOIN classes c ON n.class_id = c.class_id
+            WHERE (n.user_id = @uid OR n.class_id IN 
+                   (SELECT class_id FROM class_students WHERE student_id = @uid))
+              AND n.notification_id > @lastId
+            ORDER BY n.notification_id ASC";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, con))
                 {
+                    cmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
                     cmd.Parameters.AddWithValue("@lastId", lastNotifId);
 
                     using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -81,16 +92,20 @@ namespace Design
                         {
                             int notifId = Convert.ToInt32(reader["notification_id"]);
                             string msg = reader["message"].ToString();
+                            string senderName = reader["sender"] != DBNull.Value ? reader["sender"].ToString() : "System";
+                            string className = reader["class_name"] != DBNull.Value ? reader["class_name"].ToString() : null;
 
-                            // Show tray notification
-                            ShowTrayNotification(msg);
+                            string title = className != null ? $"Class: {className}" : $"From: {senderName}";
+                            ShowTrayNotification(msg, title);
 
-                            lastNotifId = notifId;
+                            lastNotifId = notifId; // update last notification
                         }
                     }
                 }
             }
         }
+
+
 
 
 
@@ -450,13 +465,15 @@ namespace Design
         {
 
         }
-        private void ShowTrayNotification(string message, string title = "EduTask Notification")
+        public void ShowTrayNotification(string message, string title = "EduTask Notification")
         {
             notifyIcon1.BalloonTipTitle = title;
             notifyIcon1.BalloonTipText = message;
             notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
-            notifyIcon1.ShowBalloonTip(5000); // show for 5 seconds
+            notifyIcon1.ShowBalloonTip(5000); // shows for 5 seconds
+            System.Media.SystemSounds.Exclamation.Play(); // optional sound
         }
+
 
     }
 }

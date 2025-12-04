@@ -29,58 +29,77 @@ namespace Design
 
         }
 
-        public void LoadAnnouncementData(int announcementId, int classId, string title, string content, DateTime createdAt,
-                                         bool isDone, string username, string creatorRole, DateTime? dueDateTime)
+        public void LoadAnnouncementData(
+    int announcementId,
+    int classId,
+    string title,
+    string content,
+    DateTime createdAt,
+    bool isDone,
+    string username,
+    string creatorRole,
+    DateTime? dueDateTime,
+    bool isPersonalTask = false      // <-- new flag
+)
         {
-            string query = "SELECT a.announcement_id, a.title, a.content, a.created_at, a.is_done, u.username, u.role " +
-                    "FROM announcements a " +
-                    "JOIN users u ON a.user_id = u.user_id " +
-                    "WHERE a.announcement_id = @announcementId";
-
             AnnouncementId = announcementId;
             IsDone = isDone;
             _classId = classId;
 
             lblTitle.Text = title;
             lblContent.Text = content;
-            lblCreatedBy.Text = $"{username} ({creatorRole})";
-            lblCreatedAt.Text = createdAt.ToString("g");
-            if (dueDateTime.HasValue)
-                lblDueDate.Text = dueDateTime.Value.ToString("g");
-            else
-                lblDueDate.Text = "No due date";
-            this.Visible = true;
 
-            SetButtonVisibility(GetInfo.Role, isDone);
-
-
-        }
-        private void SetButtonVisibility(string currentRole, bool isDone)
-        {
-            currentRole = (currentRole ?? "").Trim().ToLower();
-
-            // Reset all buttons by default
-            btnEdit.Visible = false;
-            btnMarkAsDone.Visible = false;
-            btnCloseSubmission.Visible = false;
-
-            // President / VP can edit
-            if (currentRole == "president" || currentRole == "vice president")
+            if (!isPersonalTask)
             {
-                btnEdit.Visible = true;
+                lblCreatedBy.Text = $"{username} ({creatorRole})";
+            }
+            else
+            {
+                lblCreatedBy.Text = "Personal Task";
             }
 
-            // Everyone can mark as done if not done yet
-            btnMarkAsDone.Visible = !isDone;
+            lblCreatedAt.Text = createdAt.ToString("g");
 
-            // Secretary sees Close Submission
+            lblDueDate.Text = dueDateTime.HasValue
+                ? dueDateTime.Value.ToString("g")
+                : "No due date";
+
+            this.Visible = true;
+
+            SetButtonVisibility(GetInfo.Role, isDone, isPersonalTask);
+        }
+
+        private void SetButtonVisibility(string currentRole, bool isDone, bool isPersonalTask = false)
+        {
+            // Hide all buttons for personal tasks
+            if (isPersonalTask)
+            {
+                btnEdit.Visible = false;
+                btnCloseSubmission.Visible = false;
+
+                // user can still mark a task as done
+                btnMarkAsDone.Visible = !isDone;
+                return;
+            }
+
+            // Original logic for announcements:
+            currentRole = (currentRole ?? "").Trim().ToLower();
+
+            btnEdit.Visible = false;
+            btnMarkAsDone.Visible = !isDone;
+            btnCloseSubmission.Visible = false;
+
+            if (currentRole == "president" || currentRole == "vice president")
+                btnEdit.Visible = true;
+
             if (currentRole == "secretary")
             {
                 btnCloseSubmission.Visible = true;
-                btnCloseSubmission.Click -= btnCloseSubmission_Click; // prevent multiple subscriptions
+                btnCloseSubmission.Click -= btnCloseSubmission_Click;
                 btnCloseSubmission.Click += btnCloseSubmission_Click;
             }
         }
+
 
         private void btnMarkAsDone_Click(object sender, EventArgs e)
         {
@@ -126,48 +145,57 @@ namespace Design
 
         private void btnCloseSubmission_Click(object sender, EventArgs e)
         {
+            if (AnnouncementId == 0)
+            {
+                MessageBox.Show("Announcement ID is not valid.");
+                return;
+            }
+
+            // Retrieve all students in the class
+            List<int> studentIds = new List<int>();
+
             using (MySqlConnection con = new MySqlConnection(conString))
             {
                 con.Open();
 
-                // 1. Insert 'missing' status for students who haven't marked it as done
-                string markMissingQuery = @"
-            INSERT INTO announcement_status (announcement_id, user_id, status)
-            SELECT a.announcement_id, cs.student_id, 'missing'
-            FROM announcements a
-            JOIN class_students cs ON cs.class_id = a.class_id
-            WHERE a.class_id = @cid
-            AND NOT EXISTS (
-                SELECT 1 
-                FROM announcement_status s
-                WHERE s.announcement_id = a.announcement_id
-                  AND s.user_id = cs.student_id
-                  AND s.status = 'done'
-            );";
+                // Query to get all students enrolled in the class
+                string getStudentsQuery = @"
+            SELECT student_id
+            FROM class_students
+            WHERE class_id = @cid";
 
-                using (MySqlCommand cmd = new MySqlCommand(markMissingQuery, con))
+                using (MySqlCommand cmd = new MySqlCommand(getStudentsQuery, con))
                 {
                     cmd.Parameters.AddWithValue("@cid", _classId);
-                    cmd.ExecuteNonQuery();
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            studentIds.Add(reader.GetInt32("student_id"));
+                        }
+                    }
                 }
 
-                // 2. Optionally, you can hide or disable the announcement cards
-                //    instead of deleting them, so the UI can show missing/completed
-                // Example: set a flag in announcements table: is_closed = 1
-                string closeAnnouncementsQuery = @"
-            UPDATE announcements
-            SET is_closed = 1
-            WHERE class_id = @cid;";
-
-                using (MySqlCommand cmd2 = new MySqlCommand(closeAnnouncementsQuery, con))
+                // 1. Insert 'missing' status for students who haven't marked it as done
+                foreach (int studentId in studentIds)
                 {
-                    cmd2.Parameters.AddWithValue("@cid", _classId);
-                    cmd2.ExecuteNonQuery();
+                    string markMissingQuery = @"
+                INSERT INTO announcement_status (announcement_id, user_id, status)
+                VALUES (@announcement_id, @user_id, 'missing')
+                ON DUPLICATE KEY UPDATE status = 'missing';"; // If already exists, update the status to 'missing'
+
+                    using (MySqlCommand cmd = new MySqlCommand(markMissingQuery, con))
+                    {
+                        cmd.Parameters.AddWithValue("@announcement_id", AnnouncementId); // The current announcement
+                        cmd.Parameters.AddWithValue("@user_id", studentId); // Student's user_id
+                        cmd.ExecuteNonQuery();
+                    }
                 }
+
+                MessageBox.Show("Submission closed. Students who didn't mark as done are now marked as missing.");
             }
 
-            MessageBox.Show("Submission closed. Students who didn't mark as done are now marked as missing.");
         }
     }
 }
-

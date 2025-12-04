@@ -370,6 +370,7 @@
             // timerCheckNotification
             // 
             timerCheckNotification.Enabled = true;
+            timerCheckNotification.Interval = 1;
             // 
             // frmDashBoard
             // 

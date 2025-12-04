@@ -57,6 +57,7 @@
             pictureBox21 = new PictureBox();
             timer1 = new System.Windows.Forms.Timer(components);
             flowLayoutPanelAccomplished = new FlowLayoutPanel();
+            lblUsername = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             panel1.SuspendLayout();
@@ -333,6 +334,7 @@
             pictureBox3.Size = new Size(125, 89);
             pictureBox3.TabIndex = 39;
             pictureBox3.TabStop = false;
+            pictureBox3.Visible = false;
             pictureBox3.Click += pictureBox3_Click;
             // 
             // pictureBox16
@@ -381,6 +383,7 @@
             pictureBox19.Size = new Size(191, 71);
             pictureBox19.TabIndex = 44;
             pictureBox19.TabStop = false;
+            pictureBox19.Visible = false;
             // 
             // pictureBox20
             // 
@@ -392,17 +395,19 @@
             pictureBox20.Size = new Size(191, 71);
             pictureBox20.TabIndex = 45;
             pictureBox20.TabStop = false;
+            pictureBox20.Visible = false;
             // 
             // pictureBox21
             // 
             pictureBox21.BackgroundImage = (Image)resources.GetObject("pictureBox21.BackgroundImage");
             pictureBox21.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox21.Location = new Point(881, 163);
+            pictureBox21.Location = new Point(602, 162);
             pictureBox21.Margin = new Padding(3, 4, 3, 4);
             pictureBox21.Name = "pictureBox21";
             pictureBox21.Size = new Size(191, 71);
             pictureBox21.TabIndex = 46;
             pictureBox21.TabStop = false;
+            pictureBox21.Click += pictureBox21_Click;
             // 
             // timer1
             // 
@@ -416,6 +421,18 @@
             flowLayoutPanelAccomplished.Size = new Size(759, 495);
             flowLayoutPanelAccomplished.TabIndex = 47;
             // 
+            // lblUsername
+            // 
+            lblUsername.AutoSize = true;
+            lblUsername.BackColor = Color.Transparent;
+            lblUsername.Font = new Font("Malgun Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblUsername.ForeColor = Color.White;
+            lblUsername.Location = new Point(1176, 10);
+            lblUsername.Name = "lblUsername";
+            lblUsername.RightToLeft = RightToLeft.Yes;
+            lblUsername.Size = new Size(0, 37);
+            lblUsername.TabIndex = 48;
+            // 
             // frmAccomplished
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -423,6 +440,7 @@
             BackgroundImage = Properties.Resources.Add_a_heading__30_1;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1326, 821);
+            Controls.Add(lblUsername);
             Controls.Add(flowLayoutPanelAccomplished);
             Controls.Add(pictureBox21);
             Controls.Add(pictureBox20);
@@ -497,5 +515,6 @@
         private PictureBox pictureBox21;
         private System.Windows.Forms.Timer timer1;
         private FlowLayoutPanel flowLayoutPanelAccomplished;
+        private Label lblUsername;
     }
 }

@@ -1,131 +1,152 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using MySql.Data.MySqlClient;
+﻿    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
+    using System.Drawing;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows.Forms;
+    using MySql.Data.MySqlClient;
 
-namespace Design
-{
-    public partial class frmLogin : Form
+    namespace Design
     {
-        string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
-        public frmLogin()
+        public partial class frmLogin : Form
         {
-            InitializeComponent();
-        }
-
-        private void frmLogin_Load(object sender, EventArgs e)
-        {
-            if (this.WindowState == FormWindowState.Maximized)
+            string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
+            public frmLogin()
             {
-                CenterControlsInPanel();
-            }
-        }
-
-        private void CenterControlsInPanel()
-        {
-            int panelWidth = this.panel1.ClientSize.Width;
-            int panelHeight = this.panel1.ClientSize.Height;
-
-            foreach (Control control in this.panel1.Controls)
-            {
-                // Skip if the control is not visible
-                if (!control.Visible) continue;
-
-                // Center the control inside the panel
-                control.Left = (panelWidth - control.Width) / 2;
-                control.Top = (panelHeight - control.Height) / 2;
-            }
-        }
-
-        private void login_Click(object sender, EventArgs e)
-        {
-            string username = txtUsername.Text.Trim();
-            string password = txtPassword.Text.Trim();
-
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
-            {
-                MessageBox.Show("Please enter both username and password.");
-                return;
+                InitializeComponent();
             }
 
-            using (MySqlConnection conn = new MySqlConnection(conString))
+            private void frmLogin_Load(object sender, EventArgs e)
             {
-                try
+                if (this.WindowState == FormWindowState.Maximized)
                 {
-                    conn.Open();
+                    CenterControlsInPanel();
+                }
+            }
 
-                    // Get stored hash and role for the username
-                    string query = "SELECT user_id, password_hash, role FROM users WHERE username=@username";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@username", username);
+            private void CenterControlsInPanel()
+            {
+                int panelWidth = this.panel1.ClientSize.Width;
+                int panelHeight = this.panel1.ClientSize.Height;
 
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                foreach (Control control in this.panel1.Controls)
+                {
+                    // Skip if the control is not visible
+                    if (!control.Visible) continue;
+
+                    // Center the control inside the panel
+                    control.Left = (panelWidth - control.Width) / 2;
+                    control.Top = (panelHeight - control.Height) / 2;
+                }
+            }
+
+            private void login_Click(object sender, EventArgs e)
+            {
+                string username = txtUsername.Text.Trim();
+                string password = txtPassword.Text.Trim();
+
+                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+                {
+                    MessageBox.Show("Please enter both username and password.");
+                    return;
+                }
+
+                using (MySqlConnection conn = new MySqlConnection(conString))
+                {
+                    try
                     {
-                        if (reader.Read())
+                        conn.Open();
+
+                        // Get stored hash and role for the username
+                        string query = "SELECT user_id, password_hash, role FROM users WHERE username=@username";
+                        MySqlCommand cmd = new MySqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@username", username);
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
-                            string storedHash = reader.GetString("password_hash");
-                            string role = reader.GetString("role");
-
-                            if (BCrypt.Net.BCrypt.Verify(password, storedHash))
+                            if (reader.Read())
                             {
-                                MessageBox.Show("Login successful!");
+                                string storedHash = reader.GetString("password_hash");
+                                string role = reader.GetString("role");
 
-                                // Store user info
-                                GetInfo.UserID = reader.GetInt32("user_id");   // FIXED
-                                GetInfo.Username = username;
-                                GetInfo.Role = role;
-
-                                reader.Close();
-
-                                string electedQuery = @"SELECT position 
-                                        FROM elected_positions 
-                                        WHERE user_id = @uid 
-                                        ORDER BY id DESC 
-                                        LIMIT 1";
-
-                                MySqlCommand electedCmd = new MySqlCommand(electedQuery, conn);
-                                electedCmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
-
-                                var electedPosition = electedCmd.ExecuteScalar();
-
-                                if (electedPosition != null)
+                                if (BCrypt.Net.BCrypt.Verify(password, storedHash))
                                 {
-                                    GetInfo.Role = electedPosition.ToString();  // "vice president", "president", etc.
+                                    MessageBox.Show("Login successful!");
+
+                                    // Store user info
+                                    GetInfo.UserID = reader.GetInt32("user_id");   // FIXED
+                                    GetInfo.Username = username;
+                                    GetInfo.Role = role;
+
+                                    reader.Close();
+
+                                    string electedQuery = @"SELECT position 
+                                            FROM elected_positions 
+                                            WHERE user_id = @uid 
+                                            ORDER BY id DESC 
+                                            LIMIT 1";
+
+                                    MySqlCommand electedCmd = new MySqlCommand(electedQuery, conn);
+                                    electedCmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
+
+                                    var electedPosition = electedCmd.ExecuteScalar();
+
+                                    if (electedPosition != null)
+                                    {
+                                        GetInfo.Role = electedPosition.ToString();  // "vice president", "president", etc.
+                                    }
+                                string notifQuery = @"
+        SELECT COUNT(*) 
+        FROM notifications n
+        LEFT JOIN class_students cs ON n.class_id = cs.class_id
+        WHERE (n.user_id = @uid OR cs.student_id = @uid)
+          AND n.is_read = 0";
+
+                                MySqlCommand notifCmd = new MySqlCommand(notifQuery, conn);
+                                notifCmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
+                                int newNotifs = Convert.ToInt32(notifCmd.ExecuteScalar());
+
+                                if (newNotifs > 0)
+                                {
+                                    MessageBox.Show($"You have {newNotifs} new announcement(s)!");
+                                    // Optionally, you could even open frmNotification automatically:
                                 }
                                 System.Diagnostics.Debug.WriteLine("FINAL ROLE AFTER LOGIN = " + GetInfo.Role);
-                                frmDashBoard dash = new frmDashBoard();
-                                this.Hide();
-                                dash.Show();
+                                    frmDashBoard dash = new frmDashBoard();
+                                    this.Hide();
+                                    dash.Show();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Invalid password!");
+                                }
                             }
                             else
                             {
-                                MessageBox.Show("Invalid password!");
+                                MessageBox.Show("Username not found!");
                             }
                         }
-                        else
-                        {
-                            MessageBox.Show("Username not found!");
-                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message);
-                }
+            }
+
+            private void lnkSignup_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+            {
+                frmSignup signupFrm = new frmSignup(this);
+                signupFrm.Show();
+                this.Hide();
+            }
+
+            private void panel1_Paint(object sender, PaintEventArgs e)
+            {
+
             }
         }
-
-        private void lnkSignup_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            frmSignup signupFrm = new frmSignup(this);
-            signupFrm.Show();
-            this.Hide();
-        }
     }
-}

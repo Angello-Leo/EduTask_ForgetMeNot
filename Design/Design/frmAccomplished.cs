@@ -134,7 +134,7 @@ namespace Design
         {
             //missing
             int currentClassId = GetInfo.ClassID;
-            frmMissing f7 = new frmMissing(currentClassId);
+            frmMissing f7 = new frmMissing();
             f7.Show();
             this.Hide();
         }
@@ -158,6 +158,7 @@ namespace Design
         private void frmAccomplished_Load(object sender, EventArgs e)
         {
             LoadAccomplishedAnnouncements();
+            lblUsername.Text = GetInfo.Username;
         }
 
         private void pictureBox18_Click(object sender, EventArgs e)
@@ -179,22 +180,24 @@ namespace Design
                     Debug.WriteLine("Database connection opened.");
 
                     string query = @"
-                SELECT a.announcement_id, a.class_id, a.title, a.content, a.due_datetime, a.created_at,
-                       u.username, 
-                       COALESCE(
-                           (SELECT position 
-                            FROM elected_positions 
-                            WHERE user_id = u.user_id 
-                            ORDER BY id DESC 
-                            LIMIT 1),
-                           u.role
-                       ) AS creator_role,
-                       COALESCE(s.status, 'missing') AS status
-                FROM announcements a
-                LEFT JOIN announcement_status s
-                       ON s.announcement_id = a.announcement_id AND s.user_id = @uid
-                JOIN users u ON a.user_id = u.user_id
-                ORDER BY a.created_at DESC;";
+    SELECT a.announcement_id, a.class_id, a.title, a.content, a.due_datetime, a.created_at,
+           u.username, 
+           COALESCE(
+               (SELECT position 
+                FROM elected_positions 
+                WHERE user_id = u.user_id 
+                ORDER BY id DESC 
+                LIMIT 1),
+               u.role
+           ) AS creator_role,
+           COALESCE(s.status, 'missing') AS status
+    FROM announcements a
+    LEFT JOIN announcement_status s
+           ON s.announcement_id = a.announcement_id AND s.user_id = @uid
+    JOIN users u ON a.user_id = u.user_id
+    WHERE COALESCE(s.status, 'missing') = 'done'
+    ORDER BY a.created_at DESC;";
+
 
                     using (MySqlCommand cmd = new MySqlCommand(query, con))
                     {
@@ -254,6 +257,12 @@ namespace Design
             Debug.WriteLine("=== LoadAccomplishedAnnouncements Finished ===");
         }
 
+        private void pictureBox21_Click(object sender, EventArgs e)
+        {
+            frmPersonal fp = new frmPersonal();
+            fp.Show();
+            this.Hide();
+        }
     }
 }
 

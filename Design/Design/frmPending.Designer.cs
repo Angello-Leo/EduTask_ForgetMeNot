@@ -57,6 +57,15 @@
             pictureBox21 = new PictureBox();
             timer1 = new System.Windows.Forms.Timer(components);
             flowLayoutPanelPendingAssignments = new FlowLayoutPanel();
+            panelPersonal = new Panel();
+            lblClose = new Label();
+            lblDue = new Label();
+            lblTask = new Label();
+            btnSaveTask = new Button();
+            dtpTaskDueDate = new DateTimePicker();
+            txtTaskContent = new RichTextBox();
+            txtTaskTitle = new TextBox();
+            lblUsername = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             panel1.SuspendLayout();
@@ -79,6 +88,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox19).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox20).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox21).BeginInit();
+            panelPersonal.SuspendLayout();
             SuspendLayout();
             // 
             // pictureBox1
@@ -380,6 +390,7 @@
             pictureBox19.Size = new Size(191, 71);
             pictureBox19.TabIndex = 38;
             pictureBox19.TabStop = false;
+            pictureBox19.Visible = false;
             // 
             // pictureBox20
             // 
@@ -391,17 +402,19 @@
             pictureBox20.Size = new Size(191, 71);
             pictureBox20.TabIndex = 39;
             pictureBox20.TabStop = false;
+            pictureBox20.Visible = false;
             // 
             // pictureBox21
             // 
             pictureBox21.BackgroundImage = (Image)resources.GetObject("pictureBox21.BackgroundImage");
             pictureBox21.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox21.Location = new Point(881, 163);
+            pictureBox21.Location = new Point(602, 162);
             pictureBox21.Margin = new Padding(3, 4, 3, 4);
             pictureBox21.Name = "pictureBox21";
             pictureBox21.Size = new Size(191, 71);
             pictureBox21.TabIndex = 40;
             pictureBox21.TabStop = false;
+            pictureBox21.Click += pictureBox21_Click;
             // 
             // timer1
             // 
@@ -413,8 +426,105 @@
             flowLayoutPanelPendingAssignments.AutoScroll = true;
             flowLayoutPanelPendingAssignments.Location = new Point(313, 282);
             flowLayoutPanelPendingAssignments.Name = "flowLayoutPanelPendingAssignments";
-            flowLayoutPanelPendingAssignments.Size = new Size(759, 483);
+            flowLayoutPanelPendingAssignments.Size = new Size(778, 423);
             flowLayoutPanelPendingAssignments.TabIndex = 41;
+            // 
+            // panelPersonal
+            // 
+            panelPersonal.Anchor = AnchorStyles.None;
+            panelPersonal.BackColor = Color.Green;
+            panelPersonal.Controls.Add(lblClose);
+            panelPersonal.Controls.Add(lblDue);
+            panelPersonal.Controls.Add(lblTask);
+            panelPersonal.Controls.Add(btnSaveTask);
+            panelPersonal.Controls.Add(dtpTaskDueDate);
+            panelPersonal.Controls.Add(txtTaskContent);
+            panelPersonal.Controls.Add(txtTaskTitle);
+            panelPersonal.Location = new Point(297, 263);
+            panelPersonal.Name = "panelPersonal";
+            panelPersonal.Size = new Size(798, 527);
+            panelPersonal.TabIndex = 0;
+            panelPersonal.Visible = false;
+            panelPersonal.Paint += panelPersonal_Paint;
+            // 
+            // lblClose
+            // 
+            lblClose.AutoSize = true;
+            lblClose.Font = new Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblClose.ForeColor = Color.Red;
+            lblClose.Location = new Point(765, 0);
+            lblClose.Name = "lblClose";
+            lblClose.Size = new Size(33, 34);
+            lblClose.TabIndex = 6;
+            lblClose.Text = "X";
+            lblClose.Click += lblClose_Click;
+            // 
+            // lblDue
+            // 
+            lblDue.AutoSize = true;
+            lblDue.Font = new Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDue.ForeColor = SystemColors.ButtonFace;
+            lblDue.Location = new Point(381, 480);
+            lblDue.Name = "lblDue";
+            lblDue.Size = new Size(90, 20);
+            lblDue.TabIndex = 5;
+            lblDue.Text = "Due Date:";
+            // 
+            // lblTask
+            // 
+            lblTask.AutoSize = true;
+            lblTask.Font = new Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTask.ForeColor = SystemColors.ButtonFace;
+            lblTask.Location = new Point(246, 43);
+            lblTask.Name = "lblTask";
+            lblTask.Size = new Size(330, 34);
+            lblTask.TabIndex = 4;
+            lblTask.Text = "Create Personal Task";
+            // 
+            // btnSaveTask
+            // 
+            btnSaveTask.Location = new Point(73, 473);
+            btnSaveTask.Name = "btnSaveTask";
+            btnSaveTask.Size = new Size(94, 29);
+            btnSaveTask.TabIndex = 3;
+            btnSaveTask.Text = "Save";
+            btnSaveTask.UseVisualStyleBackColor = true;
+            btnSaveTask.Click += btnSaveTask_Click;
+            // 
+            // dtpTaskDueDate
+            // 
+            dtpTaskDueDate.Location = new Point(477, 475);
+            dtpTaskDueDate.Name = "dtpTaskDueDate";
+            dtpTaskDueDate.Size = new Size(250, 27);
+            dtpTaskDueDate.TabIndex = 2;
+            // 
+            // txtTaskContent
+            // 
+            txtTaskContent.Location = new Point(73, 128);
+            txtTaskContent.Name = "txtTaskContent";
+            txtTaskContent.Size = new Size(654, 335);
+            txtTaskContent.TabIndex = 1;
+            txtTaskContent.Text = "";
+            // 
+            // txtTaskTitle
+            // 
+            txtTaskTitle.Location = new Point(73, 80);
+            txtTaskTitle.Name = "txtTaskTitle";
+            txtTaskTitle.PlaceholderText = "Input task title...";
+            txtTaskTitle.Size = new Size(654, 27);
+            txtTaskTitle.TabIndex = 0;
+            // 
+            // lblUsername
+            // 
+            lblUsername.AutoSize = true;
+            lblUsername.BackColor = Color.Transparent;
+            lblUsername.Font = new Font("Malgun Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblUsername.ForeColor = Color.White;
+            lblUsername.Location = new Point(1173, 10);
+            lblUsername.Name = "lblUsername";
+            lblUsername.RightToLeft = RightToLeft.Yes;
+            lblUsername.Size = new Size(0, 37);
+            lblUsername.TabIndex = 42;
             // 
             // frmPending
             // 
@@ -423,6 +533,8 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1326, 821);
+            Controls.Add(lblUsername);
+            Controls.Add(panelPersonal);
             Controls.Add(flowLayoutPanelPendingAssignments);
             Controls.Add(pictureBox21);
             Controls.Add(pictureBox20);
@@ -464,6 +576,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox19).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox20).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox21).EndInit();
+            panelPersonal.ResumeLayout(false);
+            panelPersonal.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -497,5 +611,14 @@
         private PictureBox pictureBox21;
         private System.Windows.Forms.Timer timer1;
         private FlowLayoutPanel flowLayoutPanelPendingAssignments;
+        private Panel panelPersonal;
+        private Label lblDue;
+        private Label lblTask;
+        private Button btnSaveTask;
+        private DateTimePicker dtpTaskDueDate;
+        private RichTextBox txtTaskContent;
+        private TextBox txtTaskTitle;
+        private Label lblClose;
+        private Label lblUsername;
     }
 }

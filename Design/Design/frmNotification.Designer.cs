@@ -75,6 +75,7 @@
             flowLayoutPanelNotif.Name = "flowLayoutPanelNotif";
             flowLayoutPanelNotif.Size = new Size(1240, 658);
             flowLayoutPanelNotif.TabIndex = 6;
+            flowLayoutPanelNotif.Paint += flowLayoutPanelNotif_Paint;
             // 
             // frmNotification
             // 

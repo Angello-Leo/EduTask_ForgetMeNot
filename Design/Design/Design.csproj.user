@@ -4,8 +4,11 @@
     <Compile Update="ctrlAnnouncement.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="ctrlAssignment.cs">
+    <Compile Update="ctrlNotification.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="frmPersonal.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Update="frmPending.cs">
       <SubType>Form</SubType>

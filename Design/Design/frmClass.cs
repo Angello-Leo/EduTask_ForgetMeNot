@@ -706,7 +706,7 @@ namespace Design
             this.Hide();
         }
 
-        private void LoadAnnouncements()
+        public void LoadAnnouncements()
         {
             flowLayoutPanelAnnouncements.Controls.Clear();
 
@@ -736,8 +736,12 @@ namespace Design
                     ON s.announcement_id = a.announcement_id
                     AND s.user_id = @uid
                 WHERE a.class_id = @cid
-                ORDER BY a.created_at DESC;
-                ";
+                ORDER BY 
+                    (a.due_datetime IS NULL),   -- Put NO due date at the bottom
+                    a.due_datetime ASC,         -- Closest deadline on top
+                    a.created_at DESC;          -- Break ties
+            ";
+
 
                 using (MySqlCommand cmd = new MySqlCommand(query, con))
                 {
@@ -853,11 +857,11 @@ namespace Design
 
                 // 2️⃣ Insert "Pending" status for all students
                 string statusQuery = @"
-INSERT INTO announcement_status (announcement_id, user_id, status)
-SELECT @aid, uc.user_id, 'pending'
-FROM user_classes uc
-WHERE uc.class_id = @cid;
-";
+                    INSERT INTO announcement_status (announcement_id, user_id, status)
+                    SELECT @aid, uc.user_id, 'pending'
+                    FROM user_classes uc
+                    WHERE uc.class_id = @cid;
+                    ";
 
                 using (MySqlCommand statusCmd = new MySqlCommand(statusQuery, con))
                 {
@@ -867,20 +871,44 @@ WHERE uc.class_id = @cid;
                     statusCmd.ExecuteNonQuery();
                 }
 
+                // 3️⃣ Create a class-wide notification
+                // Insert into notifications table
+                string notifQuery = @"
+            INSERT INTO notifications (class_id, user_id, message, created_at, created_by)
+            VALUES (@cid, NULL, @message, NOW(), @creator)";
+                int newNotifId;
+                using (var cmd = new MySqlCommand(notifQuery, con))
+                {
+                    cmd.Parameters.AddWithValue("@cid", _classId);
+                    cmd.Parameters.AddWithValue("@message", txtAnnouncementTitle.Text + " - " + txtAnnouncementContent.Text);
+                    cmd.Parameters.AddWithValue("@creator", GetInfo.UserID);
+
+                    cmd.ExecuteNonQuery();
+                    newNotifId = (int)cmd.LastInsertedId;
+                }
+
+                // 4️⃣ Send desktop notification only to other users
+                NotificationManager.SendNotification(
+                    newNotifId,
+                    txtAnnouncementTitle.Text + " - " + txtAnnouncementContent.Text,
+                    "announcement",
+                    DateTime.Now,
+                    GetInfo.UserID // creatorId
+                );
 
                 // Clear fields
                 txtAnnouncementTitle.Clear();
                 txtAnnouncementContent.Clear();
                 chkSetDueDate.Checked = false;
 
-                // Refresh announcements
+                // Refresh announcements panel (for creator)
                 LoadAnnouncements();
                 panelCreateAnnouncement.Visible = false;
                 flowLayoutPanelAnnouncements.Visible = true;
                 flowLayoutPanelAnnouncements.BringToFront();
             }
         }
-
+        
         private void SetPlaceholderText()
         {
             if (string.IsNullOrWhiteSpace(txtAnnouncementContent.Text))

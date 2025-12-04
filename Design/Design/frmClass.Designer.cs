@@ -522,6 +522,7 @@
             // panelResults
             // 
             panelResults.Anchor = AnchorStyles.None;
+            panelResults.AutoScroll = true;
             panelResults.Controls.Add(btnNextPosition);
             panelResults.Controls.Add(lblWinner);
             panelResults.Controls.Add(lblResultsTitle);
@@ -581,6 +582,7 @@
             // 
             // flowLayoutPanelAnnouncements
             // 
+            flowLayoutPanelAnnouncements.AutoScroll = true;
             flowLayoutPanelAnnouncements.Location = new Point(357, 386);
             flowLayoutPanelAnnouncements.Name = "flowLayoutPanelAnnouncements";
             flowLayoutPanelAnnouncements.Size = new Size(778, 423);
@@ -590,6 +592,7 @@
             // panelCreateAnnouncement
             // 
             panelCreateAnnouncement.Anchor = AnchorStyles.None;
+            panelCreateAnnouncement.AutoScroll = true;
             panelCreateAnnouncement.BackColor = Color.DarkGreen;
             panelCreateAnnouncement.Controls.Add(chkSetDueDate);
             panelCreateAnnouncement.Controls.Add(lblSetDueDate);
