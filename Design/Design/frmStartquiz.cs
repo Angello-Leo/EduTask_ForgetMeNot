@@ -39,17 +39,16 @@ namespace Design
         Label input = new Label();
         PictureBox picBackground = new PictureBox();
 
-        public frmStartquiz(/*List<string> questions, List<string> answers, frmCreatequiz form*/)
+        public frmStartquiz(List<string> questions, List<string> answers, frmCreatequiz form)
         {
             InitializeComponent();
             this.questions = questions;
             this.answers = answers;
-            //createQuizForm = form;
+            createQuizForm = form;
         }
         private void frmStartquiz_Load(object sender, EventArgs e)
         {
-            Result();
-           //StartQuiz();
+           StartQuiz();
         }
 
         private void StartQuiz()
@@ -150,10 +149,9 @@ namespace Design
 
                 // Create a new label for the question
                 questionLabel.Text = orderedQuestions.Pop();
-                questionLabel.Font = new Font("Arial", 14);
                 questionLabel.BackColor = Color.Transparent;
                 questionLabel.ForeColor = Color.Black;
-                CenterLabel(questionLabel, width, height);
+                DrawQuestion(quizCard, questionLabel.Text);
 
                 // Add the label to the quizCard (make sure quizCard is a container control)
                 quizCard.Controls.Add(questionLabel);
@@ -183,6 +181,51 @@ namespace Design
             // Calculate centered position
             int x = (containerWidth - textSize.Width) / 2;
             int y = (containerHeight - textSize.Height) / 2;
+
+            label.Location = new Point(x, y);
+        }
+        public static void DrawQuestion(Control container, string question)
+        {
+            // Create graphics object for measuring
+            using (Graphics g = container.CreateGraphics())
+            {
+                int maxFontSize = 14;   // starting font size
+                int minFontSize = 9;   // smallest allowed
+                Font font = new Font("Arial", maxFontSize, FontStyle.Bold);
+
+                SizeF textSize = g.MeasureString(question, font);
+
+                // Shrink font until it fits inside container
+                while ((textSize.Width > container.ClientSize.Width ||
+                        textSize.Height > container.ClientSize.Height) &&
+                       font.Size > minFontSize)
+                {
+                    font = new Font(font.FontFamily, font.Size - 1, font.Style);
+                    textSize = g.MeasureString(question, font);
+                }
+
+                // Calculate centered position (slightly higher vertically)
+                float x = (container.ClientSize.Width - textSize.Width) / 2;
+                float y = (container.ClientSize.Height - textSize.Height) / 2;
+
+                // Move text upward by 20% of container height
+                y -= container.ClientSize.Height * 0.2f;
+
+                // Clear container and redraw
+                container.Refresh();
+                g.DrawString(question, font, Brushes.Black, new PointF(x, y));
+            }
+        }
+        private void CenterLabel(Label label, int containerWidth, int containerHeight, int adjx, int adjy)
+        {
+            label.AutoSize = true;
+
+            // Force measurement of text size
+            Size textSize = TextRenderer.MeasureText(label.Text, label.Font);
+
+            // Calculate centered position
+            int x = (containerWidth - textSize.Width) / 2 + adjx;
+            int y = (containerHeight - textSize.Height) / 2 + adjy;
 
             label.Location = new Point(x, y);
         }
@@ -221,8 +264,8 @@ namespace Design
             lblStart.Font = new Font("Arial", 48, FontStyle.Bold);
             lblStart.BackColor = Color.Transparent;
             lblStart.ForeColor = Color.Red;
-            lblStart.Location = new Point(907, 390);
-            this.Controls.Add(lblStart);
+            CenterLabel(lblStart, pnlFlashcard.Width, pnlFlashcard.Height);
+            pnlFlashcard.Controls.Add(lblStart);
         }
         private void CreateGoLabel()
         {
@@ -231,8 +274,8 @@ namespace Design
             lblGo.Font = new Font("Arial", 48, FontStyle.Bold);
             lblGo.BackColor = Color.Transparent;
             lblGo.ForeColor = Color.Black;
-            lblGo.Location = new Point(864, 394);
-            this.Controls.Add(lblGo);
+            CenterLabel(lblGo, pnlFlashcard.Width, pnlFlashcard.Height);
+            pnlFlashcard.Controls.Add(lblGo);
         }
         private void StartingTimer_Tick(object sender, EventArgs e)
         {
@@ -243,7 +286,7 @@ namespace Design
             }
             else
             {
-                this.Controls.Remove(lblStart);
+                pnlFlashcard.Controls.Remove(lblStart);
                 CreateGoLabel();
                 GoTimer.Start();
                 StartingTimer.Stop();
@@ -257,7 +300,7 @@ namespace Design
             }
             else
             {
-                this.Controls.Remove(lblGo);
+                pnlFlashcard.Controls.Remove(lblGo);
                 BringBackItems();
                 GenerateQuestions();
                 QuizTimer.Start();
@@ -306,14 +349,9 @@ namespace Design
             byte[] imageBytes = Properties.Resources.BgResultFlashCard_1;
             using (MemoryStream ms = new MemoryStream(imageBytes))
             {
-                picBackground.BackgroundImage = Image.FromStream(ms);  // Convert byte array to Image
+                pnlFlashcard.BackgroundImage = Image.FromStream(ms);  // Convert byte array to Image
             }
-            picBackground.BackgroundImageLayout = ImageLayout.Stretch;
-            picBackground.Location = new Point(465, 116);
-            picBackground.Size = new Size(1014, 807);
-            this.Controls.Add(picBackground);
-            picBackground.SendToBack();
-
+            pnlFlashcard.BackgroundImageLayout = ImageLayout.Stretch;
             // Update label sizes and positioning
             if (correct >= questions.Count * 0.75)
             {
@@ -326,11 +364,10 @@ namespace Design
                 lblResult.ForeColor = Color.Red;
             }
             lblResult.AutoSize = true;
-            lblResult.Font = new Font("Arial", 72, FontStyle.Bold);
+            lblResult.Font = new Font("Arial", 65, FontStyle.Bold);
             lblResult.BackColor = Color.Transparent;
-            lblResult.Location = new Point(picBackground.Width / 25, (picBackground.Height / 2) - 350); // Centered at top
-            picBackground.Controls.Add(lblResult);
-            lblResult.BringToFront();
+            CenterLabel(lblResult, pnlFlashcard.Width, pnlFlashcard.Height, 0, -300);
+            pnlFlashcard.Controls.Add(lblResult);
 
             // Correct Label
             lblCorrects.Text = "Correct:";
@@ -338,9 +375,8 @@ namespace Design
             lblCorrects.Font = new Font("Arial", 24, FontStyle.Bold);
             lblCorrects.BackColor = Color.Transparent;
             lblCorrects.ForeColor = Color.Green;
-            lblCorrects.Location = new Point(picBackground.Width / 2 - 200, picBackground.Height / 2 - 50); // Adjusted position
-            picBackground.Controls.Add(lblCorrects);
-            lblCorrects.BringToFront();
+            CenterLabel(lblCorrects, pnlFlashcard.Width, pnlFlashcard.Height, -100, -50); // Adjusted position
+            pnlFlashcard.Controls.Add(lblCorrects);
 
             // Correct Answer Number
             lblNumAnswer.Text = correct.ToString();
@@ -348,9 +384,8 @@ namespace Design
             lblNumAnswer.Font = new Font("Arial", 24, FontStyle.Bold);
             lblNumAnswer.BackColor = Color.Transparent;
             lblNumAnswer.ForeColor = Color.Black;
-            lblNumAnswer.Location = new Point(picBackground.Width / 2 + 50, picBackground.Height / 2 - 50); // Adjusted position
-            picBackground.Controls.Add(lblNumAnswer);
-            lblNumAnswer.BringToFront();
+            CenterLabel(lblNumAnswer, pnlFlashcard.Width, pnlFlashcard.Height, 50, -50); // Adjusted position
+            pnlFlashcard.Controls.Add(lblNumAnswer);
 
             // Misses Label
             lblMisses.Text = "Miss:";
@@ -358,9 +393,8 @@ namespace Design
             lblMisses.Font = new Font("Arial", 24, FontStyle.Bold);
             lblMisses.BackColor = Color.Transparent;
             lblMisses.ForeColor = Color.Red;
-            lblMisses.Location = new Point(picBackground.Width / 2 - 200, picBackground.Height / 2 + 50); // Adjusted position
-            picBackground.Controls.Add(lblMisses);
-            lblMisses.BringToFront();
+            CenterLabel(lblMisses, pnlFlashcard.Width, pnlFlashcard.Height, -100, 50); // Adjusted position
+            pnlFlashcard.Controls.Add(lblMisses);
 
             // Missed Answers Number
             lblNumMiss.Text = miss.ToString();
@@ -368,9 +402,8 @@ namespace Design
             lblNumMiss.Font = new Font("Arial", 24, FontStyle.Bold);
             lblNumMiss.BackColor = Color.Transparent;
             lblNumMiss.ForeColor = Color.Black;
-            lblNumMiss.Location = new Point(picBackground.Width / 2 + 50, picBackground.Height / 2 + 50); // Adjusted position
-            picBackground.Controls.Add(lblNumMiss);
-            lblNumMiss.BringToFront();
+            CenterLabel(lblNumMiss, pnlFlashcard.Width, pnlFlashcard.Height, 50, 50); // Adjusted position
+            pnlFlashcard.Controls.Add(lblNumMiss);
 
             // Retake Prompt Input Text
             input.Text = "Do you want to retake again? (y/n).";
@@ -378,8 +411,8 @@ namespace Design
             input.Font = new Font("Arial", 12, FontStyle.Bold);
             input.BackColor = Color.Transparent;
             input.ForeColor = Color.Yellow;
-            input.Location = new Point(picBackground.Width / 2 - 190, picBackground.Height - 100); // Adjusted position for better placement
-            picBackground.Controls.Add(input);
+            CenterLabel(input, pnlFlashcard.Width, pnlFlashcard.Height, 0, +300); // Adjusted position
+            pnlFlashcard.Controls.Add(input);
 
             this.KeyPreview = true;
             this.KeyDown += KeyPresses;
@@ -387,13 +420,13 @@ namespace Design
 
         private void RemoveResultLabels()
         {
-            picBackground.Controls.Remove(lblResult);
-            picBackground.Controls.Remove(lblCorrects);
-            picBackground.Controls.Remove(lblNumAnswer);
-            picBackground.Controls.Remove(lblNumMiss);
-            picBackground.Controls.Remove(lblMisses);
-            picBackground.Controls.Remove(input);
-            this.Controls.Remove(picBackground);
+            pnlFlashcard.Controls.Remove(lblResult);
+            pnlFlashcard.Controls.Remove(lblCorrects);
+            pnlFlashcard.Controls.Remove(lblNumAnswer);
+            pnlFlashcard.Controls.Remove(lblNumMiss);
+            pnlFlashcard.Controls.Remove(lblMisses);
+            pnlFlashcard.Controls.Remove(input);
+            pnlFlashcard.BackgroundImage = null;
         }
 
         private void KeyPresses(object sender, KeyEventArgs e)
@@ -409,11 +442,6 @@ namespace Design
                 this.Hide();
                 createQuizForm.Show();
             }
-        }
-
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -59,6 +59,7 @@
             StartingTimer = new System.Windows.Forms.Timer(components);
             GoTimer = new System.Windows.Forms.Timer(components);
             IntervalTimer = new System.Windows.Forms.Timer(components);
+            pnlFlashcard = new Panel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             panel1.SuspendLayout();
@@ -75,6 +76,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)quizCard).BeginInit();
+            pnlFlashcard.SuspendLayout();
             SuspendLayout();
             // 
             // pictureBox1
@@ -314,10 +316,10 @@
             // 
             quizCard.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             quizCard.BackgroundImage = (Image)resources.GetObject("quizCard.BackgroundImage");
-            quizCard.Location = new Point(510, 203);
+            quizCard.Location = new Point(50, 74);
             quizCard.Margin = new Padding(4, 5, 4, 5);
             quizCard.Name = "quizCard";
-            quizCard.Size = new Size(880, 485);
+            quizCard.Size = new Size(869, 516);
             quizCard.TabIndex = 36;
             quizCard.TabStop = false;
             // 
@@ -327,7 +329,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.FromArgb(0, 192, 0);
-            label3.Location = new Point(510, 756);
+            label3.Location = new Point(50, 646);
             label3.Name = "label3";
             label3.Size = new Size(98, 29);
             label3.TabIndex = 37;
@@ -339,7 +341,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.FromArgb(192, 0, 0);
-            label4.Location = new Point(1271, 756);
+            label4.Location = new Point(811, 646);
             label4.Name = "label4";
             label4.Size = new Size(67, 29);
             label4.TabIndex = 38;
@@ -351,7 +353,7 @@
             lblCorrect.AutoSize = true;
             lblCorrect.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblCorrect.ForeColor = Color.Black;
-            lblCorrect.Location = new Point(600, 756);
+            lblCorrect.Location = new Point(140, 646);
             lblCorrect.Name = "lblCorrect";
             lblCorrect.Size = new Size(26, 29);
             lblCorrect.TabIndex = 39;
@@ -363,7 +365,7 @@
             lblMiss.AutoSize = true;
             lblMiss.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblMiss.ForeColor = Color.Black;
-            lblMiss.Location = new Point(1330, 756);
+            lblMiss.Location = new Point(870, 646);
             lblMiss.Name = "lblMiss";
             lblMiss.Size = new Size(26, 29);
             lblMiss.TabIndex = 40;
@@ -372,9 +374,9 @@
             // txtAnswer
             // 
             txtAnswer.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtAnswer.Location = new Point(675, 708);
+            txtAnswer.Location = new Point(199, 607);
             txtAnswer.Name = "txtAnswer";
-            txtAnswer.Size = new Size(563, 31);
+            txtAnswer.Size = new Size(595, 31);
             txtAnswer.TabIndex = 41;
             txtAnswer.KeyDown += txtAnswer_KeyDown;
             // 
@@ -385,10 +387,10 @@
             // 
             // Time
             // 
-            Time.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            Time.Anchor = AnchorStyles.Top;
             Time.AutoSize = true;
             Time.Font = new Font("Tahoma", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Time.Location = new Point(926, 152);
+            Time.Location = new Point(449, 25);
             Time.Name = "Time";
             Time.Size = new Size(70, 34);
             Time.TabIndex = 42;
@@ -409,6 +411,21 @@
             IntervalTimer.Interval = 1000;
             IntervalTimer.Tick += IntervalTimer_Tick;
             // 
+            // pnlFlashcard
+            // 
+            pnlFlashcard.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pnlFlashcard.Controls.Add(Time);
+            pnlFlashcard.Controls.Add(txtAnswer);
+            pnlFlashcard.Controls.Add(quizCard);
+            pnlFlashcard.Controls.Add(lblMiss);
+            pnlFlashcard.Controls.Add(label4);
+            pnlFlashcard.Controls.Add(lblCorrect);
+            pnlFlashcard.Controls.Add(label3);
+            pnlFlashcard.Location = new Point(442, 145);
+            pnlFlashcard.Name = "pnlFlashcard";
+            pnlFlashcard.Size = new Size(973, 820);
+            pnlFlashcard.TabIndex = 43;
+            // 
             // frmStartquiz
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -416,13 +433,7 @@
             BackgroundImage = Properties.Resources.Untitled_design__1_2;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1658, 1026);
-            Controls.Add(Time);
-            Controls.Add(txtAnswer);
-            Controls.Add(lblMiss);
-            Controls.Add(lblCorrect);
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(quizCard);
+            Controls.Add(pnlFlashcard);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox4);
             Controls.Add(label2);
@@ -449,6 +460,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)quizCard).EndInit();
+            pnlFlashcard.ResumeLayout(false);
+            pnlFlashcard.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -484,5 +497,6 @@
         private System.Windows.Forms.Timer StartingTimer;
         private System.Windows.Forms.Timer GoTimer;
         private System.Windows.Forms.Timer IntervalTimer;
+        private Panel pnlFlashcard;
     }
 }

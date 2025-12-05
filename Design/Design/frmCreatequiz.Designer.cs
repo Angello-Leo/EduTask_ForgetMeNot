@@ -57,6 +57,7 @@
             timer1 = new System.Windows.Forms.Timer(components);
             lblCountCards = new Label();
             txtAnswer = new TextBox();
+            pboxClear = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             panel1.SuspendLayout();
@@ -77,6 +78,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox16).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox17).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pboxSaveCard).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pboxClear).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -420,10 +422,22 @@
             // 
             txtAnswer.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtAnswer.BackColor = Color.FromArgb(192, 255, 255);
-            txtAnswer.Location = new Point(564, 722);
+            txtAnswer.Location = new Point(577, 722);
             txtAnswer.Name = "txtAnswer";
             txtAnswer.Size = new Size(487, 31);
             txtAnswer.TabIndex = 40;
+            // 
+            // pboxClear
+            // 
+            pboxClear.BackColor = Color.Transparent;
+            pboxClear.BackgroundImage = Properties.Resources.Remove_Card;
+            pboxClear.BackgroundImageLayout = ImageLayout.Stretch;
+            pboxClear.Location = new Point(398, 731);
+            pboxClear.Name = "pboxClear";
+            pboxClear.Size = new Size(152, 100);
+            pboxClear.TabIndex = 41;
+            pboxClear.TabStop = false;
+            pboxClear.Click += pboxClear_Click;
             // 
             // frmCreatequiz
             // 
@@ -432,6 +446,7 @@
             BackgroundImage = Properties.Resources.Untitled_design__1_2;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1658, 1026);
+            Controls.Add(pboxClear);
             Controls.Add(txtAnswer);
             Controls.Add(lblCountCards);
             Controls.Add(pboxSaveCard);
@@ -471,6 +486,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox16).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox17).EndInit();
             ((System.ComponentModel.ISupportInitialize)pboxSaveCard).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pboxClear).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -504,5 +520,6 @@
         private System.Windows.Forms.Timer timer1;
         private Label lblCountCards;
         private TextBox txtAnswer;
+        private PictureBox pboxClear;
     }
 }

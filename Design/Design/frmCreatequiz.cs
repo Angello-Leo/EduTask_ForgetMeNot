@@ -166,9 +166,9 @@ namespace Design
             if (questions.Count >= 10)
             {
                 MessageBox.Show($"Starting Quiz with {questions.Count.ToString()} Flashcards!");
-                /*frmStartquiz f7 = new frmStartquiz(questions, answers, this);
+                frmStartquiz f7 = new frmStartquiz(questions, answers, this);
                 this.Hide();
-                f7.Show();*/
+                f7.Show();
             }
             else
             {
@@ -184,6 +184,14 @@ namespace Design
         private void pictureBox17_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void pboxClear_Click(object sender, EventArgs e)
+        {
+            questions.Clear();
+            answers.Clear();
+            MessageBox.Show("All flashcards have been cleared.");
+            lblCountCards.Text = "0/10";
         }
     }
 }

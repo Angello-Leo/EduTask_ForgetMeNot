@@ -43,44 +43,49 @@
             // lblTitle
             // 
             lblTitle.AutoSize = true;
-            lblTitle.Location = new Point(39, 19);
+            lblTitle.Location = new Point(49, 24);
+            lblTitle.Margin = new Padding(4, 0, 4, 0);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(38, 20);
+            lblTitle.Size = new Size(44, 25);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "Title";
             // 
             // lblContent
             // 
             lblContent.AutoSize = true;
-            lblContent.Location = new Point(39, 42);
+            lblContent.Location = new Point(49, 52);
+            lblContent.Margin = new Padding(4, 0, 4, 0);
             lblContent.Name = "lblContent";
-            lblContent.Size = new Size(61, 20);
+            lblContent.Size = new Size(75, 25);
             lblContent.TabIndex = 1;
             lblContent.Text = "Content";
             // 
             // lblCreatedBy
             // 
             lblCreatedBy.AutoSize = true;
-            lblCreatedBy.Location = new Point(39, 72);
+            lblCreatedBy.Location = new Point(49, 90);
+            lblCreatedBy.Margin = new Padding(4, 0, 4, 0);
             lblCreatedBy.Name = "lblCreatedBy";
-            lblCreatedBy.Size = new Size(84, 20);
+            lblCreatedBy.Size = new Size(102, 25);
             lblCreatedBy.TabIndex = 2;
             lblCreatedBy.Text = "Created by:";
             // 
             // lblCreatedAt
             // 
             lblCreatedAt.AutoSize = true;
-            lblCreatedAt.Location = new Point(39, 101);
+            lblCreatedAt.Location = new Point(49, 126);
+            lblCreatedAt.Margin = new Padding(4, 0, 4, 0);
             lblCreatedAt.Name = "lblCreatedAt";
-            lblCreatedAt.Size = new Size(84, 20);
+            lblCreatedAt.Size = new Size(102, 25);
             lblCreatedAt.TabIndex = 3;
             lblCreatedAt.Text = "Created by:";
             // 
             // btnMarkAsDone
             // 
-            btnMarkAsDone.Location = new Point(517, 116);
+            btnMarkAsDone.Location = new Point(646, 145);
+            btnMarkAsDone.Margin = new Padding(4, 4, 4, 4);
             btnMarkAsDone.Name = "btnMarkAsDone";
-            btnMarkAsDone.Size = new Size(94, 29);
+            btnMarkAsDone.Size = new Size(118, 36);
             btnMarkAsDone.TabIndex = 4;
             btnMarkAsDone.Text = "Done";
             btnMarkAsDone.UseVisualStyleBackColor = true;
@@ -88,9 +93,10 @@
             // 
             // btnEdit
             // 
-            btnEdit.Location = new Point(517, 72);
+            btnEdit.Location = new Point(646, 90);
+            btnEdit.Margin = new Padding(4, 4, 4, 4);
             btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(94, 29);
+            btnEdit.Size = new Size(118, 36);
             btnEdit.TabIndex = 5;
             btnEdit.Text = "Edit";
             btnEdit.UseVisualStyleBackColor = true;
@@ -99,18 +105,20 @@
             // 
             lblDueDate.AutoSize = true;
             lblDueDate.ForeColor = Color.Red;
-            lblDueDate.Location = new Point(39, 131);
+            lblDueDate.Location = new Point(49, 164);
+            lblDueDate.Margin = new Padding(4, 0, 4, 0);
             lblDueDate.Name = "lblDueDate";
-            lblDueDate.Size = new Size(84, 20);
+            lblDueDate.Size = new Size(102, 25);
             lblDueDate.TabIndex = 6;
             lblDueDate.Text = "Created by:";
             lblDueDate.Click += label1_Click;
             // 
             // btnCloseSubmission
             // 
-            btnCloseSubmission.Location = new Point(517, 23);
+            btnCloseSubmission.Location = new Point(646, 29);
+            btnCloseSubmission.Margin = new Padding(4, 4, 4, 4);
             btnCloseSubmission.Name = "btnCloseSubmission";
-            btnCloseSubmission.Size = new Size(94, 29);
+            btnCloseSubmission.Size = new Size(118, 36);
             btnCloseSubmission.TabIndex = 7;
             btnCloseSubmission.Text = "Close Submission";
             btnCloseSubmission.UseVisualStyleBackColor = true;
@@ -127,19 +135,21 @@
             panel1.Controls.Add(lblDueDate);
             panel1.Controls.Add(lblContent);
             panel1.Controls.Add(lblCreatedAt);
-            panel1.Location = new Point(27, 18);
+            panel1.Location = new Point(34, 22);
+            panel1.Margin = new Padding(4, 4, 4, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(724, 173);
+            panel1.Size = new Size(905, 216);
             panel1.TabIndex = 8;
             // 
             // ctrlAnnouncement
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonHighlight;
             Controls.Add(panel1);
+            Margin = new Padding(4, 4, 4, 4);
             Name = "ctrlAnnouncement";
-            Size = new Size(778, 203);
+            Size = new Size(972, 254);
             Load += ctrlAnnouncement_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
