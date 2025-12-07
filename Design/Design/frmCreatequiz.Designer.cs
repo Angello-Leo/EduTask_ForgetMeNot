@@ -58,6 +58,7 @@
             lblCountCards = new Label();
             txtAnswer = new TextBox();
             pboxClear = new PictureBox();
+            picSettings = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             panel1.SuspendLayout();
@@ -79,6 +80,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox17).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pboxSaveCard).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pboxClear).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picSettings).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -393,7 +395,7 @@
             pboxSaveCard.Anchor = AnchorStyles.Right;
             pboxSaveCard.BackColor = Color.Transparent;
             pboxSaveCard.BackgroundImage = (Image)resources.GetObject("pboxSaveCard.BackgroundImage");
-            pboxSaveCard.BackgroundImageLayout = ImageLayout.Zoom;
+            pboxSaveCard.BackgroundImageLayout = ImageLayout.Stretch;
             pboxSaveCard.Location = new Point(1100, 734);
             pboxSaveCard.Margin = new Padding(4, 5, 4, 5);
             pboxSaveCard.Name = "pboxSaveCard";
@@ -430,7 +432,7 @@
             // pboxClear
             // 
             pboxClear.BackColor = Color.Transparent;
-            pboxClear.BackgroundImage = Properties.Resources.Remove_Card;
+            pboxClear.BackgroundImage = (Image)resources.GetObject("pboxClear.BackgroundImage");
             pboxClear.BackgroundImageLayout = ImageLayout.Stretch;
             pboxClear.Location = new Point(398, 731);
             pboxClear.Name = "pboxClear";
@@ -439,6 +441,18 @@
             pboxClear.TabStop = false;
             pboxClear.Click += pboxClear_Click;
             // 
+            // picSettings
+            // 
+            picSettings.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            picSettings.BackgroundImage = (Image)resources.GetObject("picSettings.BackgroundImage");
+            picSettings.BackgroundImageLayout = ImageLayout.Zoom;
+            picSettings.Location = new Point(1148, 110);
+            picSettings.Name = "picSettings";
+            picSettings.Size = new Size(104, 55);
+            picSettings.TabIndex = 42;
+            picSettings.TabStop = false;
+            picSettings.Click += picSettings_Click;
+            // 
             // frmCreatequiz
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -446,6 +460,7 @@
             BackgroundImage = Properties.Resources.Untitled_design__1_2;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1658, 1026);
+            Controls.Add(picSettings);
             Controls.Add(pboxClear);
             Controls.Add(txtAnswer);
             Controls.Add(lblCountCards);
@@ -487,6 +502,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox17).EndInit();
             ((System.ComponentModel.ISupportInitialize)pboxSaveCard).EndInit();
             ((System.ComponentModel.ISupportInitialize)pboxClear).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picSettings).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -521,5 +537,6 @@
         private Label lblCountCards;
         private TextBox txtAnswer;
         private PictureBox pboxClear;
+        private PictureBox picSettings;
     }
 }

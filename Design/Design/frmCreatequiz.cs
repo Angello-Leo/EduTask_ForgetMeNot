@@ -12,10 +12,20 @@ namespace Design
 {
     public partial class frmCreatequiz : Form
     {
+        int setTime = 60;
+        int setCard = 10;
         public frmCreatequiz()
         {
             InitializeComponent();
             panel1.Visible = false;
+        }
+        public frmCreatequiz(int setCard, int setTime)
+        {
+            InitializeComponent();
+            panel1.Visible = false;
+            this.setCard = setCard;
+            this.setTime = setTime;
+            lblCountCards.Text = $"0/{setCard}";
         }
         private bool panelIsExpanded = false;
         private int panelMaxWidth = 200;
@@ -45,14 +55,19 @@ namespace Design
         {
             if (!string.IsNullOrWhiteSpace(rtxtInput.Text) && rtxtInput.Text != defaultText && !string.IsNullOrWhiteSpace(txtAnswer.Text))
             {
+                if (questions.Count == setCard)
+                {
+                    MessageBox.Show($"You have reached the maximum number of flashcard.");
+                    return;
+                }
                 questions.Add(rtxtInput.Text.Trim());
                 rtxtInput.Clear();
                 answers.Add(txtAnswer.Text.Trim());
                 txtAnswer.Clear();
                 MessageBox.Show("Saved succesfully!");
 
-                lblCountCards.Text = questions.Count.ToString() + "/10";
-                if (questions.Count >= 10)
+                lblCountCards.Text = $"{questions.Count}/{setCard}";
+                if (questions.Count == setCard)
                 {
                     lblCountCards.ForeColor = Color.Green;
                 }
@@ -66,6 +81,7 @@ namespace Design
             {
                 MessageBox.Show("Please fill in both question and answer fields before saving.");
             }
+
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -163,16 +179,16 @@ namespace Design
 
         private void pboxStartquiz_Click(object sender, EventArgs e)
         {
-            if (questions.Count >= 10)
+            if (questions.Count == setCard)
             {
                 MessageBox.Show($"Starting Quiz with {questions.Count.ToString()} Flashcards!");
-                frmStartquiz f7 = new frmStartquiz(questions, answers, this);
+                frmStartquiz f7 = new frmStartquiz(questions, answers, this, setTime);
                 this.Hide();
                 f7.Show();
             }
             else
             {
-                MessageBox.Show("Please enter up to 10 Flashcards");
+                MessageBox.Show($"Please enter up to {setCard} Flashcards");
             }
         }
 
@@ -190,8 +206,17 @@ namespace Design
         {
             questions.Clear();
             answers.Clear();
+            txtAnswer.Clear();
+            rtxtInput.Text = defaultText;
             MessageBox.Show("All flashcards have been cleared.");
-            lblCountCards.Text = "0/10";
+            lblCountCards.ForeColor = Color.Red;
+            lblCountCards.Text = $"0/{setCard}";
+        }
+
+        private void picSettings_Click(object sender, EventArgs e)
+        {
+            frmFlashcardSettings f8 = new frmFlashcardSettings(this);
+            f8.ShowDialog();
         }
     }
 }

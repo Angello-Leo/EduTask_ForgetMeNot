@@ -13,6 +13,9 @@ namespace Design
 {
     public partial class frmStartquiz : Form
     {
+        private bool panelIsExpanded = false;
+        private int panelMaxWidth = 200;
+        private int slideSpeed = 10;
 
         List<string> questions = new List<string>();
         List<string> answers = new List<string>();
@@ -37,14 +40,13 @@ namespace Design
         Label lblNumMiss = new Label();
         Label lblMisses = new Label();
         Label input = new Label();
-        PictureBox picBackground = new PictureBox();
-
-        public frmStartquiz(List<string> questions, List<string> answers, frmCreatequiz form)
+        public frmStartquiz(List<string> questions, List<string> answers, frmCreatequiz form, int time)
         {
             InitializeComponent();
             this.questions = questions;
             this.answers = answers;
             createQuizForm = form;
+            totalSecs = time;
         }
         private void frmStartquiz_Load(object sender, EventArgs e)
         {
@@ -60,8 +62,8 @@ namespace Design
             miss = 0;
             lblCorrect.Text = correct.ToString();
             lblMiss.Text = miss.ToString();
-            totalSecs = 1 * 60;
             remainingSecs = totalSecs;
+            UpdateTimerDisplay();
             Shuffle();
             CreateStartLabel();
             StartingTimer.Start();
@@ -151,15 +153,14 @@ namespace Design
                 questionLabel.Text = orderedQuestions.Pop();
                 questionLabel.BackColor = Color.Transparent;
                 questionLabel.ForeColor = Color.Black;
-                DrawQuestion(quizCard, questionLabel.Text);
 
                 // Add the label to the quizCard (make sure quizCard is a container control)
-                quizCard.Controls.Add(questionLabel);
+                DrawQuestion(quizCard, questionLabel.Text);
             }
         }
         private void GenerateAnswers(string answer, bool isCorrect)
         {
-            quizCard.Controls.Remove(questionLabel);
+            RemoveQuestion(quizCard);
             int height = quizCard.Height;
             int width = quizCard.Width;
 
@@ -170,6 +171,11 @@ namespace Design
             lblAnswer.ForeColor = isCorrect ? Color.Green : Color.Red;
             CenterLabel(lblAnswer, width, height);
             quizCard.Controls.Add(lblAnswer);
+        }
+        public static void RemoveQuestion(Control container)
+        {
+            // Clear the container by refreshing it
+            container.Refresh();
         }
         private void CenterLabel(Label label, int containerWidth, int containerHeight)
         {
@@ -186,34 +192,57 @@ namespace Design
         }
         public static void DrawQuestion(Control container, string question)
         {
-            // Create graphics object for measuring
             using (Graphics g = container.CreateGraphics())
             {
-                int maxFontSize = 14;   // starting font size
-                int minFontSize = 9;   // smallest allowed
-                Font font = new Font("Arial", maxFontSize, FontStyle.Bold);
+                int maxFontSize = 14;
+                int minFontSize = 9;
+                Font font = new Font("Arial", maxFontSize);
 
+                // Measure text size
                 SizeF textSize = g.MeasureString(question, font);
 
-                // Shrink font until it fits inside container
-                while ((textSize.Width > container.ClientSize.Width ||
-                        textSize.Height > container.ClientSize.Height) &&
-                       font.Size > minFontSize)
+                // Shrink font until it fits height
+                while (textSize.Height > container.ClientSize.Height && font.Size > minFontSize)
                 {
                     font = new Font(font.FontFamily, font.Size - 1, font.Style);
                     textSize = g.MeasureString(question, font);
                 }
 
-                // Calculate centered position (slightly higher vertically)
-                float x = (container.ClientSize.Width - textSize.Width) / 2;
-                float y = (container.ClientSize.Height - textSize.Height) / 2;
-
-                // Move text upward by 20% of container height
-                y -= container.ClientSize.Height * 0.2f;
-
-                // Clear container and redraw
                 container.Refresh();
-                g.DrawString(question, font, Brushes.Black, new PointF(x, y));
+
+                // If text width exceeds container, split into two lines
+                if (textSize.Width > container.ClientSize.Width)
+                {
+                    // Find midpoint near a space to split nicely
+                    int mid = question.Length / 2;
+                    int splitIndex = question.LastIndexOf(' ', mid);
+                    if (splitIndex == -1) splitIndex = mid; // fallback
+
+                    string upper = question.Substring(0, splitIndex).Trim();
+                    string lower = question.Substring(splitIndex).Trim();
+
+                    // Measure each line
+                    SizeF upperSize = g.MeasureString(upper, font);
+                    SizeF lowerSize = g.MeasureString(lower, font);
+
+                    // Calculate centered positions
+                    float upperX = (container.ClientSize.Width - upperSize.Width) / 2;
+                    float lowerX = (container.ClientSize.Width - lowerSize.Width) / 2;
+
+                    float totalHeight = upperSize.Height + lowerSize.Height;
+                    float startY = (container.ClientSize.Height - totalHeight) / 2;
+
+                    // Draw both lines
+                    g.DrawString(upper, font, Brushes.Black, new PointF(upperX, startY));
+                    g.DrawString(lower, font, Brushes.Black, new PointF(lowerX, startY + upperSize.Height));
+                }
+                else
+                {
+                    // Normal centered draw
+                    float x = (container.ClientSize.Width - textSize.Width) / 2;
+                    float y = (container.ClientSize.Height - textSize.Height) / 2;
+                    g.DrawString(question, font, Brushes.Black, new PointF(x, y));
+                }
             }
         }
         private void CenterLabel(Label label, int containerWidth, int containerHeight, int adjx, int adjy)

@@ -7,6 +7,9 @@
     <Compile Update="ctrlNotification.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="frmFlashcardSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="frmPersonal.cs">
       <SubType>Form</SubType>
     </Compile>
