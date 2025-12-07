@@ -13,10 +13,6 @@ namespace Design
 {
     public partial class frmStartquiz : Form
     {
-        private bool panelIsExpanded = false;
-        private int panelMaxWidth = 200;
-        private int slideSpeed = 10;
-
         List<string> questions = new List<string>();
         List<string> answers = new List<string>();
         Stack<string> orderedQuestions = new Stack<string>();

@@ -108,7 +108,6 @@
             pictureBox15.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox15.TabIndex = 23;
             pictureBox15.TabStop = false;
-            pictureBox15.Click += pictureBox15_Click;
             // 
             // label1
             // 
@@ -144,7 +143,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(242, 959);
             panel1.TabIndex = 25;
-            panel1.Paint += panel1_Paint;
             // 
             // panel2
             // 
@@ -374,7 +372,6 @@
             pictureBox17.Size = new Size(880, 575);
             pictureBox17.TabIndex = 35;
             pictureBox17.TabStop = false;
-            pictureBox17.Click += pictureBox17_Click;
             // 
             // rtxtInput
             // 
@@ -480,7 +477,6 @@
             Margin = new Padding(4, 5, 4, 5);
             Name = "frmCreatequiz";
             Text = "Adding Cards";
-            Load += Form6_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             panel1.ResumeLayout(false);

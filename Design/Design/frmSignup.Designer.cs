@@ -205,7 +205,6 @@
             Margin = new Padding(4);
             Name = "frmSignup";
             Text = "frmSignup";
-            Load += frmSignup_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);

@@ -59,10 +59,5 @@ namespace Design
             frmCreatequiz form = new frmCreatequiz(maxCard, setTime);
             form.Show();
         }
-
-        private void frmFlashcardSettings_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

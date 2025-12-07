@@ -19,30 +19,6 @@
                 InitializeComponent();
             }
 
-            private void frmLogin_Load(object sender, EventArgs e)
-            {
-                if (this.WindowState == FormWindowState.Maximized)
-                {
-                    CenterControlsInPanel();
-                }
-            }
-
-            private void CenterControlsInPanel()
-            {
-                int panelWidth = this.panel1.ClientSize.Width;
-                int panelHeight = this.panel1.ClientSize.Height;
-
-                foreach (Control control in this.panel1.Controls)
-                {
-                    // Skip if the control is not visible
-                    if (!control.Visible) continue;
-
-                    // Center the control inside the panel
-                    control.Left = (panelWidth - control.Width) / 2;
-                    control.Top = (panelHeight - control.Height) / 2;
-                }
-            }
-
             private void login_Click(object sender, EventArgs e)
             {
                 string username = txtUsername.Text.Trim();
@@ -142,11 +118,6 @@
                 frmSignup signupFrm = new frmSignup(this);
                 signupFrm.Show();
                 this.Hide();
-            }
-
-            private void panel1_Paint(object sender, PaintEventArgs e)
-            {
-
             }
         }
     }

@@ -93,7 +93,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(194, 767);
             panel1.TabIndex = 0;
-            panel1.Paint += panel1_Paint;
             // 
             // panel2
             // 
@@ -267,7 +266,6 @@
             label1.Size = new Size(217, 28);
             label1.TabIndex = 2;
             label1.Text = "EduTask : ForgetMeNot";
-            label1.Click += label1_Click;
             // 
             // label2
             // 
@@ -282,7 +280,6 @@
             label2.Size = new Size(143, 37);
             label2.TabIndex = 3;
             label2.Text = ",Welcome";
-            label2.Click += label2_Click;
             // 
             // pictureBox3
             // 
@@ -310,7 +307,6 @@
             pictureBox4.Size = new Size(49, 55);
             pictureBox4.TabIndex = 6;
             pictureBox4.TabStop = false;
-            pictureBox4.Click += pictureBox4_Click;
             // 
             // pictureBox2
             // 

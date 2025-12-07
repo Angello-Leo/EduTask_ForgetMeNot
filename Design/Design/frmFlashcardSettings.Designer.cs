@@ -109,7 +109,6 @@
             Controls.Add(label1);
             Name = "frmFlashcardSettings";
             Text = "frmFlashcardSettings";
-            Load += frmFlashcardSettings_Load;
             ResumeLayout(false);
             PerformLayout();
         }

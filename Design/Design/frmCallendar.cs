@@ -153,11 +153,6 @@ namespace Design
             this.Hide();
         }
 
-        private void frmCallendar_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
             flowLayoutPanelCallendar.Controls.Clear();

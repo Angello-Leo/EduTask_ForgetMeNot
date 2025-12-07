@@ -167,16 +167,6 @@ namespace Design
             this.Hide();
         }
 
-        private void Form6_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void pboxStartquiz_Click(object sender, EventArgs e)
         {
             if (questions.Count == setCard)
@@ -190,16 +180,6 @@ namespace Design
             {
                 MessageBox.Show($"Please enter up to {setCard} Flashcards");
             }
-        }
-
-        private void pictureBox15_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox17_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void pboxClear_Click(object sender, EventArgs e)

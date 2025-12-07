@@ -105,11 +105,6 @@ namespace Design
             }
         }
 
-
-
-
-
-
         private void Form1_Shown(object sender, EventArgs e)
         {
             try
@@ -291,13 +286,7 @@ namespace Design
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-
             timer1.Start();
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -329,22 +318,6 @@ namespace Design
             }
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox4_Click(object sender, EventArgs e)
-        {
-            //e2 ay sa message button
-
-        }
-
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             // e2 ay sa notification button
@@ -359,11 +332,6 @@ namespace Design
             Form2 f2 = new Form2(this); // pass reference to this dashboard
             f2.Show();
             this.Hide();
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
 
         }
 

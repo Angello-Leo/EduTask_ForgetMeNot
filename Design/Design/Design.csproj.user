@@ -7,6 +7,9 @@
     <Compile Update="ctrlNotification.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="frmCreateQuiz.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="frmFlashcardSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -47,9 +50,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="frmFlashcard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="frmCreateQuiz.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="frmSignup.cs">
