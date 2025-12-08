@@ -143,5 +143,10 @@ namespace Design
             f2.Show();
             this.Hide();
         }
+
+        private void frmAddSchedule_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

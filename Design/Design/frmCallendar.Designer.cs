@@ -454,6 +454,7 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "frmCallendar";
             Text = "Form10";
+            Load += frmCallendar_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             panel1.ResumeLayout(false);

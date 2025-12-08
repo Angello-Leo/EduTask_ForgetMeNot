@@ -22,6 +22,7 @@ namespace Design
             panel1.Width = 60;
             panel1.Visible = true;
             lblUsername.Text = GetInfo.Username;
+            ShowPersonalPanel();
 
         }
         private bool panelIsExpanded = false;
@@ -141,6 +142,14 @@ namespace Design
             f9.Show();
             this.Hide();
         }
+        private void ShowPersonalPanel()
+        {
+            panelPersonal.Visible = true;
+            panelPersonal.BringToFront();
+            flowLayoutPanelPendingAssignments.Controls.Clear();
+            LoadPersonalTasks();
+        }
+
         private void pictureBox21_Click(object sender, EventArgs e)
         {
             panelPersonal.Visible = true;
@@ -251,6 +260,83 @@ namespace Design
             {
                 MessageBox.Show("Error loading personal tasks: " + ex.Message);
             }
+        }
+
+        private void frmPersonal_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblClose_Click(object sender, EventArgs e)
+        {
+            flowLayoutPanelPendingAssignments.Visible = false;
+            LoadPersonalTasks();
+        }
+
+        private void btnSaveTask_Click_1(object sender, EventArgs e)
+        {
+            string title = txtTaskTitle.Text;
+            string content = txtTaskTitle.Text;
+            DateTime? dueDate = dtpTaskDueDate.Value;
+
+            if (string.IsNullOrWhiteSpace(title) || string.IsNullOrWhiteSpace(content))
+            {
+                MessageBox.Show("Please fill in both title and content.");
+                return;
+            }
+
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(conString))
+                {
+                    con.Open();
+                    string query = @"
+            INSERT INTO personal_tasks (user_id, title, content, due_datetime, created_at)
+            VALUES (@user_id, @title, @content, @due_datetime, NOW());";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@user_id", GetInfo.UserID);
+                        cmd.Parameters.AddWithValue("@title", title);
+                        cmd.Parameters.AddWithValue("@content", content);
+                        cmd.Parameters.AddWithValue("@due_datetime", (object)dueDate ?? DBNull.Value);
+
+                        int result = cmd.ExecuteNonQuery();
+                        if (result > 0)
+                        {
+                            MessageBox.Show("Task created successfully!");
+                            // Optionally clear the input fields
+                            txtTaskTitle.Clear();
+                            txtTaskTitle.Clear();
+                            dtpTaskDueDate.Value = DateTime.Now; // Reset to current date
+                            LoadPersonalTasks(); // Refresh the list of personal tasks
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error saving the task.");
+                        }
+                    }
+                }
+                panelPersonal.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private void pictureBox11_Click(object sender, EventArgs e)
+        {
+            frmCallendar c = new frmCallendar();
+            c.Show();
+            this.Close();
+        }
+
+        private void pictureBox7_Click(object sender, EventArgs e)
+        {
+            frmCallendar c = new frmCallendar();
+            c.Show();
+            this.Close();
         }
     }
 }

@@ -855,27 +855,14 @@ namespace Design
                     announcementId = cmd.LastInsertedId;
                 }
 
-                // 2️⃣ Insert "Pending" status for all students
-                string statusQuery = @"
-                    INSERT INTO announcement_status (announcement_id, user_id, status)
-                    SELECT @aid, uc.user_id, 'pending'
-                    FROM user_classes uc
-                    WHERE uc.class_id = @cid;
-                    ";
-
-                using (MySqlCommand statusCmd = new MySqlCommand(statusQuery, con))
-                {
-                    statusCmd.Parameters.AddWithValue("@aid", announcementId);
-                    statusCmd.Parameters.AddWithValue("@cid", _classId);
-
-                    statusCmd.ExecuteNonQuery();
-                }
+                // 2️⃣ REMOVED - user_classes no longer exists
+                // No announcement_status generation for each user
 
                 // 3️⃣ Create a class-wide notification
-                // Insert into notifications table
                 string notifQuery = @"
             INSERT INTO notifications (class_id, user_id, message, created_at, created_by)
             VALUES (@cid, NULL, @message, NOW(), @creator)";
+
                 int newNotifId;
                 using (var cmd = new MySqlCommand(notifQuery, con))
                 {
@@ -887,28 +874,28 @@ namespace Design
                     newNotifId = (int)cmd.LastInsertedId;
                 }
 
-                // 4️⃣ Send desktop notification only to other users
+                // 4️⃣ Send desktop notification to all relevant users except creator
                 NotificationManager.SendNotification(
                     newNotifId,
                     txtAnnouncementTitle.Text + " - " + txtAnnouncementContent.Text,
                     "announcement",
                     DateTime.Now,
-                    GetInfo.UserID // creatorId
+                    GetInfo.UserID
                 );
 
-                // Clear fields
+                // Clear UI
                 txtAnnouncementTitle.Clear();
                 txtAnnouncementContent.Clear();
                 chkSetDueDate.Checked = false;
 
-                // Refresh announcements panel (for creator)
                 LoadAnnouncements();
                 panelCreateAnnouncement.Visible = false;
                 flowLayoutPanelAnnouncements.Visible = true;
                 flowLayoutPanelAnnouncements.BringToFront();
             }
         }
-        
+
+
         private void SetPlaceholderText()
         {
             if (string.IsNullOrWhiteSpace(txtAnnouncementContent.Text))

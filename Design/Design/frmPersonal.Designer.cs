@@ -211,6 +211,7 @@
             pictureBox11.Size = new Size(127, 63);
             pictureBox11.TabIndex = 17;
             pictureBox11.TabStop = false;
+            pictureBox11.Click += pictureBox11_Click;
             // 
             // pictureBox10
             // 
@@ -262,6 +263,7 @@
             pictureBox7.Size = new Size(47, 55);
             pictureBox7.TabIndex = 10;
             pictureBox7.TabStop = false;
+            pictureBox7.Click += pictureBox7_Click;
             // 
             // pictureBox6
             // 
@@ -446,6 +448,7 @@
             lblClose.Size = new Size(33, 34);
             lblClose.TabIndex = 6;
             lblClose.Text = "X";
+            lblClose.Click += lblClose_Click;
             // 
             // lblDue
             // 
@@ -477,6 +480,7 @@
             btnSaveTask.TabIndex = 3;
             btnSaveTask.Text = "Save";
             btnSaveTask.UseVisualStyleBackColor = true;
+            btnSaveTask.Click += btnSaveTask_Click_1;
             // 
             // dtpTaskDueDate
             // 
@@ -549,6 +553,7 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "frmPersonal";
             Text = "Form7";
+            Load += frmPersonal_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             panel1.ResumeLayout(false);

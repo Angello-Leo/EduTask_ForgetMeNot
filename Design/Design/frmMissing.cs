@@ -261,5 +261,18 @@ namespace Design
             this.Hide();
         }
 
+        private void pictureBox11_Click(object sender, EventArgs e)
+        {
+            frmCallendar c = new frmCallendar();
+            c.Show();
+            this.Close();
+        }
+
+        private void pictureBox7_Click(object sender, EventArgs e)
+        {
+            frmCallendar c = new frmCallendar();
+            c.Show();
+            this.Close();
+        }
     }
 }
