@@ -164,16 +164,16 @@ namespace Design
                 con.Open();
 
                 string query = @"
-            SELECT a.announcement_id, a.title, a.content, a.created_at, a.is_done, u.username, u.role, a.due_date
-            FROM announcements a
-            JOIN users u ON a.user_id = u.user_id
-            WHERE a.class_id = @cid
-            AND (DATE(a.created_at) = @selectedDate OR DATE(a.due_date) = @selectedDate)
-            ORDER BY a.created_at DESC;";
+                   SELECT a.announcement_id, a.title, a.content, a.created_at, a.is_done,
+                u.username, u.role, a.due_datetime
+                FROM announcements a
+                JOIN users u ON a.user_id = u.user_id
+                WHERE (DATE(a.created_at) = @selectedDate 
+                OR DATE(a.due_datetime) = @selectedDate)
+                ORDER BY a.created_at DESC;     ";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, con))
                 {
-                    cmd.Parameters.AddWithValue("@cid", GetInfo.ClassID);
                     cmd.Parameters.AddWithValue("@selectedDate", selectedDate);
 
                     using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -181,11 +181,13 @@ namespace Design
                         while (reader.Read())
                         {
                             var announcementCard = new ctrlAnnouncement();
-                            DateTime? dueDate = reader["due_date"] != DBNull.Value ? (DateTime?)reader.GetDateTime("due_date") : null;
+                            DateTime? dueDate = reader["due_datetime"] != DBNull.Value
+                                ? (DateTime?)reader.GetDateTime("due_datetime")
+                                : null;
 
                             announcementCard.LoadAnnouncementData(
                                 reader.GetInt32("announcement_id"),
-                                GetInfo.ClassID,
+                                0, // no more class ID used
                                 reader.GetString("title"),
                                 reader.GetString("content"),
                                 reader.GetDateTime("created_at"),
@@ -200,6 +202,11 @@ namespace Design
                     }
                 }
             }
+        }
+
+        private void frmCallendar_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

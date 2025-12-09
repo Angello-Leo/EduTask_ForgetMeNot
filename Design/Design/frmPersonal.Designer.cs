@@ -203,6 +203,7 @@
             // 
             // picSchedule
             // 
+<<<<<<< HEAD
             picSchedule.BackColor = Color.Transparent;
             picSchedule.BackgroundImage = (Image)resources.GetObject("picSchedule.BackgroundImage");
             picSchedule.BackgroundImageLayout = ImageLayout.Zoom;
@@ -213,6 +214,18 @@
             picSchedule.TabIndex = 17;
             picSchedule.TabStop = false;
             picSchedule.Click += picSchedule_Click;
+=======
+            pictureBox11.BackColor = Color.Transparent;
+            pictureBox11.BackgroundImage = (Image)resources.GetObject("pictureBox11.BackgroundImage");
+            pictureBox11.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox11.Location = new Point(59, 255);
+            pictureBox11.Margin = new Padding(3, 4, 3, 4);
+            pictureBox11.Name = "pictureBox11";
+            pictureBox11.Size = new Size(127, 63);
+            pictureBox11.TabIndex = 17;
+            pictureBox11.TabStop = false;
+            pictureBox11.Click += pictureBox11_Click;
+>>>>>>> 9628be367ca809d9be56a6047913eacfe447ae3b
             // 
             // picPending
             // 
@@ -255,6 +268,7 @@
             // 
             // picScheduleIcon
             // 
+<<<<<<< HEAD
             picScheduleIcon.BackColor = Color.Transparent;
             picScheduleIcon.BackgroundImage = (Image)resources.GetObject("picScheduleIcon.BackgroundImage");
             picScheduleIcon.BackgroundImageLayout = ImageLayout.Zoom;
@@ -265,6 +279,18 @@
             picScheduleIcon.TabIndex = 10;
             picScheduleIcon.TabStop = false;
             picScheduleIcon.Click += picScheduleIcon_Click;
+=======
+            pictureBox7.BackColor = Color.Transparent;
+            pictureBox7.BackgroundImage = (Image)resources.GetObject("pictureBox7.BackgroundImage");
+            pictureBox7.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox7.Location = new Point(7, 256);
+            pictureBox7.Margin = new Padding(3, 4, 3, 4);
+            pictureBox7.Name = "pictureBox7";
+            pictureBox7.Size = new Size(47, 55);
+            pictureBox7.TabIndex = 10;
+            pictureBox7.TabStop = false;
+            pictureBox7.Click += pictureBox7_Click;
+>>>>>>> 9628be367ca809d9be56a6047913eacfe447ae3b
             // 
             // picPendingIcon
             // 
@@ -452,6 +478,7 @@
             lblClose.Size = new Size(40, 42);
             lblClose.TabIndex = 6;
             lblClose.Text = "X";
+            lblClose.Click += lblClose_Click;
             // 
             // lblDue
             // 
@@ -486,6 +513,7 @@
             btnSaveTask.TabIndex = 3;
             btnSaveTask.Text = "Save";
             btnSaveTask.UseVisualStyleBackColor = true;
+            btnSaveTask.Click += btnSaveTask_Click_1;
             // 
             // dtpTaskDueDate
             // 
@@ -563,7 +591,12 @@
             Margin = new Padding(4, 5, 4, 5);
             Name = "frmPersonal";
             Text = "Form7";
+<<<<<<< HEAD
             ((System.ComponentModel.ISupportInitialize)picHamburgerMenu).EndInit();
+=======
+            Load += frmPersonal_Load;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+>>>>>>> 9628be367ca809d9be56a6047913eacfe447ae3b
             ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox14).EndInit();
