@@ -150,7 +150,7 @@ namespace Design
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             //add class
-            Form2 f2 = new Form2();
+            frmCreateClass f2 = new frmCreateClass();
             f2.Show();
             this.Hide();
         }

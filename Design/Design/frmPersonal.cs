@@ -28,12 +28,12 @@ namespace Design
         private int panelMaxWidth = 170;
         private int slideSpeed = 98;
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void picHamburgerMenu_Click(object sender, EventArgs e)
         {
             timer1.Start();
         }
 
-        private void pictureBox10_Click(object sender, EventArgs e)
+        private void picPending_Click(object sender, EventArgs e)
         {
             //pending 
             frmPending f7 = new frmPending();
@@ -41,7 +41,7 @@ namespace Design
             this.Hide();
         }
 
-        private void pictureBox6_Click(object sender, EventArgs e)
+        private void picPendingIcon_Click(object sender, EventArgs e)
         {
             //pending
             frmPending f7 = new frmPending();
@@ -81,7 +81,7 @@ namespace Design
             }
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void picNotification_Click(object sender, EventArgs e)
         {
             //notif
             frmNotification notification = new frmNotification();
@@ -89,12 +89,13 @@ namespace Design
             this.Hide();
         }
 
-        private void pictureBox3_Click(object sender, EventArgs e)
+        private void picAddClass_Click(object sender, EventArgs e)
         {
             //add cvlass
+
         }
 
-        private void pictureBox12_Click(object sender, EventArgs e)
+        private void picFlashcard_Click(object sender, EventArgs e)
         {
             //ff
             frmFlashcard f5 = new frmFlashcard();
@@ -102,7 +103,7 @@ namespace Design
             this.Hide();
         }
 
-        private void pictureBox8_Click(object sender, EventArgs e)
+        private void picFlashcardIcon_Click(object sender, EventArgs e)
         {
             //ff
             frmFlashcard f5 = new frmFlashcard();
@@ -110,7 +111,7 @@ namespace Design
             this.Hide();
         }
 
-        private void pictureBox9_Click(object sender, EventArgs e)
+        private void picHome_Click(object sender, EventArgs e)
         {
             //home
             frmDashBoard f1 = new frmDashBoard();
@@ -118,7 +119,7 @@ namespace Design
             this.Hide();
         }
 
-        private void pictureBox5_Click(object sender, EventArgs e)
+        private void picHomeIcon_Click(object sender, EventArgs e)
         {
             //home
             frmDashBoard f1 = new frmDashBoard();
@@ -126,7 +127,7 @@ namespace Design
             this.Hide();
         }
 
-        private void pictureBox17_Click(object sender, EventArgs e)
+        private void picMissingSelection_Click(object sender, EventArgs e)
         {
             //missing
             frmMissing m = new frmMissing();
@@ -134,7 +135,7 @@ namespace Design
             this.Hide();
         }
 
-        private void pictureBox18_Click(object sender, EventArgs e)
+        private void picAccomplishedSelection_Click(object sender, EventArgs e)
         {
             //accomplished
             frmAccomplished f9 = new frmAccomplished();
@@ -251,6 +252,25 @@ namespace Design
             {
                 MessageBox.Show("Error loading personal tasks: " + ex.Message);
             }
+        }
+
+        private void picSchedule_Click(object sender, EventArgs e)
+        {
+            frmCallendar callendar = new frmCallendar();
+            callendar.Show();
+            this.Hide();
+        }
+
+        private void picScheduleIcon_Click(object sender, EventArgs e)
+        {
+            frmCallendar callendar = new frmCallendar();
+            callendar.Show();
+            this.Hide();
+        }
+
+        private void picPendingSelection_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

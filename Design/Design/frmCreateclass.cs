@@ -11,14 +11,14 @@ using MySql.Data.MySqlClient;
 
 namespace Design
 {
-    public partial class Form2 : Form
+    public partial class frmCreateClass : Form
     {
         private frmDashBoard _dashboard;
         private bool panelIsExpanded = false;
         private int panelMaxWidth = 200;
         private int slideSpeed = 10;
 
-        public Form2(frmDashBoard dashboard = null)
+        public frmCreateClass(frmDashBoard dashboard = null)
         {
             InitializeComponent();
             panel1.Visible = true;

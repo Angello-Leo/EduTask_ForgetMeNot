@@ -84,12 +84,12 @@ namespace Design
 
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void picHamburgerMenu_Click(object sender, EventArgs e)
         {
-            timer1.Start();
+            tmrHamburgerMenu.Start();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void tmrHamburgerMenu_Tick(object sender, EventArgs e)
         {
             if (panelIsExpanded == false)
             {
@@ -102,7 +102,7 @@ namespace Design
                 {
                     panel1.Width = panelMaxWidth;
                     panelIsExpanded = true;
-                    timer1.Stop();
+                    tmrHamburgerMenu.Stop();
                 }
             }
             else
@@ -114,56 +114,56 @@ namespace Design
                     panel1.Width = 0;
                     panel1.Visible = false;
                     panelIsExpanded = false;
-                    timer1.Stop();
+                    tmrHamburgerMenu.Stop();
                 }
             }
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void picNotification_Click(object sender, EventArgs e)
         {
             //notif
-            frmNotification f4 = new frmNotification();
-            f4.Show();
+            frmNotification notification = new frmNotification();
+            notification.Show();
             this.Hide();
         }
 
-        private void pictureBox3_Click(object sender, EventArgs e)
+        private void picAddClass_Click(object sender, EventArgs e)
         {
             //add class
-            Form2 f2 = new Form2();
-            f2.Show();
+            frmCreateClass createClass = new frmCreateClass();
+            createClass.Show();
             this.Hide();
         }
 
-        private void pictureBox12_Click(object sender, EventArgs e)
+        private void picFlashcard_Click(object sender, EventArgs e)
         {
             //ff
-            frmFlashcard f5 = new frmFlashcard();
-            f5.Show();
+            frmFlashcard flashcard = new frmFlashcard();
+            flashcard.Show();
             this.Hide();
         }
 
-        private void pictureBox8_Click(object sender, EventArgs e)
+        private void picFLashcardIcon_Click(object sender, EventArgs e)
         {
             //ff
-            frmFlashcard f5 = new frmFlashcard();
-            f5.Show();
+            frmFlashcard flashcard = new frmFlashcard();
+            flashcard.Show();
             this.Hide();
         }
 
-        private void pictureBox9_Click(object sender, EventArgs e)
+        private void picHome_Click(object sender, EventArgs e)
         {
             // home
-            frmDashBoard f1 = new frmDashBoard();
-            f1.Show();
+            frmDashBoard dashBoard = new frmDashBoard();
+            dashBoard.Show();
             this.Hide();
         }
 
-        private void pictureBox5_Click(object sender, EventArgs e)
+        private void picHomeIcon_Click(object sender, EventArgs e)
         {
             //home
-            frmDashBoard f1 = new frmDashBoard();
-            f1.Show();
+            frmDashBoard dashBoard = new frmDashBoard();
+            dashBoard.Show();
             this.Hide();
         }
 
@@ -197,6 +197,20 @@ namespace Design
         {
             frmFlashcardSettings f8 = new frmFlashcardSettings(this);
             f8.ShowDialog();
+        }
+
+        private void picPending_Click(object sender, EventArgs e)
+        {
+            frmPending pending = new frmPending();
+            pending.Show();
+            this.Hide();
+        }
+
+        private void picSchedule_Click(object sender, EventArgs e)
+        {
+            frmCallendar callendar = new frmCallendar();
+            callendar.Show();
+            this.Hide();
         }
     }
 }

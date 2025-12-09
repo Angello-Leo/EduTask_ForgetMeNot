@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Design
 {
-    public partial class frmPending : Form
+    public partial class frmPending : Form, ILoadable
     {
         private string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
 
@@ -29,11 +29,11 @@ namespace Design
 
         private void frmPending_Load(object sender, EventArgs e)
         {
-            LoadPendingAnnouncements();
+            LoadData();
             lblUsername.Text = GetInfo.Username;
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void picHamburgerMenu_Click(object sender, EventArgs e)
         {
             timer1.Start();
         }
@@ -57,10 +57,10 @@ namespace Design
 
         private void pictureBox16_Click(object sender, EventArgs e)
         {
-            LoadPendingAnnouncements();
+            LoadData();
         }
 
-        private void LoadPendingAnnouncements()
+        public void LoadData()
         {
             flowLayoutPanelPendingAssignments.Controls.Clear();
             flowLayoutPanelPendingAssignments.AutoScroll = true;
@@ -186,7 +186,7 @@ namespace Design
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             //add cvlass
-            Form2 f2 = new Form2();
+            frmCreateClass f2 = new frmCreateClass();
             f2.Show();
             this.Hide();
         }
@@ -207,7 +207,7 @@ namespace Design
             this.Hide();
         }
 
-        private void pictureBox9_Click(object sender, EventArgs e)
+        private void picHome_Click(object sender, EventArgs e)
         {
             //home
             frmDashBoard f1 = new frmDashBoard();
@@ -215,7 +215,7 @@ namespace Design
             this.Hide();
         }
 
-        private void pictureBox5_Click(object sender, EventArgs e)
+        private void picHomeIcon_Click(object sender, EventArgs e)
         {
             //home
             frmDashBoard f1 = new frmDashBoard();

@@ -36,6 +36,10 @@ namespace Design
         Label lblNumMiss = new Label();
         Label lblMisses = new Label();
         Label input = new Label();
+
+        private bool panelIsExpanded = false;
+        private int panelMaxWidth = 200;
+        private int slideSpeed = 10;
         public frmStartquiz(List<string> questions, List<string> answers, frmCreatequiz form, int time)
         {
             InitializeComponent();
@@ -46,7 +50,7 @@ namespace Design
         }
         private void frmStartquiz_Load(object sender, EventArgs e)
         {
-           StartQuiz();
+            StartQuiz();
         }
 
         private void StartQuiz()
@@ -62,10 +66,10 @@ namespace Design
             UpdateTimerDisplay();
             Shuffle();
             CreateStartLabel();
-            StartingTimer.Start();
+            tmrStart.Start();
         }
 
-        private void QuizTimer_Tick(object sender, EventArgs e)
+        private void tmrQuiz_Tick(object sender, EventArgs e)
         {
             if (remainingSecs > 0)
             {
@@ -73,13 +77,13 @@ namespace Design
             }
             else
             {
-                QuizTimer.Stop();
+                tmrQuiz.Stop();
                 MessageBox.Show("Time's up!");
                 miss = int.Parse(lblMiss.Text) + 1;
                 lblMiss.Text = miss.ToString();
                 remainingSecs = totalSecs;
                 RevealAnswers(queAnswer);
-                IntervalTimer.Start();
+                tmrInterval.Start();
                 interval = 2;
                 txtAnswer.Visible = false;
                 txtAnswer.Clear();
@@ -117,11 +121,11 @@ namespace Design
                     miss = int.Parse(lblMiss.Text) + 1;
                     lblMiss.Text = miss.ToString();
                 }
-                QuizTimer.Stop();
+                tmrQuiz.Stop();
                 remainingSecs = totalSecs;
                 GenerateAnswers(queAnswer, isCorrect);
                 txtAnswer.Visible = false;
-                IntervalTimer.Start();
+                tmrInterval.Start();
                 interval = 2;
                 txtAnswer.Clear();
             }
@@ -302,7 +306,7 @@ namespace Design
             CenterLabel(lblGo, pnlFlashcard.Width, pnlFlashcard.Height);
             pnlFlashcard.Controls.Add(lblGo);
         }
-        private void StartingTimer_Tick(object sender, EventArgs e)
+        private void tmrStart_Tick(object sender, EventArgs e)
         {
             if (start > 0)
             {
@@ -313,11 +317,11 @@ namespace Design
             {
                 pnlFlashcard.Controls.Remove(lblStart);
                 CreateGoLabel();
-                GoTimer.Start();
-                StartingTimer.Stop();
+                tmrGo.Start();
+                tmrStart.Stop();
             }
         }
-        private void GoTimer_Tick(object sender, EventArgs e)
+        private void tmrGo_Tick(object sender, EventArgs e)
         {
             if (goTime > 0)
             {
@@ -328,8 +332,8 @@ namespace Design
                 pnlFlashcard.Controls.Remove(lblGo);
                 BringBackItems();
                 GenerateQuestions();
-                QuizTimer.Start();
-                GoTimer.Stop();
+                tmrQuiz.Start();
+                tmrGo.Stop();
             }
         }
 
@@ -343,7 +347,7 @@ namespace Design
             label3.Visible = true;
             label4.Visible = true;
         }
-        private void IntervalTimer_Tick(object sender, EventArgs e)
+        private void tmrInterval_Tick(object sender, EventArgs e)
         {
             if (interval > 0)
             {
@@ -357,14 +361,14 @@ namespace Design
                 {
                     txtAnswer.Visible = true;
                     GenerateQuestions();
-                    QuizTimer.Start();
+                    tmrQuiz.Start();
                 }
                 else
                 {
-                    QuizTimer.Stop();
+                    tmrQuiz.Stop();
                     Result();
                 }
-                IntervalTimer.Stop();
+                tmrInterval.Stop();
             }
         }
 
@@ -467,6 +471,104 @@ namespace Design
                 this.Hide();
                 createQuizForm.Show();
             }
+        }
+
+        private void tmrHamburgerMenu_Tick(object sender, EventArgs e)
+        {
+            if (panelIsExpanded == false)
+            {
+                panel1.Visible = true;
+                int distance = panelMaxWidth - panel1.Width;
+                int dynamicSpeed = Math.Max(2, distance / 4);
+                panel1.Width += dynamicSpeed;
+
+                if (panel1.Width >= panelMaxWidth)
+                {
+                    panel1.Width = panelMaxWidth;
+                    panelIsExpanded = true;
+                    tmrHamburgerMenu.Stop();
+                }
+            }
+            else
+            {
+                panel1.Width -= slideSpeed;
+
+                if (panel1.Width <= 0)
+                {
+                    panel1.Width = 0;
+                    panel1.Visible = false;
+                    panelIsExpanded = false;
+                    tmrHamburgerMenu.Stop();
+                }
+            }
+        }
+
+        private void picHome_Click(object sender, EventArgs e)
+        {
+            frmDashBoard dashBoard = new frmDashBoard();
+            dashBoard.Show();
+            this.Hide();
+        }
+
+        private void picPending_Click(object sender, EventArgs e)
+        {
+            frmPending pending = new frmPending();
+            pending.Show();
+            this.Hide();
+        }
+
+        private void picHamburgerMenu_Click(object sender, EventArgs e)
+        {
+            tmrHamburgerMenu.Start();
+        }
+
+        private void picFlashcard_Click(object sender, EventArgs e)
+        {
+            frmFlashcard flashcard = new frmFlashcard();
+            flashcard.Show();
+            this.Hide();
+        }
+
+        private void picFlashcardIcon_Click(object sender, EventArgs e)
+        {
+            frmFlashcard flashcard = new frmFlashcard();
+            flashcard.Show();
+            this.Hide();
+        }
+
+        private void picScheduleIcon_Click(object sender, EventArgs e)
+        {
+            frmCallendar callendar = new frmCallendar();
+            callendar.Show();
+            this.Hide();
+        }
+
+        private void picSchedule_Click(object sender, EventArgs e)
+        {
+            frmCallendar callendar = new frmCallendar();
+            callendar.Show();
+            this.Hide();
+        }
+
+        private void picPendingIcon_Click(object sender, EventArgs e)
+        {
+            frmPending pending = new frmPending();
+            pending.Show();
+            this.Hide();
+        }
+
+        private void picHomeIcon_Click(object sender, EventArgs e)
+        {
+            frmDashBoard dashBoard = new frmDashBoard();
+            dashBoard.Show();
+            this.Hide();
+        }
+
+        private void picNotification_Click(object sender, EventArgs e)
+        {
+            frmNotification notification = new frmNotification();
+            notification.Show();
+            this.Hide();
         }
     }
 }

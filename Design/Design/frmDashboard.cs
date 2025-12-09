@@ -329,7 +329,7 @@ namespace Design
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             //e2 ay sa add ng class button
-            Form2 f2 = new Form2(this); // pass reference to this dashboard
+            frmCreateClass f2 = new frmCreateClass(this); // pass reference to this dashboard
             f2.Show();
             this.Hide();
 

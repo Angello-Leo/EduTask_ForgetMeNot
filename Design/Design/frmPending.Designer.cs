@@ -102,7 +102,7 @@
             pictureBox1.Size = new Size(56, 44);
             pictureBox1.TabIndex = 4;
             pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
+            pictureBox1.Click += picHamburgerMenu_Click;
             // 
             // pictureBox15
             // 
@@ -236,7 +236,7 @@
             pictureBox9.Size = new Size(121, 55);
             pictureBox9.TabIndex = 15;
             pictureBox9.TabStop = false;
-            pictureBox9.Click += pictureBox9_Click;
+            pictureBox9.Click += picHome_Click;
             // 
             // pictureBox8
             // 
@@ -287,7 +287,7 @@
             pictureBox5.Size = new Size(47, 55);
             pictureBox5.TabIndex = 8;
             pictureBox5.TabStop = false;
-            pictureBox5.Click += pictureBox5_Click;
+            pictureBox5.Click += picHomeIcon_Click;
             // 
             // label2
             // 
