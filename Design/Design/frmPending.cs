@@ -12,14 +12,17 @@ using System.Windows.Forms;
 
 namespace Design
 {
+<<<<<<< HEAD
     public partial class frmPending : Form, ILoadable
+=======
+    public partial class frmPending : Form, Isearch
+>>>>>>> Trial
     {
         private string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
 
         public frmPending()
         {
             InitializeComponent();
-
             panel1.Width = 60;
             panel1.Visible = true;
         }
