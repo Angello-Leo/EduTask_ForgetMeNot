@@ -605,7 +605,6 @@ namespace Design
 
             panelStatus.Visible = false;
             flowLayoutPanelAnnouncements.Visible = true;
-            flowLayoutPanelAnnouncements.BringToFront();
             LoadAnnouncements();
         }
 
@@ -891,7 +890,6 @@ namespace Design
                 LoadAnnouncements();
                 panelCreateAnnouncement.Visible = false;
                 flowLayoutPanelAnnouncements.Visible = true;
-                flowLayoutPanelAnnouncements.BringToFront();
             }
         }
 

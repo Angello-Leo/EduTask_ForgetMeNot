@@ -12,11 +12,7 @@ using System.Windows.Forms;
 
 namespace Design
 {
-<<<<<<< HEAD
     public partial class frmPending : Form, ILoadable
-=======
-    public partial class frmPending : Form, Isearch
->>>>>>> Trial
     {
         private string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
 
@@ -382,6 +378,11 @@ namespace Design
             frmCallendar c = new frmCallendar();
             c.Show();
             this.Close();
+        }
+
+        private void pictureBox22_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

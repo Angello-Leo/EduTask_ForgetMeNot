@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Design
 {
-    public partial class frmMissing : Form
+    public partial class frmMissing : Form, ILoadable
     {
         private string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
         private int _classId;
@@ -143,15 +143,15 @@ namespace Design
 
         private void pictureBox17_Click(object sender, EventArgs e)
         {
-            LoadMissingAssignments();
+            LoadData();
         }
 
         private void frmMissing_Load(object sender, EventArgs e)
         {
-            LoadMissingAssignments();
+            LoadData();
             lblUsername.Text = GetInfo.Username;
         }
-        private void LoadMissingAssignments()
+        public void LoadData()
         {
             flowLayoutPanelMissing.Controls.Clear();  // Clear previous data
             flowLayoutPanelMissing.AutoScroll = true;  // Enable scrolling

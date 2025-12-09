@@ -8,6 +8,7 @@ namespace Design
 {
     public interface ILoadable
     {
+        // 1) Dito ang suggestion ko ay return list sa mga data sa db
         public void LoadData();
     }
 }

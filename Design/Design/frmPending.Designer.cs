@@ -66,6 +66,7 @@
             txtTaskContent = new RichTextBox();
             txtTaskTitle = new TextBox();
             lblUsername = new Label();
+            pictureBox22 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             panel1.SuspendLayout();
@@ -89,6 +90,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox20).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox21).BeginInit();
             panelPersonal.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox22).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -528,6 +530,15 @@
             lblUsername.Size = new Size(0, 37);
             lblUsername.TabIndex = 42;
             // 
+            // pictureBox22
+            // 
+            pictureBox22.Location = new Point(919, 195);
+            pictureBox22.Name = "pictureBox22";
+            pictureBox22.Size = new Size(125, 62);
+            pictureBox22.TabIndex = 43;
+            pictureBox22.TabStop = false;
+            pictureBox22.Click += pictureBox22_Click;
+            // 
             // frmPending
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -535,6 +546,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1326, 821);
+            Controls.Add(pictureBox22);
             Controls.Add(lblUsername);
             Controls.Add(panelPersonal);
             Controls.Add(flowLayoutPanelPendingAssignments);
@@ -580,6 +592,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox21).EndInit();
             panelPersonal.ResumeLayout(false);
             panelPersonal.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox22).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -622,5 +635,6 @@
         private TextBox txtTaskTitle;
         private Label lblClose;
         private Label lblUsername;
+        private PictureBox pictureBox22;
     }
 }

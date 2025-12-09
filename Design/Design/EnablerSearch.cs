@@ -10,6 +10,7 @@ namespace Design
     public class EnablerSearch : Search
     {
         private string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
+        // Bali dito ay yung puro loop na on kung pano makukuha yung tamang order
         public override List<string> AlphabeticalSearch()
         {
             var list = new List<string>();
@@ -30,7 +31,7 @@ namespace Design
             }
             return list;
         }
-
+        // Bali dito ay yung puro loop na on kung pano makukuha yung tamang order
         public override List<string> DateSearch()
         {
             var list = new List<string>();
@@ -52,6 +53,7 @@ namespace Design
             return list;
         }
 
+        // Bali dito ay yung puro loop na on kung pano makukuha yung tamang order
         public override List<string> ReverseAlphabeticalSearch()
         {
             var list = new List<string>();

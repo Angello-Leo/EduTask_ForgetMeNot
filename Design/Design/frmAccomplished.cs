@@ -12,7 +12,7 @@ using System.Diagnostics;
 
 namespace Design
 {
-    public partial class frmAccomplished : Form
+    public partial class frmAccomplished : Form, ILoadable
     {
         private string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
 
@@ -157,17 +157,17 @@ namespace Design
 
         private void frmAccomplished_Load(object sender, EventArgs e)
         {
-            LoadAccomplishedAnnouncements();
+            LoadData();
             lblUsername.Text = GetInfo.Username;
         }
 
         private void pictureBox18_Click(object sender, EventArgs e)
         {
-            LoadAccomplishedAnnouncements();
+            LoadData();
 
         }
 
-        private void LoadAccomplishedAnnouncements()
+        public void LoadData()
         {
             flowLayoutPanelAccomplished.Controls.Clear();
             flowLayoutPanelAccomplished.AutoScroll = true;
