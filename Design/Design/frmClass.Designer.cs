@@ -81,6 +81,7 @@
             txtAnnouncementTitle = new TextBox();
             txtAnnouncementContent = new RichTextBox();
             mySqlConnection1 = new MySql.Data.MySqlClient.MySqlConnection();
+            dgvShowStudents = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox16).BeginInit();
             panel1.SuspendLayout();
@@ -105,6 +106,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvCandidates).BeginInit();
             panelResults.SuspendLayout();
             panelCreateAnnouncement.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvShowStudents).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -401,6 +403,7 @@
             pictureBox18.Size = new Size(65, 36);
             pictureBox18.TabIndex = 31;
             pictureBox18.TabStop = false;
+            pictureBox18.Click += pictureBox18_Click;
             // 
             // lblClassName
             // 
@@ -678,6 +681,21 @@
             txtAnnouncementContent.TabIndex = 1;
             txtAnnouncementContent.Text = "";
             // 
+            // dgvShowStudents
+            // 
+            dgvShowStudents.AllowUserToAddRows = false;
+            dgvShowStudents.AllowUserToDeleteRows = false;
+            dgvShowStudents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvShowStudents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvShowStudents.Location = new Point(343, 386);
+            dgvShowStudents.Name = "dgvShowStudents";
+            dgvShowStudents.ReadOnly = true;
+            dgvShowStudents.RowHeadersWidth = 51;
+            dgvShowStudents.Size = new Size(735, 442);
+            dgvShowStudents.TabIndex = 0;
+            dgvShowStudents.Visible = false;
+            dgvShowStudents.CellContentClick += dgvShowStudents_CellContentClick;
+            // 
             // Class
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -685,6 +703,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1326, 821);
+            Controls.Add(dgvShowStudents);
             Controls.Add(panelCreateAnnouncement);
             Controls.Add(flowLayoutPanelAnnouncements);
             Controls.Add(panelResults);
@@ -738,6 +757,7 @@
             panelResults.PerformLayout();
             panelCreateAnnouncement.ResumeLayout(false);
             panelCreateAnnouncement.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvShowStudents).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -795,5 +815,6 @@
         private Label lblSetDueDate;
         private MySql.Data.MySqlClient.MySqlConnection mySqlConnection1;
         private CheckBox chkSetDueDate;
+        private DataGridView dgvShowStudents;
     }
 }

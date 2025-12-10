@@ -22,6 +22,7 @@ namespace Design
         private List<(int id, string name)> positions = new List<(int, string)>();
         private int currentPositionIndex = 0;
         private int _maxStudents = 0;
+        private DataTable _studentsTable;
 
         public Class(int classId, frmDashBoard dashboard)
         {
@@ -213,18 +214,30 @@ namespace Design
             using (MySqlConnection con = new MySqlConnection(conString))
             {
                 con.Open();
+
                 string query = @"SELECT u.user_id, u.username
-                                 FROM class_students cs
-                                 JOIN users u ON cs.student_id = u.user_id
-                                 WHERE cs.class_id = @cid";
+                         FROM class_students cs
+                         JOIN users u ON cs.student_id = u.user_id
+                         WHERE cs.class_id = @cid";
+
                 using (MySqlCommand cmd = new MySqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@cid", _classId);
-                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    dgvCandidates.DataSource = dt;
-                    dgvCandidates.Columns["user_id"].Visible = false;
+
+                    using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
+                    {
+                        // Fill the DataTable ONCE
+                        _studentsTable = new DataTable();
+                        da.Fill(_studentsTable);
+
+                        // Bind the SAME DATATABLE to BOTH DataGridViews
+                        dgvCandidates.DataSource = _studentsTable;
+                        dgvShowStudents.DataSource = _studentsTable;
+
+                        // Hide ID column on both
+                        dgvCandidates.Columns["user_id"].Visible = false;
+                        dgvShowStudents.Columns["user_id"].Visible = false;
+                    }
                 }
             }
         }
@@ -668,7 +681,10 @@ namespace Design
 
         private void pictureBox17_Click(object sender, EventArgs e)
         {
-
+            LoadCandidates();
+            dgvShowStudents.Visible = true;
+            dgvShowStudents.BringToFront();
+            
         }
 
         private void lblClassName_Click(object sender, EventArgs e)
@@ -762,17 +778,17 @@ namespace Design
                 ? (DateTime?)reader.GetDateTime("due_datetime")
                 : null;
 
-                       announcementCard.LoadAnnouncementData(
-                        reader.GetInt32("announcement_id"),
-                        _classId,
-                        reader.GetString("title"),
-                        reader.GetString("content"),
-                        reader.GetDateTime("created_at"),
-                        isDone,
-                        reader.GetString("username"),
-                        reader.GetString("creator_role"),
-                        reader["due_datetime"] != DBNull.Value ? (DateTime?)reader.GetDateTime("due_datetime") : null
-                    );
+                        announcementCard.LoadAnnouncementData(
+                         reader.GetInt32("announcement_id"),
+                         _classId,
+                         reader.GetString("title"),
+                         reader.GetString("content"),
+                         reader.GetDateTime("created_at"),
+                         isDone,
+                         reader.GetString("username"),
+                         reader.GetString("creator_role"),
+                         reader["due_datetime"] != DBNull.Value ? (DateTime?)reader.GetDateTime("due_datetime") : null
+                     );
 
                         // Add the card to the FlowLayoutPanel
                         flowLayoutPanelAnnouncements.Controls.Add(announcementCard);
@@ -783,7 +799,7 @@ namespace Design
 
         private void SetupAnnouncementPosting()
         {
-                    string role = (GetInfo.Role ?? "").Trim().ToLower();
+            string role = (GetInfo.Role ?? "").Trim().ToLower();
 
             bool canPost = role == "president" || role == "vice president";
             txtAnnouncementTitle.Visible = canPost;
@@ -937,6 +953,17 @@ namespace Design
                 dtpDueDateTime.Visible = true;
             }
             else { dtpDueDateTime.Visible = false; }
+        }
+
+        private void pictureBox18_Click(object sender, EventArgs e)
+        {
+            dgvShowStudents.Visible = false;
+            flowLayoutPanelAnnouncements.BringToFront();
+        }
+
+        private void dgvShowStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
