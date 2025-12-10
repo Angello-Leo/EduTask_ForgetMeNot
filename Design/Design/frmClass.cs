@@ -903,6 +903,7 @@ namespace Design
                 txtAnnouncementContent.Clear();
                 chkSetDueDate.Checked = false;
 
+                flowLayoutPanelAnnouncements.Controls.Clear();
                 LoadAnnouncements();
                 panelCreateAnnouncement.Visible = false;
                 flowLayoutPanelAnnouncements.Visible = true;

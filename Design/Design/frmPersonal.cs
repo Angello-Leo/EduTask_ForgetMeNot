@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,11 +15,12 @@ namespace Design
     public partial class frmPersonal : Form
     {
         private string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
+        EnablerPending s = new EnablerPending();
 
         public frmPersonal()
         {
             InitializeComponent();
-            LoadPersonalTasks();
+            s.LoadPersonalTasks(flowLayoutPanelPendingAssignments);
             panel1.Width = 60;
             panel1.Visible = true;
             lblUsername.Text = GetInfo.Username;
@@ -148,7 +150,7 @@ namespace Design
             panelPersonal.Visible = true;
             panelPersonal.BringToFront();
             flowLayoutPanelPendingAssignments.Controls.Clear();
-            LoadPersonalTasks();
+            s.LoadPersonalTasks(flowLayoutPanelPendingAssignments);
         }
 
         private void pictureBox21_Click(object sender, EventArgs e)
@@ -156,64 +158,8 @@ namespace Design
             panelPersonal.Visible = true;
             panelPersonal.BringToFront();
             flowLayoutPanelPendingAssignments.Controls.Clear();
-            LoadPersonalTasks();
+            s.LoadPersonalTasks(flowLayoutPanelPendingAssignments);
         }
-
-        private void LoadPersonalTasks()
-        {
-            try
-            {
-                using (MySqlConnection con = new MySqlConnection(conString))
-                {
-                    con.Open();
-                    string query = @"
-                    SELECT task_id, title, content, due_datetime, created_at, status
-                    FROM personal_tasks
-                    WHERE user_id = @uid AND status = 'pending'
-                    ORDER BY created_at DESC;";
-
-                    using (MySqlCommand cmd = new MySqlCommand(query, con))
-                    {
-                        cmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
-
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var taskCard = new ctrlAnnouncement();
-
-                                DateTime? due = reader["due_datetime"] != DBNull.Value
-                                    ? reader.GetDateTime("due_datetime")
-                                    : (DateTime?)null;
-
-                                taskCard.LoadAnnouncementData(
-                                    announcementId: reader.GetInt32("task_id"),
-                                    classId: 0,
-                                    title: reader.GetString("title"),
-                                    content: reader.GetString("content"),
-                                    createdAt: reader.GetDateTime("created_at"),
-                                    isDone: false,
-                                    username: "",
-                                    creatorRole: "",
-                                    dueDateTime: due,
-                                    isPersonalTask: true   // <-- IMPORTANT!
-                                );
-
-                                taskCard.BackColor = Color.LightGreen;
-
-                                flowLayoutPanelPendingAssignments.Controls.Add(taskCard);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading personal tasks: " + ex.Message);
-            }
-        }
-
-
         private void picSchedule_Click(object sender, EventArgs e)
         {
             frmCallendar callendar = new frmCallendar();
@@ -236,7 +182,7 @@ namespace Design
         private void lblClose_Click(object sender, EventArgs e)
         {
             panelPersonal.Visible = false;
-            LoadPersonalTasks();
+            s.LoadPersonalTasks(flowLayoutPanelPendingAssignments);
         }
 
         private void btnSaveTask_Click_1(object sender, EventArgs e)
@@ -251,49 +197,125 @@ namespace Design
                 return;
             }
 
-            try
+            int result = s.SaveTask(txtTaskTitle.Text, txtTaskContent.Text, dtpTaskDueDate.Value, GetInfo.UserID, conString);
+            if (result > 0)
             {
-                using (MySqlConnection con = new MySqlConnection(conString))
-                {
-                    con.Open();
-                    string query = @"
-            INSERT INTO personal_tasks (user_id, title, content, due_datetime, created_at)
-            VALUES (@user_id, @title, @content, @due_datetime, NOW());";
-
-                    using (MySqlCommand cmd = new MySqlCommand(query, con))
-                    {
-                        cmd.Parameters.AddWithValue("@user_id", GetInfo.UserID);
-                        cmd.Parameters.AddWithValue("@title", title);
-                        cmd.Parameters.AddWithValue("@content", content);
-                        cmd.Parameters.AddWithValue("@due_datetime", (object)dueDate ?? DBNull.Value);
-
-                        int result = cmd.ExecuteNonQuery();
-                        if (result > 0)
-                        {
-                            MessageBox.Show("Task created successfully!");
-                            // Optionally clear the input fields
-                            txtTaskTitle.Clear();
-                            txtTaskTitle.Clear();
-                            dtpTaskDueDate.Value = DateTime.Now; // Reset to current date
-                            LoadPersonalTasks(); // Refresh the list of personal tasks
-                        }
-                        else
-                        {
-                            MessageBox.Show("Error saving the task.");
-                        }
-                    }
-                }
-                panelPersonal.Visible = false;
+                MessageBox.Show("Task created successfully!");
+                // Optionally clear the input fields
+                txtTaskTitle.Clear();
+                txtTaskTitle.Clear();
+                dtpTaskDueDate.Value = DateTime.Now; // Reset to current date
+                s.LoadPersonalTasks(flowLayoutPanelPendingAssignments); // Refresh the list of personal tasks
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error saving the task.");
             }
+            panelPersonal.Visible = false;
         }
 
         private void frmPersonal_Load(object sender, EventArgs e)
         {
 
+        }
+        private void LoadCompletedPersonalTasks()
+        {
+            flowLayoutPanelPendingAssignments.Controls.Clear();  // Clear previous data
+            flowLayoutPanelPendingAssignments.AutoScroll = true;  // Enable scrolling
+
+            flowLayoutPanelPendingAssignments.Visible = true;
+            flowLayoutPanelPendingAssignments.BringToFront();
+
+            // Log the action
+            Debug.WriteLine($"Loading all completed tasks for UserID: {GetInfo.UserID}");
+
+            using (MySqlConnection con = new MySqlConnection(conString))
+            {
+                try
+                {
+                    con.Open();
+                    Debug.WriteLine("Database connection established.");
+
+                    string query = @"
+                SELECT task_id, title, content, due_datetime, created_at, status
+                FROM personal_tasks
+                WHERE user_id = @uid AND status = 'done'
+                ORDER BY due_datetime ASC;";  // Sort by due date
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@uid", GetInfo.UserID);  // Filter by current user
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            int recordCount = 0;
+
+                            while (reader.Read())
+                            {
+                                recordCount++;
+
+                                string title = reader["title"].ToString();
+                                string status = reader["status"].ToString();
+                                Debug.WriteLine($"Task Found: {title}, Status: {status}");
+
+                                if (string.IsNullOrEmpty(title))
+                                {
+                                    Debug.WriteLine("Error: Missing title in task.");
+                                    continue;
+                                }
+
+                                var taskCard = new ctrlAnnouncement(); // Reusing your announcement control
+
+                                int taskId = reader.GetInt32("task_id");
+                                string content = reader["content"].ToString();
+                                DateTime dueDate = reader["due_datetime"] == DBNull.Value
+                                    ? DateTime.MinValue
+                                    : reader.GetDateTime("due_datetime");
+                                DateTime createdAt = reader.GetDateTime("created_at");
+
+                                // These are done tasks
+                                bool isDone = true;
+
+                                taskCard.LoadAnnouncementData(
+                                    taskId,
+                                    0,  // No class ID needed
+                                    title,
+                                    content,
+                                    createdAt,
+                                    isDone,
+                                    "You",  // Owner of the task
+                                    "owner",
+                                    dueDate
+                                );
+
+                                flowLayoutPanelPendingAssignments.Controls.Add(taskCard);
+                            }
+
+                            if (recordCount == 0)
+                            {
+                                Debug.WriteLine("No completed tasks found.");
+                                MessageBox.Show("No completed tasks found.");
+                            }
+                            else
+                            {
+                                Debug.WriteLine($"{recordCount} completed tasks found.");
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading completed tasks: {ex.Message}");
+                    Debug.WriteLine($"Error: {ex.Message}");
+                }
+            }
+
+            flowLayoutPanelPendingAssignments.Refresh();  // Refresh to show loaded tasks
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LoadCompletedPersonalTasks();
         }
     }
 }

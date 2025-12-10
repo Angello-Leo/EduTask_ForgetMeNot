@@ -151,8 +151,8 @@
   <data name="Add a heading (3)2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Add a heading (3)2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BgSignup" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BgSignup.jfif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Add a heading (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Add a heading (1).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Untitled design (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Untitled design (1).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -165,6 +165,9 @@
   </data>
   <data name="Add a heading (30)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Add a heading (30).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bg.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Untitled design" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Untitled design.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -184,8 +187,8 @@
   <data name="Add a heading (21)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Add a heading (21).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Add a heading (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Add a heading (1).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BgSignup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BgSignup.jfif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Add a heading (3840 x 1080 px) (3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Add a heading (3840 x 1080 px) (3).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -193,16 +196,16 @@
   <data name="Add a heading (25)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Add a heading (25).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Remove Card" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Remove Card.jfif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Add a heading (21)1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Add a heading (21)1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="bg" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bg.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Add a heading (3840 x 1080 px) (17)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Add a heading (3840 x 1080 px) (17).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Remove Card" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Remove Card.jfif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="AnnouncementBG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AnnouncementBG1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

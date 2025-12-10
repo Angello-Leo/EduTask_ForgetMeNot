@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,9 +13,10 @@ using System.Windows.Forms;
 
 namespace Design
 {
-    public partial class frmPending : Form, ILoadable
+    public partial class frmPending : Form
     {
         private string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
+        EnablerPending s = new EnablerPending();
 
         public frmPending()
         {
@@ -28,7 +30,7 @@ namespace Design
 
         private void frmPending_Load(object sender, EventArgs e)
         {
-            LoadData();
+            s.LoadPendingAnnouncement(flowLayoutPanelPendingAssignments);
             lblUsername.Text = GetInfo.Username;
         }
 
@@ -56,97 +58,9 @@ namespace Design
 
         private void pictureBox16_Click(object sender, EventArgs e)
         {
-            LoadData();
+            s.LoadPendingAnnouncement(flowLayoutPanelPendingAssignments);
         }
-
-        public void LoadData()
-        {
-            flowLayoutPanelPendingAssignments.Controls.Clear();
-            flowLayoutPanelPendingAssignments.AutoScroll = true;
-
-            try
-            {
-                using (MySqlConnection con = new MySqlConnection(conString))
-                {
-                    con.Open();
-                    Debug.WriteLine("Database connection opened.");
-
-                    string query = @"
-                SELECT a.announcement_id, a.class_id, a.title, a.content, a.due_datetime, a.created_at,
-                       u.username,
-                       COALESCE(
-                           (SELECT position 
-                            FROM elected_positions 
-                            WHERE user_id = u.user_id 
-                            ORDER BY id DESC 
-                            LIMIT 1),
-                           u.role
-                       ) AS creator_role,
-                       COALESCE(s.status, 'pending') AS status
-                FROM announcements a
-                LEFT JOIN announcement_status s
-                    ON s.announcement_id = a.announcement_id AND s.user_id = @uid
-                JOIN users u ON a.user_id = u.user_id
-                WHERE COALESCE(s.status, 'pending') = 'pending'
-                ORDER BY a.created_at DESC;";  // <-- Only pending
-
-                    using (MySqlCommand cmd = new MySqlCommand(query, con))
-                    {
-                        cmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
-
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            int rowCount = 0;
-
-                            while (reader.Read())
-                            {
-                                rowCount++;
-                                var announcementCard = new ctrlAnnouncement();
-
-                                DateTime? due = reader["due_datetime"] != DBNull.Value
-                                    ? (DateTime?)reader.GetDateTime("due_datetime")
-                                    : null;
-
-                                int classIdFromDb = reader["class_id"] != DBNull.Value
-                                    ? Convert.ToInt32(reader["class_id"])
-                                    : 0;
-
-                                announcementCard.LoadAnnouncementData(
-                                    reader.GetInt32("announcement_id"),
-                                    classIdFromDb,
-                                    reader.GetString("title"),
-                                    reader.GetString("content"),
-                                    reader.GetDateTime("created_at"),
-                                    false,  // Always false because it's pending
-                                    reader.GetString("username"),
-                                    reader.GetString("creator_role"),
-                                    due
-                                );
-
-                                // Highlight pending announcements
-                                announcementCard.BackColor = Color.LightSalmon;
-
-                                flowLayoutPanelPendingAssignments.Controls.Add(announcementCard);
-                            }
-
-                            Debug.WriteLine($"Total pending announcements loaded: {rowCount}");
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Database or query error: {ex.Message}");
-                MessageBox.Show("Error loading pending announcements: " + ex.Message);
-            }
-
-            flowLayoutPanelPendingAssignments.Visible = true;
-            flowLayoutPanelPendingAssignments.BringToFront();
-        }
-
-
-
-
+     
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (panelIsExpanded)
@@ -241,10 +155,9 @@ namespace Design
 
         private void pictureBox21_Click(object sender, EventArgs e)
         {
-            panelPersonal.Visible = true;
-            panelPersonal.BringToFront();
-            flowLayoutPanelPendingAssignments.Controls.Clear();
-            LoadPersonalTasks();
+            frmPersonal p = new frmPersonal();
+            p.Show();
+            this.Hide();
         }
 
         private void btnSaveTask_Click(object sender, EventArgs e)
@@ -259,101 +172,22 @@ namespace Design
                 return;
             }
 
-            try
+            int result = s.SaveTask(txtTaskTitle.Text, txtTaskContent.Text, dtpTaskDueDate.Value, GetInfo.UserID, conString);
+            if (result > 0)
             {
-                using (MySqlConnection con = new MySqlConnection(conString))
-                {
-                    con.Open();
-                    string query = @"
-            INSERT INTO personal_tasks (user_id, title, content, due_datetime, created_at)
-            VALUES (@user_id, @title, @content, @due_datetime, NOW());";
-
-                    using (MySqlCommand cmd = new MySqlCommand(query, con))
-                    {
-                        cmd.Parameters.AddWithValue("@user_id", GetInfo.UserID);
-                        cmd.Parameters.AddWithValue("@title", title);
-                        cmd.Parameters.AddWithValue("@content", content);
-                        cmd.Parameters.AddWithValue("@due_datetime", (object)dueDate ?? DBNull.Value);
-
-                        int result = cmd.ExecuteNonQuery();
-                        if (result > 0)
-                        {
-                            MessageBox.Show("Task created successfully!");
-                            // Optionally clear the input fields
-                            txtTaskTitle.Clear();
-                            txtTaskTitle.Clear();
-                            dtpTaskDueDate.Value = DateTime.Now; // Reset to current date
-                            LoadPersonalTasks(); // Refresh the list of personal tasks
-                        }
-                        else
-                        {
-                            MessageBox.Show("Error saving the task.");
-                        }
-                    }
-                }
-                panelPersonal.Visible = false;
+                MessageBox.Show("Task created successfully!");
+                // Optionally clear the input fields
+                txtTaskTitle.Clear();
+                txtTaskTitle.Clear();
+                dtpTaskDueDate.Value = DateTime.Now; // Reset to current date
+                s.LoadPersonalTasks(flowLayoutPanelPendingAssignments); // Refresh the list of personal tasks
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error saving the task.");
             }
+            panelPersonal.Visible = false;
         }
-        private void LoadPersonalTasks()
-        {
-            try
-            {
-                using (MySqlConnection con = new MySqlConnection(conString))
-                {
-                    con.Open();
-                    string query = @"
-                    SELECT task_id, title, content, due_datetime, created_at, status
-                    FROM personal_tasks
-                    WHERE user_id = @uid AND status = 'pending'
-                    ORDER BY created_at DESC;";
-
-                    using (MySqlCommand cmd = new MySqlCommand(query, con))
-                    {
-                        cmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
-
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var taskCard = new ctrlAnnouncement();
-
-                                DateTime? due = reader["due_datetime"] != DBNull.Value
-                                    ? reader.GetDateTime("due_datetime")
-                                    : (DateTime?)null;
-
-                                taskCard.LoadAnnouncementData(
-                                    announcementId: reader.GetInt32("task_id"),
-                                    classId: 0,
-                                    title: reader.GetString("title"),
-                                    content: reader.GetString("content"),
-                                    createdAt: reader.GetDateTime("created_at"),
-                                    isDone: false,
-                                    username: "",
-                                    creatorRole: "",
-                                    dueDateTime: due,
-                                    isPersonalTask: true   // <-- IMPORTANT!
-                                );
-
-                                taskCard.BackColor = Color.LightGreen;
-
-                                flowLayoutPanelPendingAssignments.Controls.Add(taskCard);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading personal tasks: " + ex.Message);
-            }
-        }
-
-
-
         private void panelPersonal_Paint(object sender, PaintEventArgs e)
         {
 
@@ -363,7 +197,7 @@ namespace Design
         {
             panelPersonal.Visible = false;
             flowLayoutPanelPendingAssignments.Controls.Clear();
-            LoadPersonalTasks();
+            s.LoadPersonalTasks(flowLayoutPanelPendingAssignments);
         }
 
         private void pictureBox11_Click(object sender, EventArgs e)

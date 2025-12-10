@@ -213,6 +213,7 @@
             pictureBox10.Size = new Size(121, 55);
             pictureBox10.TabIndex = 16;
             pictureBox10.TabStop = false;
+            pictureBox10.Click += pictureBox10_Click;
             // 
             // pictureBox9
             // 
@@ -264,6 +265,7 @@
             pictureBox6.Size = new Size(47, 55);
             pictureBox6.TabIndex = 9;
             pictureBox6.TabStop = false;
+            pictureBox6.Click += pictureBox6_Click;
             // 
             // pictureBox5
             // 

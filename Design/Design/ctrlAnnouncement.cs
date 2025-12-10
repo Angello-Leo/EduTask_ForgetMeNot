@@ -19,6 +19,7 @@ namespace Design
         public int AnnouncementId { get; private set; }
         public bool IsDone { get; private set; }
 
+
         public ctrlAnnouncement()
         {
             InitializeComponent();
@@ -45,7 +46,6 @@ namespace Design
             AnnouncementId = announcementId;
             IsDone = isDone;
             _classId = classId;
-
             lblTitle.Text = title;
             lblContent.Text = content;
 
@@ -67,6 +67,24 @@ namespace Design
             this.Visible = true;
 
             SetButtonVisibility(GetInfo.Role, isDone, isPersonalTask);
+            btnMarkAsDone.Click -= btnMarkAsDone_Click;
+            btnMarkAsDone.Click -= MarkPersonalTaskAsDone;
+
+
+            if (isPersonalTask)
+            {
+                btnMarkAsDone.Text = "Finished";
+                btnMarkAsDone.BackColor = Color.LightBlue;
+
+                // Add personal task handler
+                btnMarkAsDone.Click += MarkPersonalTaskAsDone;
+            }
+            else
+            {
+                btnMarkAsDone.Text = "Done";
+                btnMarkAsDone.BackColor = Color.LightGray;
+                btnMarkAsDone.Click += btnMarkAsDone_Click;
+            }
         }
 
         private void SetButtonVisibility(string currentRole, bool isDone, bool isPersonalTask = false)
@@ -137,6 +155,52 @@ namespace Design
             this.Visible = false; // hide card after marking as done
 
         }
+
+        private void MarkPersonalTaskAsDone(object sender, EventArgs e)
+        {
+            if (GetInfo.UserID == 0)
+            {
+                MessageBox.Show("User not logged in!");
+                return;
+            }
+
+            string query = @"
+        UPDATE personal_tasks
+        SET status = 'done'
+        WHERE task_id = @tid AND user_id = @uid;
+    ";
+
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(conString))
+                {
+                    con.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@tid", AnnouncementId); // use AnnouncementId to store task_id
+                        cmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected == 0)
+                        {
+                            MessageBox.Show("Task not found or already done.");
+                            return;
+                        }
+                    }
+                }
+
+                // Update UI
+                IsDone = true;
+                btnMarkAsDone.Visible = false;
+                this.BackColor = SystemColors.Control;
+                this.Visible = false; // hide the card
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error marking task as done: " + ex.Message);
+            }
+        }
+
 
         private void label1_Click(object sender, EventArgs e)
         {

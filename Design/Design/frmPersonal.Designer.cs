@@ -66,6 +66,7 @@
             txtTaskTitle = new TextBox();
             flowLayoutPanelPendingAssignments = new FlowLayoutPanel();
             lblUsername = new Label();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)picHamburgerMenu).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             panel1.SuspendLayout();
@@ -527,6 +528,16 @@
             lblUsername.Size = new Size(0, 37);
             lblUsername.TabIndex = 44;
             // 
+            // button1
+            // 
+            button1.Location = new Point(881, 231);
+            button1.Name = "button1";
+            button1.Size = new Size(202, 29);
+            button1.TabIndex = 45;
+            button1.Text = "Show Accomplished";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // frmPersonal
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -534,6 +545,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1326, 821);
+            Controls.Add(button1);
             Controls.Add(lblUsername);
             Controls.Add(panelPersonal);
             Controls.Add(flowLayoutPanelPendingAssignments);
@@ -621,5 +633,6 @@
         private TextBox txtTaskTitle;
         private FlowLayoutPanel flowLayoutPanelPendingAssignments;
         private Label lblUsername;
+        private Button button1;
     }
 }

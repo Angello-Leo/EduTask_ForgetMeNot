@@ -12,9 +12,10 @@ using System.Diagnostics;
 
 namespace Design
 {
-    public partial class frmAccomplished : Form, ILoadable
+    public partial class frmAccomplished : Form
     {
         private string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
+        EnablerPending s = new EnablerPending();
 
         public frmAccomplished()
         {
@@ -157,106 +158,15 @@ namespace Design
 
         private void frmAccomplished_Load(object sender, EventArgs e)
         {
-            LoadData();
+            s.LoadAccomplishedAnnouncement(flowLayoutPanelAccomplished);
             lblUsername.Text = GetInfo.Username;
         }
 
         private void pictureBox18_Click(object sender, EventArgs e)
         {
-            LoadData();
+            s.LoadAccomplishedAnnouncement(flowLayoutPanelAccomplished);
 
         }
-
-        public void LoadData()
-        {
-            flowLayoutPanelAccomplished.Controls.Clear();
-            flowLayoutPanelAccomplished.AutoScroll = true;
-
-            try
-            {
-                using (MySqlConnection con = new MySqlConnection(conString))
-                {
-                    con.Open();
-                    Debug.WriteLine("Database connection opened.");
-
-                    string query = @"
-    SELECT a.announcement_id, a.class_id, a.title, a.content, a.due_datetime, a.created_at,
-           u.username, 
-           COALESCE(
-               (SELECT position 
-                FROM elected_positions 
-                WHERE user_id = u.user_id 
-                ORDER BY id DESC 
-                LIMIT 1),
-               u.role
-           ) AS creator_role,
-           COALESCE(s.status, 'missing') AS status
-    FROM announcements a
-    LEFT JOIN announcement_status s
-           ON s.announcement_id = a.announcement_id AND s.user_id = @uid
-    JOIN users u ON a.user_id = u.user_id
-    WHERE COALESCE(s.status, 'missing') = 'done'
-    ORDER BY a.created_at DESC;";
-
-
-                    using (MySqlCommand cmd = new MySqlCommand(query, con))
-                    {
-                        cmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
-
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            int rowCount = 0;
-
-                            while (reader.Read())
-                            {
-                                rowCount++;
-                                var announcementCard = new ctrlAnnouncement();
-
-                                DateTime? due = reader["due_datetime"] != DBNull.Value
-                                    ? (DateTime?)reader.GetDateTime("due_datetime")
-                                    : null;
-
-                                bool isDone = reader["status"].ToString() == "done";
-
-                                int classIdFromDb = reader["class_id"] != DBNull.Value
-                                    ? Convert.ToInt32(reader["class_id"])
-                                    : 0;
-
-                                announcementCard.LoadAnnouncementData(
-                                    reader.GetInt32("announcement_id"),
-                                    classIdFromDb,
-                                    reader.GetString("title"),
-                                    reader.GetString("content"),
-                                    reader.GetDateTime("created_at"),
-                                    isDone,
-                                    reader.GetString("username"),
-                                    reader.GetString("creator_role"),
-                                    due
-                                );
-
-                                if (!isDone)
-                                    announcementCard.BackColor = Color.LightSalmon;
-
-                                flowLayoutPanelAccomplished.Controls.Add(announcementCard);
-                            }
-
-                            Debug.WriteLine($"Total announcements loaded: {rowCount}");
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Database or query error: {ex.Message}");
-                MessageBox.Show("Error loading announcements: " + ex.Message);
-            }
-
-            flowLayoutPanelAccomplished.Visible = true;
-            flowLayoutPanelAccomplished.BringToFront();
-
-            Debug.WriteLine("=== LoadAccomplishedAnnouncements Finished ===");
-        }
-
         private void pictureBox21_Click(object sender, EventArgs e)
         {
             frmPersonal fp = new frmPersonal();

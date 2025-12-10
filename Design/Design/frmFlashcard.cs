@@ -135,5 +135,19 @@ namespace Design
             c.Show();
             this.Close();
         }
+
+        private void pictureBox10_Click(object sender, EventArgs e)
+        {
+            frmPending p = new frmPending();
+            p.Show();
+            this.Close();
+        }
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            frmPending p = new frmPending();
+            p.Show();
+            this.Close();
+        }
     }
 }
