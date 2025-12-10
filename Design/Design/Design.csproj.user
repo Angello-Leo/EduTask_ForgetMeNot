@@ -10,6 +10,9 @@
     <Compile Update="frmCreateQuiz.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="frmDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="frmFlashcardSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -35,9 +38,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="frmStartQuiz.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="frmDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="frmCreateclass.cs">

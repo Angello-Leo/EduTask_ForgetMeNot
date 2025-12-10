@@ -35,8 +35,12 @@ namespace Design
 
         private void InitializeNotifyIcon()
         {
-            notifyIcon1.Icon = SystemIcons.Information;
-            notifyIcon1.Visible = true;
+            if (notifyIcon1 == null)
+            {
+                notifyIcon1 = new NotifyIcon();
+                notifyIcon1.Icon = SystemIcons.Information;
+                notifyIcon1.Visible = true;
+            }
 
         }
         private void LoadLastNotification()
@@ -340,7 +344,7 @@ namespace Design
             // e2 ay home icon button
             frmDashBoard frmDashBoard = new frmDashBoard();
             frmDashBoard.Show();
-            this.Hide();
+            this.Hide(); ;
         }
 
         private void pictureBox6_Click(object sender, EventArgs e)
@@ -348,13 +352,13 @@ namespace Design
             //e2 ay pending icom button
             frmPending f7 = new frmPending();
             f7.Show();
-            this.Hide(); ;
+            this.Hide();
         }
 
         private void pictureBox7_Click(object sender, EventArgs e)
         {
             //e2 ay schedule icon button
-            frmCallendar  callendar = new frmCallendar();
+            frmCallendar callendar = new frmCallendar();
             callendar.Show();
             this.Hide();
         }
@@ -427,7 +431,7 @@ namespace Design
             frmFlashcard f5 = new frmFlashcard();
             f5.Show();
             this.Hide();
-        }
+        }   
 
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
@@ -443,5 +447,9 @@ namespace Design
         }
 
 
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }

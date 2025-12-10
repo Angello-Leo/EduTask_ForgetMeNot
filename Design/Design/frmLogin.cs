@@ -11,69 +11,69 @@
 
     namespace Design
     {
-        public partial class frmLogin : Form
+    public partial class frmLogin : Form
+    {
+        string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
+        public frmLogin()
         {
-            string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
-            public frmLogin()
+            InitializeComponent();
+        }
+
+        private void login_Click(object sender, EventArgs e)
+        {
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Text.Trim();
+
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                InitializeComponent();
+                MessageBox.Show("Please enter both username and password.");
+                return;
             }
 
-            private void login_Click(object sender, EventArgs e)
+            using (MySqlConnection conn = new MySqlConnection(conString))
             {
-                string username = txtUsername.Text.Trim();
-                string password = txtPassword.Text.Trim();
-
-                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+                try
                 {
-                    MessageBox.Show("Please enter both username and password.");
-                    return;
-                }
+                    conn.Open();
 
-                using (MySqlConnection conn = new MySqlConnection(conString))
-                {
-                    try
+                    // Get stored hash and role for the username
+                    string query = "SELECT user_id, password_hash, role FROM users WHERE username=@username";
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@username", username);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        conn.Open();
-
-                        // Get stored hash and role for the username
-                        string query = "SELECT user_id, password_hash, role FROM users WHERE username=@username";
-                        MySqlCommand cmd = new MySqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@username", username);
-
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        if (reader.Read())
                         {
-                            if (reader.Read())
+                            string storedHash = reader.GetString("password_hash");
+                            string role = reader.GetString("role");
+
+                            if (BCrypt.Net.BCrypt.Verify(password, storedHash))
                             {
-                                string storedHash = reader.GetString("password_hash");
-                                string role = reader.GetString("role");
+                                MessageBox.Show("Login successful!");
 
-                                if (BCrypt.Net.BCrypt.Verify(password, storedHash))
-                                {
-                                    MessageBox.Show("Login successful!");
+                                // Store user info
+                                GetInfo.UserID = reader.GetInt32("user_id");   // FIXED
+                                GetInfo.Username = username;
+                                GetInfo.Role = role;
 
-                                    // Store user info
-                                    GetInfo.UserID = reader.GetInt32("user_id");   // FIXED
-                                    GetInfo.Username = username;
-                                    GetInfo.Role = role;
+                                reader.Close();
 
-                                    reader.Close();
-
-                                    string electedQuery = @"SELECT position 
+                                string electedQuery = @"SELECT position 
                                             FROM elected_positions 
                                             WHERE user_id = @uid 
                                             ORDER BY id DESC 
                                             LIMIT 1";
 
-                                    MySqlCommand electedCmd = new MySqlCommand(electedQuery, conn);
-                                    electedCmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
+                                MySqlCommand electedCmd = new MySqlCommand(electedQuery, conn);
+                                electedCmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
 
-                                    var electedPosition = electedCmd.ExecuteScalar();
+                                var electedPosition = electedCmd.ExecuteScalar();
 
-                                    if (electedPosition != null)
-                                    {
-                                        GetInfo.Role = electedPosition.ToString();  // "vice president", "president", etc.
-                                    }
+                                if (electedPosition != null)
+                                {
+                                    GetInfo.Role = electedPosition.ToString();  // "vice president", "president", etc.
+                                }
                                 string notifQuery = @"
         SELECT COUNT(*) 
         FROM notifications n
@@ -91,33 +91,38 @@
                                     // Optionally, you could even open frmNotification automatically:
                                 }
                                 System.Diagnostics.Debug.WriteLine("FINAL ROLE AFTER LOGIN = " + GetInfo.Role);
-                                    frmDashBoard dash = new frmDashBoard();
-                                    this.Hide();
-                                    dash.Show();
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Invalid password!");
-                                }
+                                frmDashBoard dash = new frmDashBoard();
+                                this.Hide();
+                                dash.Show();
                             }
                             else
                             {
-                                MessageBox.Show("Username not found!");
+                                MessageBox.Show("Invalid password!");
                             }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error: " + ex.Message);
+                        else
+                        {
+                            MessageBox.Show("Username not found!");
+                        }
                     }
                 }
-            }
-
-            private void lnkSignup_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-            {
-                frmSignup signupFrm = new frmSignup(this);
-                signupFrm.Show();
-                this.Hide();
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
             }
         }
+
+        private void lnkSignup_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmSignup signupFrm = new frmSignup(this);
+            signupFrm.Show();
+            this.Hide();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
+}
