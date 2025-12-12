@@ -42,13 +42,14 @@
             picBack.BackgroundImage = (Image)resources.GetObject("picBack.BackgroundImage");
             picBack.BackgroundImageLayout = ImageLayout.Zoom;
             picBack.Image = (Image)resources.GetObject("picBack.Image");
-            picBack.Location = new Point(18, 30);
-            picBack.Margin = new Padding(4, 5, 4, 5);
+            picBack.Location = new Point(14, 24);
+            picBack.Margin = new Padding(3, 4, 3, 4);
             picBack.Name = "picBack";
-            picBack.Size = new Size(79, 50);
+            picBack.Size = new Size(63, 40);
             picBack.SizeMode = PictureBoxSizeMode.Zoom;
             picBack.TabIndex = 4;
             picBack.TabStop = false;
+            picBack.Click += picBack_Click;
             // 
             // pictureBox2
             // 
@@ -56,10 +57,10 @@
             pictureBox2.BackgroundImage = (Image)resources.GetObject("pictureBox2.BackgroundImage");
             pictureBox2.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(94, -5);
-            pictureBox2.Margin = new Padding(4, 5, 4, 5);
+            pictureBox2.Location = new Point(75, -4);
+            pictureBox2.Margin = new Padding(3, 4, 3, 4);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(152, 125);
+            pictureBox2.Size = new Size(122, 100);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 5;
             pictureBox2.TabStop = false;
@@ -69,22 +70,21 @@
             flowLayoutPanelNotif.Anchor = AnchorStyles.None;
             flowLayoutPanelNotif.AutoScroll = true;
             flowLayoutPanelNotif.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanelNotif.Location = new Point(72, 159);
-            flowLayoutPanelNotif.Margin = new Padding(4, 4, 4, 4);
+            flowLayoutPanelNotif.Location = new Point(58, 127);
             flowLayoutPanelNotif.Name = "flowLayoutPanelNotif";
-            flowLayoutPanelNotif.Size = new Size(1550, 822);
+            flowLayoutPanelNotif.Size = new Size(1240, 658);
             flowLayoutPanelNotif.TabIndex = 6;
             // 
             // frmNotification
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1658, 1026);
+            ClientSize = new Size(1326, 821);
             Controls.Add(flowLayoutPanelNotif);
             Controls.Add(pictureBox2);
             Controls.Add(picBack);
-            Margin = new Padding(4, 5, 4, 5);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "frmNotification";
             Text = "Notification ";
             Load += frmNotification_Load;

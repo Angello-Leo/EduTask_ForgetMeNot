@@ -48,10 +48,9 @@
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Arial Rounded MT Bold", 19.8000011F);
-            label1.Location = new Point(241, 84);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(193, 67);
             label1.Name = "label1";
-            label1.Size = new Size(695, 46);
+            label1.Size = new Size(591, 39);
             label1.TabIndex = 0;
             label1.Text = "Welcome to EduTask:ForgetMeNot";
             label1.TextAlign = ContentAlignment.TopCenter;
@@ -62,10 +61,9 @@
             lblUsername.AutoSize = true;
             lblUsername.BackColor = Color.Transparent;
             lblUsername.Font = new Font("Arial Rounded MT Bold", 12F);
-            lblUsername.Location = new Point(246, 178);
-            lblUsername.Margin = new Padding(4, 0, 4, 0);
+            lblUsername.Location = new Point(197, 142);
             lblUsername.Name = "lblUsername";
-            lblUsername.Size = new Size(139, 28);
+            lblUsername.Size = new Size(117, 23);
             lblUsername.TabIndex = 1;
             lblUsername.Text = "Username:";
             lblUsername.TextAlign = ContentAlignment.MiddleLeft;
@@ -73,17 +71,17 @@
             // txtUsername
             // 
             txtUsername.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtUsername.Location = new Point(395, 178);
-            txtUsername.Margin = new Padding(4);
+            txtUsername.Location = new Point(316, 142);
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(584, 31);
+            txtUsername.Size = new Size(468, 27);
             txtUsername.TabIndex = 3;
             // 
             // lblHasAcc
             // 
             lblHasAcc.Location = new Point(0, 0);
+            lblHasAcc.Margin = new Padding(2, 0, 2, 0);
             lblHasAcc.Name = "lblHasAcc";
-            lblHasAcc.Size = new Size(100, 23);
+            lblHasAcc.Size = new Size(80, 18);
             lblHasAcc.TabIndex = 13;
             // 
             // btnSubmit
@@ -91,10 +89,9 @@
             btnSubmit.Anchor = AnchorStyles.None;
             btnSubmit.BackColor = Color.Transparent;
             btnSubmit.Cursor = Cursors.Hand;
-            btnSubmit.Location = new Point(862, 431);
-            btnSubmit.Margin = new Padding(4);
+            btnSubmit.Location = new Point(690, 345);
             btnSubmit.Name = "btnSubmit";
-            btnSubmit.Size = new Size(118, 36);
+            btnSubmit.Size = new Size(94, 29);
             btnSubmit.TabIndex = 8;
             btnSubmit.Text = "SUBMIT";
             btnSubmit.UseVisualStyleBackColor = false;
@@ -116,10 +113,10 @@
             panel1.Controls.Add(txtUsername);
             panel1.Controls.Add(lblUsername);
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1208, 589);
+            panel1.Size = new Size(966, 471);
             panel1.TabIndex = 9;
+            panel1.Paint += panel1_Paint;
             // 
             // linkLabel1
             // 
@@ -127,9 +124,10 @@
             linkLabel1.AutoSize = true;
             linkLabel1.Cursor = Cursors.Hand;
             linkLabel1.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            linkLabel1.Location = new Point(615, 440);
+            linkLabel1.Location = new Point(492, 352);
+            linkLabel1.Margin = new Padding(2, 0, 2, 0);
             linkLabel1.Name = "linkLabel1";
-            linkLabel1.Size = new Size(240, 21);
+            linkLabel1.Size = new Size(196, 17);
             linkLabel1.TabIndex = 12;
             linkLabel1.TabStop = true;
             linkLabel1.Text = "I already have an account";
@@ -140,10 +138,9 @@
             chkTeacher.Anchor = AnchorStyles.None;
             chkTeacher.AutoSize = true;
             chkTeacher.BackColor = Color.Transparent;
-            chkTeacher.Location = new Point(395, 372);
-            chkTeacher.Margin = new Padding(4);
+            chkTeacher.Location = new Point(316, 298);
             chkTeacher.Name = "chkTeacher";
-            chkTeacher.Size = new Size(150, 29);
+            chkTeacher.Size = new Size(127, 24);
             chkTeacher.TabIndex = 10;
             chkTeacher.Text = "I am a Teacher";
             chkTeacher.UseVisualStyleBackColor = false;
@@ -153,10 +150,9 @@
             chkStudent.Anchor = AnchorStyles.None;
             chkStudent.AutoSize = true;
             chkStudent.BackColor = Color.Transparent;
-            chkStudent.Location = new Point(395, 335);
-            chkStudent.Margin = new Padding(4);
+            chkStudent.Location = new Point(316, 268);
             chkStudent.Name = "chkStudent";
-            chkStudent.Size = new Size(148, 29);
+            chkStudent.Size = new Size(122, 24);
             chkStudent.TabIndex = 9;
             chkStudent.Text = "I am a Sudent";
             chkStudent.UseVisualStyleBackColor = false;
@@ -164,10 +160,9 @@
             // txtPassword
             // 
             txtPassword.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtPassword.Location = new Point(395, 252);
-            txtPassword.Margin = new Padding(4);
+            txtPassword.Location = new Point(316, 202);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(584, 31);
+            txtPassword.Size = new Size(468, 27);
             txtPassword.TabIndex = 8;
             // 
             // lblPassword
@@ -176,21 +171,19 @@
             lblPassword.AutoSize = true;
             lblPassword.BackColor = Color.Transparent;
             lblPassword.Font = new Font("Arial Rounded MT Bold", 12F);
-            lblPassword.Location = new Point(246, 252);
-            lblPassword.Margin = new Padding(4, 0, 4, 0);
+            lblPassword.Location = new Point(197, 202);
             lblPassword.Name = "lblPassword";
-            lblPassword.Size = new Size(136, 28);
+            lblPassword.Size = new Size(113, 23);
             lblPassword.TabIndex = 7;
             lblPassword.Text = "Password:";
             lblPassword.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // frmSignup
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1208, 589);
+            ClientSize = new Size(966, 471);
             Controls.Add(panel1);
-            Margin = new Padding(4);
             Name = "frmSignup";
             Text = "frmSignup";
             panel1.ResumeLayout(false);

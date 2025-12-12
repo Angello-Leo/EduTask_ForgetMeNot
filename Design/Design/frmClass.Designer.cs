@@ -54,9 +54,7 @@
             pictureBox17 = new PictureBox();
             pictureBox18 = new PictureBox();
             lblClassName = new Label();
-            lblClassCode = new Label();
             lblAdviser = new Label();
-            lblMaxStud = new Label();
             lblUsername = new Label();
             panelStatus = new Panel();
             lblStatusMessage = new Label();
@@ -82,6 +80,7 @@
             txtAnnouncementContent = new RichTextBox();
             mySqlConnection1 = new MySql.Data.MySqlClient.MySqlConnection();
             dgvShowStudents = new DataGridView();
+            lblClassCode = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox16).BeginInit();
             panel1.SuspendLayout();
@@ -416,15 +415,6 @@
             lblClassName.Text = "    ";
             lblClassName.Click += lblClassName_Click;
             // 
-            // lblClassCode
-            // 
-            lblClassCode.AutoSize = true;
-            lblClassCode.Location = new Point(1080, 350);
-            lblClassCode.Name = "lblClassCode";
-            lblClassCode.Size = new Size(17, 20);
-            lblClassCode.TabIndex = 33;
-            lblClassCode.Text = "  ";
-            // 
             // lblAdviser
             // 
             lblAdviser.AutoSize = true;
@@ -433,15 +423,6 @@
             lblAdviser.Size = new Size(17, 20);
             lblAdviser.TabIndex = 34;
             lblAdviser.Text = "  ";
-            // 
-            // lblMaxStud
-            // 
-            lblMaxStud.AutoSize = true;
-            lblMaxStud.Location = new Point(531, 357);
-            lblMaxStud.Name = "lblMaxStud";
-            lblMaxStud.Size = new Size(50, 20);
-            lblMaxStud.TabIndex = 35;
-            lblMaxStud.Text = "label6";
             // 
             // lblUsername
             // 
@@ -691,10 +672,19 @@
             dgvShowStudents.Name = "dgvShowStudents";
             dgvShowStudents.ReadOnly = true;
             dgvShowStudents.RowHeadersWidth = 51;
-            dgvShowStudents.Size = new Size(735, 442);
+            dgvShowStudents.Size = new Size(792, 442);
             dgvShowStudents.TabIndex = 0;
             dgvShowStudents.Visible = false;
             dgvShowStudents.CellContentClick += dgvShowStudents_CellContentClick;
+            // 
+            // lblClassCode
+            // 
+            lblClassCode.Location = new Point(1058, 349);
+            lblClassCode.Name = "lblClassCode";
+            lblClassCode.PlaceholderText = "1234567";
+            lblClassCode.ReadOnly = true;
+            lblClassCode.Size = new Size(72, 27);
+            lblClassCode.TabIndex = 41;
             // 
             // Class
             // 
@@ -703,6 +693,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1326, 821);
+            Controls.Add(lblClassCode);
             Controls.Add(dgvShowStudents);
             Controls.Add(panelCreateAnnouncement);
             Controls.Add(flowLayoutPanelAnnouncements);
@@ -710,9 +701,7 @@
             Controls.Add(panelVoting);
             Controls.Add(panelStatus);
             Controls.Add(lblUsername);
-            Controls.Add(lblMaxStud);
             Controls.Add(lblAdviser);
-            Controls.Add(lblClassCode);
             Controls.Add(lblClassName);
             Controls.Add(pictureBox18);
             Controls.Add(pictureBox17);
@@ -788,9 +777,7 @@
         private PictureBox pictureBox17;
         private PictureBox pictureBox18;
         private Label lblClassName;
-        private Label lblClassCode;
         private Label lblAdviser;
-        private Label lblMaxStud;
         private Label lblUsername;
         private Panel panelStatus;
         private Label lblStatusMessage;
@@ -816,5 +803,6 @@
         private MySql.Data.MySqlClient.MySqlConnection mySqlConnection1;
         private CheckBox chkSetDueDate;
         private DataGridView dgvShowStudents;
+        private TextBox lblClassCode;
     }
 }

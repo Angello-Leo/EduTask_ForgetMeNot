@@ -373,9 +373,7 @@ namespace Design
 
         private void pictureBox9_Click(object sender, EventArgs e)
         {
-            //e2 ay home label button
-            frmDashBoard f = new frmDashBoard();
-            f.Show();
+            flowPanelClasses.Refresh();
         }
 
         private void pictureBox10_Click(object sender, EventArgs e)
@@ -431,7 +429,7 @@ namespace Design
             frmFlashcard f5 = new frmFlashcard();
             f5.Show();
             this.Hide();
-        }   
+        }
 
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
@@ -450,6 +448,11 @@ namespace Design
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
 
+        }
+
+        private void pictureBox5_Click_1(object sender, EventArgs e)
+        {
+            flowPanelClasses.Refresh();
         }
     }
 }

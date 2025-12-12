@@ -30,7 +30,7 @@ namespace Design
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            timer1.Start();
+            tmrHamburgerMenu.Start();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -46,7 +46,7 @@ namespace Design
                 {
                     panel1.Width = panelMaxWidth;
                     panelIsExpanded = true;
-                    timer1.Stop();
+                    tmrHamburgerMenu.Stop();
                 }
             }
             else
@@ -58,7 +58,7 @@ namespace Design
                     panel1.Width = 0;
                     panel1.Visible = false;
                     panelIsExpanded = false;
-                    timer1.Stop();
+                    tmrHamburgerMenu.Stop();
                 }
             }
         }
