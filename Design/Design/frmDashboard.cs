@@ -3,13 +3,13 @@ namespace Design
 {
     public partial class frmDashBoard : Form
     {
-
+        UiTransition n = new UiTransition();
         public frmDashBoard()
         {
             InitializeComponent();
             InitializeNotifyIcon();
             LoadLastNotification();
-            StartNotificationTimer();
+            tmrStartNotification();
         }
 
         private bool panelIsExpanded = false;
@@ -17,7 +17,7 @@ namespace Design
         private int slideSpeed = 10;
         private int lastNotifId = 0;
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void frmDashboard_Load(object sender, EventArgs e)
         {
             panel1.Width = 200;
             panel1.Visible = false;
@@ -58,15 +58,15 @@ namespace Design
         }
 
 
-        private void StartNotificationTimer()
+        private void tmrStartNotification()
         {
-            timerCheckNotification.Interval = 10000; // check every 10 seconds
-            timerCheckNotification.Tick += TimerCheckNotification_Tick;
-            timerCheckNotification.Start();
+            tmrCheckNotification.Interval = 10000; // check every 10 seconds
+            tmrCheckNotification.Tick += tmrCheckNotification_Tick;
+            tmrCheckNotification.Start();
         }
 
 
-        private void TimerCheckNotification_Tick(object sender, EventArgs e)
+        private void tmrCheckNotification_Tick(object sender, EventArgs e)
         {
             string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
 
@@ -109,7 +109,7 @@ namespace Design
             }
         }
 
-        private void Form1_Shown(object sender, EventArgs e)
+        private void frmDashboard_Shown(object sender, EventArgs e)
         {
             try
             {
@@ -119,12 +119,6 @@ namespace Design
             {
                 MessageBox.Show("LoadClasses error: " + ex.Message);
             }
-        }
-
-        protected override void OnActivated(EventArgs e)
-        {
-            base.OnActivated(e);
-            LoadClasses();
         }
 
         public void LoadClasses()
@@ -288,9 +282,9 @@ namespace Design
 
 
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void picHamburgerMenu_Click(object sender, EventArgs e)
         {
-            timer1.Start();
+            tmrHamburgerMenu.Start();
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -305,7 +299,7 @@ namespace Design
                 {
                     panel1.Width = panelMaxWidth;
                     panelIsExpanded = true;
-                    timer1.Stop();
+                    tmrHamburgerMenu.Stop();
                 }
             }
             else
@@ -317,123 +311,59 @@ namespace Design
                     panel1.Width = 0;
                     panel1.Visible = false;
                     panelIsExpanded = false;
-                    timer1.Stop();
+                    tmrHamburgerMenu.Stop();
                 }
             }
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void picNotification_Click(object sender, EventArgs e)
         {
-            // e2 ay sa notification button
-            frmNotification f4 = new frmNotification();
-            f4.Show();
-            this.Hide();
+             n.Notification(this);
         }
 
-        private void pictureBox3_Click(object sender, EventArgs e)
+        private void picAddClass_Click(object sender, EventArgs e)
         {
-            //e2 ay sa add ng class button
-            frmCreateClass f2 = new frmCreateClass(this); // pass reference to this dashboard
-            f2.Show();
-            this.Hide();
-
+            n.AddClass(this);
         }
 
-        private void pictureBox5_Click(object sender, EventArgs e)
-        {
-            // e2 ay home icon button
-            frmDashBoard frmDashBoard = new frmDashBoard();
-            frmDashBoard.Show();
-            this.Hide(); ;
-        }
-
-        private void pictureBox6_Click(object sender, EventArgs e)
-        {
-            //e2 ay pending icom button
-            frmPending f7 = new frmPending();
-            f7.Show();
-            this.Hide();
-        }
-
-        private void pictureBox7_Click(object sender, EventArgs e)
-        {
-            //e2 ay schedule icon button
-            frmCallendar callendar = new frmCallendar();
-            callendar.Show();
-            this.Hide();
-        }
-
-        private void pictureBox8_Click(object sender, EventArgs e)
-        {
-            //e2 ay flashcards icon button
-            frmFlashcard ff = new frmFlashcard();
-            ff.Show();
-            this.Hide();
-        }
-
-        private void pictureBox9_Click(object sender, EventArgs e)
+        private void picHome_Click(object sender, EventArgs e)
         {
             flowPanelClasses.Refresh();
         }
 
-        private void pictureBox10_Click(object sender, EventArgs e)
+        private void picPendingIcon_Click(object sender, EventArgs e)
         {
-            //e2 ay pending label button 
-            frmPending f7 = new frmPending();
-            f7.Show();
-            this.Hide();
+            n.Pending(this);
         }
 
-        private void pictureBox11_Click(object sender, EventArgs e)
+        private void picScheduleIcon_Click(object sender, EventArgs e)
         {
-            //e2 ay schedule label button
-            frmCallendar c = new frmCallendar();
-            c.Show();
-            this.Hide();
+           n.Schedule(this);
         }
 
-        private void pictureBox12_Click(object sender, EventArgs e)
+        private void picFlashcardIcon_Click(object sender, EventArgs e)
         {
-            //e2 ay flashcards label button
-            frmFlashcard f5 = new frmFlashcard();
-            f5.Show();
-            this.Hide();
+           n.Flashcards(this);
         }
 
-        private void pictureBox13_Click(object sender, EventArgs e)
+        private void picPending_Click(object sender, EventArgs e)
         {
-            // e2 ay course icon btton
+            n.Pending(this);
         }
 
-        private void pictureBox14_Click(object sender, EventArgs e)
+        private void picSchedule_Click(object sender, EventArgs e)
         {
-            //e2 ay sa course label button
+            n.Schedule(this);
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
+        private void picFlashcard_Click(object sender, EventArgs e)
         {
-            //e2 ay panel ng courses pag nipinfot yung button sa taas. 
-            //dapat ay mag ddrop down tong panel pag niindot yugn button then nasa loob yung courses
+            n.Flashcards(this);
         }
 
-        private void pictureBox1_Click_1(object sender, EventArgs e)
+        private void picHomeIcon_Click(object sender, EventArgs e)
         {
-            //navigation icon 
-
-            timer1.Start();
-        }
-
-        private void pictureBox8_Click_1(object sender, EventArgs e)
-        {
-            //flashcards
-            frmFlashcard f5 = new frmFlashcard();
-            f5.Show();
-            this.Hide();
-        }
-
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
+            flowPanelClasses.Refresh();
         }
         public void ShowTrayNotification(string message, string title = "EduTask Notification")
         {
@@ -442,17 +372,6 @@ namespace Design
             notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
             notifyIcon1.ShowBalloonTip(5000); // shows for 5 seconds
             System.Media.SystemSounds.Exclamation.Play(); // optional sound
-        }
-
-
-        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void pictureBox5_Click_1(object sender, EventArgs e)
-        {
-            flowPanelClasses.Refresh();
         }
     }
 }

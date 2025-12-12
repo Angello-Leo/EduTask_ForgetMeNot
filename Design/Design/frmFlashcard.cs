@@ -12,6 +12,7 @@ namespace Design
 {
     public partial class frmFlashcard : Form
     {
+        UiTransition n = new UiTransition();
         public frmFlashcard()
         {
             InitializeComponent();
@@ -21,19 +22,19 @@ namespace Design
         private int panelMaxWidth = 200;
         private int slideSpeed = 10;
 
-        private void pictureBox17_Click(object sender, EventArgs e)
+        private void picCreateQuiz_Click(object sender, EventArgs e)
         {
             frmCreatequiz f6 = new frmCreatequiz();
             f6.Show();
-            this.Hide();
+            this.Close();
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void picHamburgerMenu_Click(object sender, EventArgs e)
         {
             tmrHamburgerMenu.Start();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void tmrHamburgerMenu_Tick(object sender, EventArgs e)
         {
             if (panelIsExpanded == false)
             {
@@ -63,91 +64,55 @@ namespace Design
             }
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void picNotification_Click(object sender, EventArgs e)
         {
-            //notif
-            frmNotification f4 = new frmNotification();
-            f4.Show();
-            this.Hide();
+            n.Notification(this);
         }
 
-        private void pictureBox3_Click(object sender, EventArgs e)
+        private void picAddClass_Click(object sender, EventArgs e)
         {
-            //addd class
-            frmCreateClass f2 = new frmCreateClass();
-            f2.Show();
-            this.Hide();
+            n.AddClass(this);
 
         }
 
-        private void pictureBox12_Click(object sender, EventArgs e)
+        private void picFlashcard_Click(object sender, EventArgs e)
         {
-            //ff
-            frmFlashcard f5 = new frmFlashcard();
-            f5.Show();
-            this.Hide();
+           n.Flashcards(this);
         }
 
-        private void pictureBox8_Click(object sender, EventArgs e)
+        private void picFlashcardIcon_Click(object sender, EventArgs e)
         {
-            //ff
-            frmFlashcard f5 = new frmFlashcard();
-            f5.Show();
-            this.Hide();
+            n.Flashcards(this);
         }
 
-        private void pictureBox9_Click(object sender, EventArgs e)
+        private void picHome_Click(object sender, EventArgs e)
         {
-            //home
-            frmDashBoard f1 = new frmDashBoard();
-            f1.Show();
-            this.Hide();
+            n.Home(this);
         }
 
-        private void pictureBox5_Click(object sender, EventArgs e)
+        private void picHomeIcon_Click(object sender, EventArgs e)
         {
-            //home
-            frmDashBoard f1 = new frmDashBoard();
-            f1.Show();
-            this.Hide();
+            n.Home(this);
         }
 
-        private void Form5_Load(object sender, EventArgs e)
+        private void picSchedule_Click(object sender, EventArgs e)
         {
-
+            n.Schedule(this);
         }
 
-        private void pictureBox14_Click(object sender, EventArgs e)
+        private void picScheduleIcon_Click(object sender, EventArgs e)
         {
-
+            n.Schedule(this);
         }
 
-        private void pictureBox11_Click(object sender, EventArgs e)
+        private void picPending_Click(object sender, EventArgs e)
         {
-            frmCallendar c = new frmCallendar();
-            c.Show();
-            this.Close();
+            n.Pending(this);
         }
 
-        private void pictureBox7_Click(object sender, EventArgs e)
+        private void picPendingIcon_Click(object sender, EventArgs e)
         {
-            frmCallendar c = new frmCallendar();
-            c.Show();
-            this.Close();
-        }
-
-        private void pictureBox10_Click(object sender, EventArgs e)
-        {
-            frmPending p = new frmPending();
-            p.Show();
-            this.Close();
-        }
-
-        private void pictureBox6_Click(object sender, EventArgs e)
-        {
-            frmPending p = new frmPending();
-            p.Show();
-            this.Close();
+            n.Pending(this);
         }
     }
 }
