@@ -96,17 +96,10 @@ namespace Design
             }
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
-        {
-            frmDashBoard dash = new frmDashBoard();
-            this.Hide();
-            dash.Show();
-        }
-
         private void lnkLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             loginForm.Show();
-            this.Hide();
+            this.Close();
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Design
     {
         private string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
         EnablerPending s = new EnablerPending();
+        UiTransition n = new UiTransition();
 
         public frmPending()
         {
@@ -24,6 +25,7 @@ namespace Design
             panel1.Width = 60;
             panel1.Visible = true;
         }
+        // Hamburger Menu Fields
         private bool panelIsExpanded = false;
         private int panelMaxWidth = 170;
         private int slideSpeed = 98;
@@ -36,32 +38,26 @@ namespace Design
 
         private void picHamburgerMenu_Click(object sender, EventArgs e)
         {
-            timer1.Start();
+            tmrHamburgerMenu.Start();
         }
 
-        private void pictureBox10_Click(object sender, EventArgs e)
+        private void picPending_Click(object sender, EventArgs e)
         {
-            //pending 
-            frmPending f7 = new frmPending();
-            f7.Show();
-            this.Hide();
+           n.Pending(this);
 
         }
 
-        private void pictureBox6_Click(object sender, EventArgs e)
+        private void picPendingIcon_Click(object sender, EventArgs e)
         {
-            //pending
-            frmPending f7 = new frmPending();
-            f7.Show();
-            this.Hide();
+            n.Pending(this);
         }
 
-        private void pictureBox16_Click(object sender, EventArgs e)
+        private void picPendingSelection_Click(object sender, EventArgs e)
         {
             s.LoadPendingAnnouncement(flowLayoutPanelPendingAssignments);
         }
-     
-        private void timer1_Tick(object sender, EventArgs e)
+
+        private void tmrHamburgerMenu_Tick(object sender, EventArgs e)
         {
             if (panelIsExpanded)
             {
@@ -71,7 +67,7 @@ namespace Design
                     panel1.Visible = false;
                     panel1.Width = 0;
                     panelIsExpanded = false;
-                    timer1.Stop();
+                    tmrHamburgerMenu.Stop();
                 }
             }
             else
@@ -82,61 +78,43 @@ namespace Design
                     panel1.Visible = true;
                     panel1.Width = panelMaxWidth;
                     panelIsExpanded = true;
-                    timer1.Stop();
+                    tmrHamburgerMenu.Stop();
                 }
 
             }
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void picNotification_Click(object sender, EventArgs e)
         {
-            //notif
-            frmNotification f4 = new frmNotification();
-            f4.Show();
-            this.Hide();
+           n.Notification(this);
         }
 
-        private void pictureBox3_Click(object sender, EventArgs e)
+        private void picAddClass_Click(object sender, EventArgs e)
         {
-            //add cvlass
-            frmCreateClass f2 = new frmCreateClass();
-            f2.Show();
-            this.Hide();
+            n.AddClass(this);
         }
 
-        private void pictureBox12_Click(object sender, EventArgs e)
+        private void picFlashcard_Click(object sender, EventArgs e)
         {
-            //ff
-            frmFlashcard f5 = new frmFlashcard();
-            f5.Show();
-            this.Hide();
+           n.Flashcards(this);
         }
 
-        private void pictureBox8_Click(object sender, EventArgs e)
+        private void picFlashcardIcon_Click(object sender, EventArgs e)
         {
-            //ff
-            frmFlashcard f5 = new frmFlashcard();
-            f5.Show();
-            this.Hide();
+            n.Flashcards(this);
         }
 
         private void picHome_Click(object sender, EventArgs e)
         {
-            //home
-            frmDashBoard f1 = new frmDashBoard();
-            f1.Show();
-            this.Hide();
+            n.Home(this);
         }
 
         private void picHomeIcon_Click(object sender, EventArgs e)
         {
-            //home
-            frmDashBoard f1 = new frmDashBoard();
-            f1.Show();
-            this.Hide();
+            n.Home(this);
         }
 
-        private void pictureBox17_Click(object sender, EventArgs e)
+        private void picMissingSelection_Click(object sender, EventArgs e)
         {
             //missing
             int currentClassId = GetInfo.ClassID;
@@ -145,7 +123,7 @@ namespace Design
             this.Hide();
         }
 
-        private void pictureBox18_Click(object sender, EventArgs e)
+        private void picAccomplishedSelection_Click(object sender, EventArgs e)
         {
             //accomplished
             frmAccomplished f7 = new frmAccomplished();
@@ -153,7 +131,7 @@ namespace Design
             this.Hide();
         }
 
-        private void pictureBox21_Click(object sender, EventArgs e)
+        private void picPersonalSelection_Click(object sender, EventArgs e)
         {
             frmPersonal p = new frmPersonal();
             p.Show();
@@ -188,10 +166,6 @@ namespace Design
             }
             panelPersonal.Visible = false;
         }
-        private void panelPersonal_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void lblClose_Click(object sender, EventArgs e)
         {
@@ -200,23 +174,14 @@ namespace Design
             s.LoadPersonalTasks(flowLayoutPanelPendingAssignments);
         }
 
-        private void pictureBox11_Click(object sender, EventArgs e)
+        private void picSchedule_Click(object sender, EventArgs e)
         {
-            frmCallendar c = new frmCallendar();
-            c.Show();
-            this.Close();
+            n.Schedule(this);
         }
 
-        private void pictureBox7_Click(object sender, EventArgs e)
+        private void picScheduleIcon_Click(object sender, EventArgs e)
         {
-            frmCallendar c = new frmCallendar();
-            c.Show();
-            this.Close();
-        }
-
-        private void pictureBox22_Click(object sender, EventArgs e)
-        {
-
+            n.Schedule(this);
         }
     }
 }

@@ -13,6 +13,10 @@ namespace Design
 {
     public partial class frmStartquiz : Form
     {
+        // Initialize Ui transition
+        UiTransition n = new UiTransition();
+
+        // Local Fields needed for quiz functionality
         List<string> questions = new List<string>();
         List<string> answers = new List<string>();
         Stack<string> orderedQuestions = new Stack<string>();
@@ -23,13 +27,15 @@ namespace Design
         string queAnswer;
         int correct;
         int miss;
+        int start = 3;
+        int goTime = 1;
+        int interval = 2;
+
+        // Dynamic Labels
         Label questionLabel = new Label();
         Label lblAnswer = new Label();
         Label lblStart = new Label();
         Label lblGo = new Label();
-        int start = 3;
-        int goTime = 1;
-        int interval = 2;
         Label lblResult = new Label();
         Label lblCorrects = new Label();
         Label lblNumAnswer = new Label();
@@ -37,6 +43,7 @@ namespace Design
         Label lblMisses = new Label();
         Label input = new Label();
 
+        // Hamburger Menu Fields
         private bool panelIsExpanded = false;
         private int panelMaxWidth = 200;
         private int slideSpeed = 10;
@@ -46,15 +53,17 @@ namespace Design
             this.questions = questions;
             this.answers = answers;
             createQuizForm = form;
+            panel1.Visible = false;
             totalSecs = time;
         }
         private void frmStartquiz_Load(object sender, EventArgs e)
         {
-            StartQuiz();
+            StartQuiz(); // Start the quiz when form loads
         }
 
         private void StartQuiz()
         {
+            // Prepares the Quiz
             HideItems();
             start = 3;
             goTime = 1;
@@ -468,8 +477,8 @@ namespace Design
             }
             else if (e.KeyCode == Keys.N)
             {
-                this.Hide();
-                createQuizForm.Show();
+                this.Close();
+                createQuizForm.Show(); 
             }
         }
 
@@ -505,16 +514,12 @@ namespace Design
 
         private void picHome_Click(object sender, EventArgs e)
         {
-            frmDashBoard dashBoard = new frmDashBoard();
-            dashBoard.Show();
-            this.Hide();
+            n.Home(this);
         }
 
         private void picPending_Click(object sender, EventArgs e)
         {
-            frmPending pending = new frmPending();
-            pending.Show();
-            this.Hide();
+            n.Pending(this);
         }
 
         private void picHamburgerMenu_Click(object sender, EventArgs e)
@@ -524,51 +529,37 @@ namespace Design
 
         private void picFlashcard_Click(object sender, EventArgs e)
         {
-            frmFlashcard flashcard = new frmFlashcard();
-            flashcard.Show();
-            this.Hide();
+            n.Flashcards(this);
         }
 
         private void picFlashcardIcon_Click(object sender, EventArgs e)
         {
-            frmFlashcard flashcard = new frmFlashcard();
-            flashcard.Show();
-            this.Hide();
+            n.Flashcards(this);
         }
 
         private void picScheduleIcon_Click(object sender, EventArgs e)
         {
-            frmCallendar callendar = new frmCallendar();
-            callendar.Show();
-            this.Hide();
+            n.Schedule(this);
         }
 
         private void picSchedule_Click(object sender, EventArgs e)
         {
-            frmCallendar callendar = new frmCallendar();
-            callendar.Show();
-            this.Hide();
+            n.Schedule(this);
         }
 
         private void picPendingIcon_Click(object sender, EventArgs e)
         {
-            frmPending pending = new frmPending();
-            pending.Show();
-            this.Hide();
+            n.Pending(this);
         }
 
         private void picHomeIcon_Click(object sender, EventArgs e)
         {
-            frmDashBoard dashBoard = new frmDashBoard();
-            dashBoard.Show();
-            this.Hide();
+            n.Home(this);
         }
 
         private void picNotification_Click(object sender, EventArgs e)
         {
-            frmNotification notification = new frmNotification();
-            notification.Show();
-            this.Hide();
+            n.Notification(this);
         }
     }
 }

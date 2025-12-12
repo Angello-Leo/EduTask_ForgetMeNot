@@ -14,6 +14,7 @@ namespace Design
     public partial class frmNotification : Form
     {
         public static string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
+        UiTransition n = new UiTransition();
 
         public frmNotification()
         {
@@ -22,19 +23,12 @@ namespace Design
             LoadNotifications();
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void picBack_Click(object sender, EventArgs e)
         {
-
+            n.Home(this);
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            frmDashBoard f1 = new frmDashBoard();
-            f1.Show();
-            this.Hide();
-        }
-
-        private void Form4_Load(object sender, EventArgs e)
+        private void frmNotification_Load(object sender, EventArgs e)
         {
             LoadNotifications();
         }
@@ -110,13 +104,6 @@ namespace Design
             // Auto-scroll to latest
             flowLayoutPanelNotif.VerticalScroll.Value = flowLayoutPanelNotif.VerticalScroll.Maximum;
             flowLayoutPanelNotif.PerformLayout();
-        }
-
-
-
-        private void flowLayoutPanelNotif_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

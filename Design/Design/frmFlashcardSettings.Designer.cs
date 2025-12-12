@@ -107,6 +107,8 @@
             Controls.Add(txtMax);
             Controls.Add(label2);
             Controls.Add(label1);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "frmFlashcardSettings";
             Text = "frmFlashcardSettings";
             ResumeLayout(false);

@@ -16,6 +16,7 @@ namespace Design
     {
         private string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
         EnablerPending s = new EnablerPending();
+        UiTransition n = new UiTransition();
 
         public frmPersonal()
         {
@@ -27,37 +28,27 @@ namespace Design
             ShowPersonalPanel();
 
         }
+
+        // Hamburger Menu Field
         private bool panelIsExpanded = false;
         private int panelMaxWidth = 170;
         private int slideSpeed = 98;
 
         private void picHamburgerMenu_Click(object sender, EventArgs e)
         {
-            timer1.Start();
+            tmrHamburgerMenu.Start();
         }
 
         private void picPending_Click(object sender, EventArgs e)
         {
-            //pending 
-            frmPending f7 = new frmPending();
-            f7.Show();
-            this.Hide();
+            n.Pending(this);
         }
 
         private void picPendingIcon_Click(object sender, EventArgs e)
         {
-            //pending
-            frmPending f7 = new frmPending();
-            f7.Show();
-            this.Hide();
+            n.Pending(this);
         }
-
-        private void pictureBox16_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
+        private void tmrHamburgerMenu_Tick(object sender, EventArgs e)
         {
             if (panelIsExpanded)
             {
@@ -67,7 +58,7 @@ namespace Design
                     panel1.Visible = false;
                     panel1.Width = 0;
                     panelIsExpanded = false;
-                    timer1.Stop();
+                    tmrHamburgerMenu.Stop();
                 }
             }
             else
@@ -78,7 +69,7 @@ namespace Design
                     panel1.Visible = true;
                     panel1.Width = panelMaxWidth;
                     panelIsExpanded = true;
-                    timer1.Stop();
+                    tmrHamburgerMenu.Stop();
                 }
 
             }
@@ -86,48 +77,32 @@ namespace Design
 
         private void picNotification_Click(object sender, EventArgs e)
         {
-            //notif
-            frmNotification notification = new frmNotification();
-            notification.Show();
-            this.Hide();
+           n.Notification(this);
         }
 
         private void picAddClass_Click(object sender, EventArgs e)
         {
-            //add cvlass
-
+            n.AddClass(this);
         }
 
         private void picFlashcard_Click(object sender, EventArgs e)
         {
-            //ff
-            frmFlashcard f5 = new frmFlashcard();
-            f5.Show();
-            this.Hide();
+            n.Flashcards(this);
         }
 
         private void picFlashcardIcon_Click(object sender, EventArgs e)
         {
-            //ff
-            frmFlashcard f5 = new frmFlashcard();
-            f5.Show();
-            this.Hide();
+           n.Flashcards(this);
         }
 
         private void picHome_Click(object sender, EventArgs e)
         {
-            //home
-            frmDashBoard f1 = new frmDashBoard();
-            f1.Show();
-            this.Hide();
+            n.Flashcards(this);
         }
 
         private void picHomeIcon_Click(object sender, EventArgs e)
         {
-            //home
-            frmDashBoard f1 = new frmDashBoard();
-            f1.Show();
-            this.Hide();
+            n.Home(this);
         }
 
         private void picMissingSelection_Click(object sender, EventArgs e)
@@ -153,25 +128,18 @@ namespace Design
             s.LoadPersonalTasks(flowLayoutPanelPendingAssignments);
         }
 
-        private void pictureBox21_Click(object sender, EventArgs e)
+        private void picPersonalSelection_Click(object sender, EventArgs e)
         {
-            panelPersonal.Visible = true;
-            panelPersonal.BringToFront();
-            flowLayoutPanelPendingAssignments.Controls.Clear();
-            s.LoadPersonalTasks(flowLayoutPanelPendingAssignments);
+            ShowPersonalPanel();
         }
         private void picSchedule_Click(object sender, EventArgs e)
         {
-            frmCallendar callendar = new frmCallendar();
-            callendar.Show();
-            this.Hide();
+           n.Schedule(this);
         }
 
         private void picScheduleIcon_Click(object sender, EventArgs e)
         {
-            frmCallendar callendar = new frmCallendar();
-            callendar.Show();
-            this.Hide();
+            n.Schedule(this);
         }
 
         private void picPendingSelection_Click(object sender, EventArgs e)
@@ -212,11 +180,6 @@ namespace Design
                 MessageBox.Show("Error saving the task.");
             }
             panelPersonal.Visible = false;
-        }
-
-        private void frmPersonal_Load(object sender, EventArgs e)
-        {
-
         }
         private void LoadCompletedPersonalTasks()
         {
@@ -312,8 +275,7 @@ namespace Design
 
             flowLayoutPanelPendingAssignments.Refresh();  // Refresh to show loaded tasks
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void btnShowAccomplished_Click(object sender, EventArgs e)
         {
             LoadCompletedPersonalTasks();
         }

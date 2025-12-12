@@ -12,6 +12,10 @@ namespace Design
 {
     public partial class frmCreatequiz : Form
     {
+        //Initialize Ui Transition
+        UiTransition n = new UiTransition();
+
+        // Default Settings
         int setTime = 60;
         int setCard = 10;
         public frmCreatequiz()
@@ -27,41 +31,44 @@ namespace Design
             this.setTime = setTime;
             lblCountCards.Text = $"0/{setCard}";
         }
+
+        // Panel Animation
         private bool panelIsExpanded = false;
         private int panelMaxWidth = 200;
         private int slideSpeed = 10;
 
+        // Flashcard Data
         private string defaultText = "Type or paste in your notes...";
         private bool isPress = false;
         private List<string> questions = new List<string>();
         private List<string> answers = new List<string>();
 
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        private void rtbInput_TextChanged(object sender, EventArgs e)
         {
-            string currentText = rtxtInput.Text.Trim();
+            string currentText = rtbInput.Text.Trim();
             if (currentText != defaultText && isPress == false)
             {
-                rtxtInput.Text = "";
+                rtbInput.Text = "";
                 isPress = true;
             }
             else if (string.IsNullOrWhiteSpace(currentText))
             {
-                rtxtInput.Text = defaultText;
+                rtbInput.Text = defaultText;
                 isPress = false;
             }
         }
 
-        private void pictureBox19_Click(object sender, EventArgs e)
+        private void picSave_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(rtxtInput.Text) && rtxtInput.Text != defaultText && !string.IsNullOrWhiteSpace(txtAnswer.Text))
+            if (!string.IsNullOrWhiteSpace(rtbInput.Text) && rtbInput.Text != defaultText && !string.IsNullOrWhiteSpace(txtAnswer.Text))
             {
                 if (questions.Count == setCard)
                 {
                     MessageBox.Show($"You have reached the maximum number of flashcard.");
                     return;
                 }
-                questions.Add(rtxtInput.Text.Trim());
-                rtxtInput.Clear();
+                questions.Add(rtbInput.Text.Trim());
+                rtbInput.Clear();
                 answers.Add(txtAnswer.Text.Trim());
                 txtAnswer.Clear();
                 MessageBox.Show("Saved succesfully!");
@@ -121,53 +128,35 @@ namespace Design
 
         private void picNotification_Click(object sender, EventArgs e)
         {
-            //notif
-            frmNotification notification = new frmNotification();
-            notification.Show();
-            this.Hide();
+            n.Notification(this);
         }
 
         private void picAddClass_Click(object sender, EventArgs e)
         {
-            //add class
-            frmCreateClass createClass = new frmCreateClass();
-            createClass.Show();
-            this.Hide();
+            n.AddClass(this);
         }
 
         private void picFlashcard_Click(object sender, EventArgs e)
         {
-            //ff
-            frmFlashcard flashcard = new frmFlashcard();
-            flashcard.Show();
-            this.Hide();
+            n.Flashcards(this);
         }
 
         private void picFLashcardIcon_Click(object sender, EventArgs e)
         {
-            //ff
-            frmFlashcard flashcard = new frmFlashcard();
-            flashcard.Show();
-            this.Hide();
+            n.Flashcards(this);
         }
 
         private void picHome_Click(object sender, EventArgs e)
         {
-            // home
-            frmDashBoard dashBoard = new frmDashBoard();
-            dashBoard.Show();
-            this.Hide();
+            n.Home(this);
         }
 
         private void picHomeIcon_Click(object sender, EventArgs e)
         {
-            //home
-            frmDashBoard dashBoard = new frmDashBoard();
-            dashBoard.Show();
-            this.Hide();
+            n.Home(this);
         }
 
-        private void pboxStartquiz_Click(object sender, EventArgs e)
+        private void picStartQuiz_Click(object sender, EventArgs e)
         {
             if (questions.Count == setCard)
             {
@@ -182,12 +171,12 @@ namespace Design
             }
         }
 
-        private void pboxClear_Click(object sender, EventArgs e)
+        private void picClear_Click(object sender, EventArgs e)
         {
             questions.Clear();
             answers.Clear();
             txtAnswer.Clear();
-            rtxtInput.Text = defaultText;
+            rtbInput.Text = defaultText;
             MessageBox.Show("All flashcards have been cleared.");
             lblCountCards.ForeColor = Color.Red;
             lblCountCards.Text = $"0/{setCard}";
@@ -201,16 +190,22 @@ namespace Design
 
         private void picPending_Click(object sender, EventArgs e)
         {
-            frmPending pending = new frmPending();
-            pending.Show();
-            this.Hide();
+            n.Pending(this);
         }
 
         private void picSchedule_Click(object sender, EventArgs e)
         {
-            frmCallendar callendar = new frmCallendar();
-            callendar.Show();
-            this.Hide();
+            n.Schedule(this);
+        }
+
+        private void picPendingIcon_Click(object sender, EventArgs e)
+        {
+            n.Pending(this);
+        }
+
+        private void picScheduleIcon_Click(object sender, EventArgs e)
+        {
+            n.Schedule(this);
         }
     }
 }

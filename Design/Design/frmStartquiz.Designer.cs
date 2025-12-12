@@ -35,8 +35,6 @@
             label1 = new Label();
             panel1 = new Panel();
             panel2 = new Panel();
-            pictureBox14 = new PictureBox();
-            pictureBox13 = new PictureBox();
             picFlashcard = new PictureBox();
             picSchedule = new PictureBox();
             picPending = new PictureBox();
@@ -46,7 +44,6 @@
             picPendingIcon = new PictureBox();
             picHomeIcon = new PictureBox();
             label2 = new Label();
-            pictureBox4 = new PictureBox();
             picNotification = new PictureBox();
             quizCard = new PictureBox();
             label3 = new Label();
@@ -64,8 +61,6 @@
             ((System.ComponentModel.ISupportInitialize)picHamburgerMenu).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox14).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox13).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picFlashcard).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picSchedule).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picPending).BeginInit();
@@ -74,7 +69,6 @@
             ((System.ComponentModel.ISupportInitialize)picScheduleIcon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picPendingIcon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picHomeIcon).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picNotification).BeginInit();
             ((System.ComponentModel.ISupportInitialize)quizCard).BeginInit();
             pnlFlashcard.SuspendLayout();
@@ -84,6 +78,7 @@
             // 
             picHamburgerMenu.BackColor = Color.Transparent;
             picHamburgerMenu.BackgroundImageLayout = ImageLayout.Zoom;
+            picHamburgerMenu.Cursor = Cursors.Hand;
             picHamburgerMenu.Image = (Image)resources.GetObject("picHamburgerMenu.Image");
             picHamburgerMenu.Location = new Point(1, 15);
             picHamburgerMenu.Margin = new Padding(4, 5, 4, 5);
@@ -125,8 +120,6 @@
             panel1.BackColor = Color.Transparent;
             panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
             panel1.Controls.Add(panel2);
-            panel1.Controls.Add(pictureBox14);
-            panel1.Controls.Add(pictureBox13);
             panel1.Controls.Add(picFlashcard);
             panel1.Controls.Add(picSchedule);
             panel1.Controls.Add(picPending);
@@ -146,43 +139,20 @@
             panel2.AutoScroll = true;
             panel2.BackColor = Color.Transparent;
             panel2.BackgroundImage = Properties.Resources.Untitled_design__2_;
-            panel2.Location = new Point(9, 590);
+            panel2.Location = new Point(14, 564);
             panel2.Margin = new Padding(4, 5, 4, 5);
             panel2.Name = "panel2";
-            panel2.Size = new Size(219, 364);
+            panel2.Size = new Size(219, 427);
             panel2.TabIndex = 8;
             panel2.Visible = false;
-            // 
-            // pictureBox14
-            // 
-            pictureBox14.BackColor = Color.Transparent;
-            pictureBox14.BackgroundImage = (Image)resources.GetObject("pictureBox14.BackgroundImage");
-            pictureBox14.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox14.Location = new Point(76, 511);
-            pictureBox14.Margin = new Padding(4, 5, 4, 5);
-            pictureBox14.Name = "pictureBox14";
-            pictureBox14.Size = new Size(151, 69);
-            pictureBox14.TabIndex = 20;
-            pictureBox14.TabStop = false;
-            // 
-            // pictureBox13
-            // 
-            pictureBox13.BackColor = Color.Transparent;
-            pictureBox13.BackgroundImage = (Image)resources.GetObject("pictureBox13.BackgroundImage");
-            pictureBox13.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox13.Location = new Point(9, 511);
-            pictureBox13.Margin = new Padding(4, 5, 4, 5);
-            pictureBox13.Name = "pictureBox13";
-            pictureBox13.Size = new Size(59, 69);
-            pictureBox13.TabIndex = 19;
-            pictureBox13.TabStop = false;
             // 
             // picFlashcard
             // 
             picFlashcard.BackColor = Color.Transparent;
             picFlashcard.BackgroundImage = (Image)resources.GetObject("picFlashcard.BackgroundImage");
             picFlashcard.BackgroundImageLayout = ImageLayout.Zoom;
-            picFlashcard.Location = new Point(82, 409);
+            picFlashcard.Cursor = Cursors.Hand;
+            picFlashcard.Location = new Point(81, 445);
             picFlashcard.Margin = new Padding(4, 5, 4, 5);
             picFlashcard.Name = "picFlashcard";
             picFlashcard.Size = new Size(156, 86);
@@ -195,7 +165,8 @@
             picSchedule.BackColor = Color.Transparent;
             picSchedule.BackgroundImage = (Image)resources.GetObject("picSchedule.BackgroundImage");
             picSchedule.BackgroundImageLayout = ImageLayout.Zoom;
-            picSchedule.Location = new Point(74, 319);
+            picSchedule.Cursor = Cursors.Hand;
+            picSchedule.Location = new Point(79, 356);
             picSchedule.Margin = new Padding(4, 5, 4, 5);
             picSchedule.Name = "picSchedule";
             picSchedule.Size = new Size(159, 79);
@@ -208,7 +179,8 @@
             picPending.BackColor = Color.Transparent;
             picPending.BackgroundImage = (Image)resources.GetObject("picPending.BackgroundImage");
             picPending.BackgroundImageLayout = ImageLayout.Zoom;
-            picPending.Location = new Point(74, 226);
+            picPending.Cursor = Cursors.Hand;
+            picPending.Location = new Point(79, 263);
             picPending.Margin = new Padding(4, 5, 4, 5);
             picPending.Name = "picPending";
             picPending.Size = new Size(151, 69);
@@ -221,7 +193,8 @@
             picHome.BackColor = Color.Transparent;
             picHome.BackgroundImage = (Image)resources.GetObject("picHome.BackgroundImage");
             picHome.BackgroundImageLayout = ImageLayout.Zoom;
-            picHome.Location = new Point(76, 130);
+            picHome.Cursor = Cursors.Hand;
+            picHome.Location = new Point(81, 167);
             picHome.Margin = new Padding(4, 5, 4, 5);
             picHome.Name = "picHome";
             picHome.Size = new Size(151, 69);
@@ -234,7 +207,8 @@
             picFlashcardIcon.BackColor = Color.Transparent;
             picFlashcardIcon.BackgroundImage = (Image)resources.GetObject("picFlashcardIcon.BackgroundImage");
             picFlashcardIcon.BackgroundImageLayout = ImageLayout.Zoom;
-            picFlashcardIcon.Location = new Point(9, 415);
+            picFlashcardIcon.Cursor = Cursors.Hand;
+            picFlashcardIcon.Location = new Point(14, 452);
             picFlashcardIcon.Margin = new Padding(4, 5, 4, 5);
             picFlashcardIcon.Name = "picFlashcardIcon";
             picFlashcardIcon.Size = new Size(59, 69);
@@ -247,7 +221,8 @@
             picScheduleIcon.BackColor = Color.Transparent;
             picScheduleIcon.BackgroundImage = (Image)resources.GetObject("picScheduleIcon.BackgroundImage");
             picScheduleIcon.BackgroundImageLayout = ImageLayout.Zoom;
-            picScheduleIcon.Location = new Point(9, 320);
+            picScheduleIcon.Cursor = Cursors.Hand;
+            picScheduleIcon.Location = new Point(14, 357);
             picScheduleIcon.Margin = new Padding(4, 5, 4, 5);
             picScheduleIcon.Name = "picScheduleIcon";
             picScheduleIcon.Size = new Size(59, 69);
@@ -260,7 +235,8 @@
             picPendingIcon.BackColor = Color.Transparent;
             picPendingIcon.BackgroundImage = (Image)resources.GetObject("picPendingIcon.BackgroundImage");
             picPendingIcon.BackgroundImageLayout = ImageLayout.Zoom;
-            picPendingIcon.Location = new Point(9, 226);
+            picPendingIcon.Cursor = Cursors.Hand;
+            picPendingIcon.Location = new Point(14, 263);
             picPendingIcon.Margin = new Padding(4, 5, 4, 5);
             picPendingIcon.Name = "picPendingIcon";
             picPendingIcon.Size = new Size(59, 69);
@@ -273,7 +249,8 @@
             picHomeIcon.BackColor = Color.Transparent;
             picHomeIcon.BackgroundImage = (Image)resources.GetObject("picHomeIcon.BackgroundImage");
             picHomeIcon.BackgroundImageLayout = ImageLayout.Zoom;
-            picHomeIcon.Location = new Point(9, 129);
+            picHomeIcon.Cursor = Cursors.Hand;
+            picHomeIcon.Location = new Point(14, 166);
             picHomeIcon.Margin = new Padding(4, 5, 4, 5);
             picHomeIcon.Name = "picHomeIcon";
             picHomeIcon.Size = new Size(59, 69);
@@ -296,26 +273,14 @@
             label2.TabIndex = 30;
             label2.Text = ",Welcome";
             // 
-            // pictureBox4
-            // 
-            pictureBox4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pictureBox4.BackColor = Color.Transparent;
-            pictureBox4.BackgroundImage = (Image)resources.GetObject("pictureBox4.BackgroundImage");
-            pictureBox4.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox4.Location = new Point(1486, 96);
-            pictureBox4.Margin = new Padding(4, 5, 4, 5);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(61, 69);
-            pictureBox4.TabIndex = 33;
-            pictureBox4.TabStop = false;
-            // 
             // picNotification
             // 
             picNotification.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             picNotification.BackColor = Color.Transparent;
             picNotification.BackgroundImage = (Image)resources.GetObject("picNotification.BackgroundImage");
             picNotification.BackgroundImageLayout = ImageLayout.Zoom;
-            picNotification.Location = new Point(1559, 94);
+            picNotification.Cursor = Cursors.Hand;
+            picNotification.Location = new Point(1515, 92);
             picNotification.Margin = new Padding(4, 5, 4, 5);
             picNotification.Name = "picNotification";
             picNotification.Size = new Size(64, 69);
@@ -450,7 +415,6 @@
             ClientSize = new Size(1658, 1026);
             Controls.Add(pnlFlashcard);
             Controls.Add(picNotification);
-            Controls.Add(pictureBox4);
             Controls.Add(label2);
             Controls.Add(panel1);
             Controls.Add(label1);
@@ -462,8 +426,6 @@
             ((System.ComponentModel.ISupportInitialize)picHamburgerMenu).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox14).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox13).EndInit();
             ((System.ComponentModel.ISupportInitialize)picFlashcard).EndInit();
             ((System.ComponentModel.ISupportInitialize)picSchedule).EndInit();
             ((System.ComponentModel.ISupportInitialize)picPending).EndInit();
@@ -472,7 +434,6 @@
             ((System.ComponentModel.ISupportInitialize)picScheduleIcon).EndInit();
             ((System.ComponentModel.ISupportInitialize)picPendingIcon).EndInit();
             ((System.ComponentModel.ISupportInitialize)picHomeIcon).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)picNotification).EndInit();
             ((System.ComponentModel.ISupportInitialize)quizCard).EndInit();
             pnlFlashcard.ResumeLayout(false);
@@ -488,8 +449,6 @@
         private Label label1;
         private Panel panel1;
         private Panel panel2;
-        private PictureBox pictureBox14;
-        private PictureBox pictureBox13;
         private PictureBox picFlashcard;
         private PictureBox picSchedule;
         private PictureBox picPending;
@@ -499,7 +458,6 @@
         private PictureBox picPendingIcon;
         private PictureBox picHomeIcon;
         private Label label2;
-        private PictureBox pictureBox4;
         private PictureBox picNotification;
         private PictureBox quizCard;
         private Label label3;

@@ -55,7 +55,7 @@ namespace Design
         private void btnSave_Click(object sender, EventArgs e)
         {
             this.Hide();
-            createquizForm.Hide();
+            createquizForm.Close();
             frmCreatequiz form = new frmCreatequiz(maxCard, setTime);
             form.Show();
         }

@@ -35,7 +35,6 @@
             btnSubmit = new Button();
             panel1 = new Panel();
             linkLabel1 = new LinkLabel();
-            button1 = new Button();
             chkTeacher = new CheckBox();
             chkStudent = new CheckBox();
             txtPassword = new TextBox();
@@ -91,6 +90,7 @@
             // 
             btnSubmit.Anchor = AnchorStyles.None;
             btnSubmit.BackColor = Color.Transparent;
+            btnSubmit.Cursor = Cursors.Hand;
             btnSubmit.Location = new Point(862, 431);
             btnSubmit.Margin = new Padding(4);
             btnSubmit.Name = "btnSubmit";
@@ -106,7 +106,6 @@
             panel1.BackgroundImage = Properties.Resources.BgSignup;
             panel1.BackgroundImageLayout = ImageLayout.Stretch;
             panel1.Controls.Add(linkLabel1);
-            panel1.Controls.Add(button1);
             panel1.Controls.Add(chkTeacher);
             panel1.Controls.Add(btnSubmit);
             panel1.Controls.Add(chkStudent);
@@ -126,6 +125,7 @@
             // 
             linkLabel1.Anchor = AnchorStyles.None;
             linkLabel1.AutoSize = true;
+            linkLabel1.Cursor = Cursors.Hand;
             linkLabel1.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             linkLabel1.Location = new Point(615, 440);
             linkLabel1.Name = "linkLabel1";
@@ -134,18 +134,6 @@
             linkLabel1.TabStop = true;
             linkLabel1.Text = "I already have an account";
             linkLabel1.LinkClicked += lnkLogin_LinkClicked;
-            // 
-            // button1
-            // 
-            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button1.Location = new Point(0, 549);
-            button1.Margin = new Padding(4);
-            button1.Name = "button1";
-            button1.Size = new Size(118, 36);
-            button1.TabIndex = 11;
-            button1.Text = "Dash";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += btnLogin_Click;
             // 
             // chkTeacher
             // 
@@ -222,7 +210,6 @@
         private CheckBox chkStudent;
         private TextBox txtPassword;
         private Label lblPassword;
-        private Button button1;
         private LinkLabel linkLabel1;
     }
 }

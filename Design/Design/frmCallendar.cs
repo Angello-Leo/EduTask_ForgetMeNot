@@ -27,10 +27,10 @@ namespace Design
 
         private void pictureBox21_Click(object sender, EventArgs e)
         {
-            //add schedule
+            /*//add schedule
             frmAddSchedule form11 = new frmAddSchedule();
             form11.Show();
-            this.Hide();
+            this.Hide();*/
         }
 
         private void pictureBox5_Click(object sender, EventArgs e)
