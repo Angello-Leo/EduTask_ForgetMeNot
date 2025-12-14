@@ -8,46 +8,40 @@ namespace Design
 {
     internal class UiTransition
     {
-        public void Home(Form form)
+        public void Home(Form current)
         {
-            frmDashBoard dashBoard = new frmDashBoard();
-            dashBoard.Show();
-            form.Close();
+            new frmDashBoard().Show();
+            current.Close();
         }
 
-        public void Pending(Form form)
+        public void Pending(Form current)
         {
-            frmPending pending = new frmPending();
-            pending.Show();
-            form.Close();
+            new frmPending().Show();
+            current.Close();
         }
 
-        public void Schedule(Form form)
+        public void Schedule(Form current)
         {
-            frmCallendar schedule = new frmCallendar();
-            schedule.Show();
-            schedule.Close();
+            new frmCallendar().Show();
+            current.Close();
         }
 
-        public void Flashcards(Form form)
+        public void Flashcards(Form current)
         {
-            frmFlashcard flashcard = new frmFlashcard();
-            flashcard.Show();
-            form.Close();
+            new frmFlashcard().Show();
+            current.Close();
         }
 
-        public void Notification(Form form)
+        public void Notification(Form current)
         {
-            frmNotification notification = new frmNotification();
-            notification.Show();
-            form.Close();
+            new frmNotification().Show();
+            current.Close();
         }
 
-        public void AddClass(Form form)
+        public void AddClass(Form current)
         {
-            frmCreateClass addClass = new frmCreateClass();
-            addClass.Show();
-            addClass.Close();
+            new frmCreateClass().Show();
+            current.Close();
         }
     }
 }

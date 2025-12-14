@@ -49,9 +49,8 @@
             picPendingSelection = new PictureBox();
             picMissingSelection = new PictureBox();
             picAccomplishedSelection = new PictureBox();
-            picMeeting = new PictureBox();
             pictureBox20 = new PictureBox();
-            picPersonal = new PictureBox();
+            picPersonalSelection = new PictureBox();
             tmrHamburgerMenu = new System.Windows.Forms.Timer(components);
             panelPersonal = new Panel();
             lblClose = new Label();
@@ -80,9 +79,8 @@
             ((System.ComponentModel.ISupportInitialize)picPendingSelection).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picMissingSelection).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picAccomplishedSelection).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)picMeeting).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox20).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)picPersonal).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picPersonalSelection).BeginInit();
             panelPersonal.SuspendLayout();
             SuspendLayout();
             // 
@@ -353,19 +351,6 @@
             picAccomplishedSelection.TabStop = false;
             picAccomplishedSelection.Click += picAccomplishedSelection_Click;
             // 
-            // picMeeting
-            // 
-            picMeeting.BackgroundImage = (Image)resources.GetObject("picMeeting.BackgroundImage");
-            picMeeting.BackgroundImageLayout = ImageLayout.Zoom;
-            picMeeting.Cursor = Cursors.Hand;
-            picMeeting.Location = new Point(391, 204);
-            picMeeting.Margin = new Padding(4, 5, 4, 5);
-            picMeeting.Name = "picMeeting";
-            picMeeting.Size = new Size(239, 89);
-            picMeeting.TabIndex = 38;
-            picMeeting.TabStop = false;
-            picMeeting.Visible = false;
-            // 
             // pictureBox20
             // 
             pictureBox20.BackgroundImage = (Image)resources.GetObject("pictureBox20.BackgroundImage");
@@ -378,18 +363,18 @@
             pictureBox20.TabStop = false;
             pictureBox20.Visible = false;
             // 
-            // picPersonal
+            // picPersonalSelection
             // 
-            picPersonal.BackgroundImage = (Image)resources.GetObject("picPersonal.BackgroundImage");
-            picPersonal.BackgroundImageLayout = ImageLayout.Zoom;
-            picPersonal.Cursor = Cursors.Hand;
-            picPersonal.Location = new Point(754, 204);
-            picPersonal.Margin = new Padding(4, 5, 4, 5);
-            picPersonal.Name = "picPersonal";
-            picPersonal.Size = new Size(239, 89);
-            picPersonal.TabIndex = 40;
-            picPersonal.TabStop = false;
-            picPersonal.Click += picPersonalSelection_Click;
+            picPersonalSelection.BackgroundImage = (Image)resources.GetObject("picPersonalSelection.BackgroundImage");
+            picPersonalSelection.BackgroundImageLayout = ImageLayout.Zoom;
+            picPersonalSelection.Cursor = Cursors.Hand;
+            picPersonalSelection.Location = new Point(754, 204);
+            picPersonalSelection.Margin = new Padding(4, 5, 4, 5);
+            picPersonalSelection.Name = "picPersonalSelection";
+            picPersonalSelection.Size = new Size(239, 89);
+            picPersonalSelection.TabIndex = 40;
+            picPersonalSelection.TabStop = false;
+            picPersonalSelection.Click += picPersonalSelection_Click;
             // 
             // tmrHamburgerMenu
             // 
@@ -536,9 +521,8 @@
             Controls.Add(lblUsername);
             Controls.Add(panelPersonal);
             Controls.Add(flowLayoutPanelPendingAssignments);
-            Controls.Add(picPersonal);
+            Controls.Add(picPersonalSelection);
             Controls.Add(pictureBox20);
-            Controls.Add(picMeeting);
             Controls.Add(picAccomplishedSelection);
             Controls.Add(picMissingSelection);
             Controls.Add(picPendingSelection);
@@ -568,9 +552,8 @@
             ((System.ComponentModel.ISupportInitialize)picPendingSelection).EndInit();
             ((System.ComponentModel.ISupportInitialize)picMissingSelection).EndInit();
             ((System.ComponentModel.ISupportInitialize)picAccomplishedSelection).EndInit();
-            ((System.ComponentModel.ISupportInitialize)picMeeting).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox20).EndInit();
-            ((System.ComponentModel.ISupportInitialize)picPersonal).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picPersonalSelection).EndInit();
             panelPersonal.ResumeLayout(false);
             panelPersonal.PerformLayout();
             ResumeLayout(false);
@@ -598,9 +581,8 @@
         private PictureBox picPendingSelection;
         private PictureBox picMissingSelection;
         private PictureBox picAccomplishedSelection;
-        private PictureBox picMeeting;
         private PictureBox pictureBox20;
-        private PictureBox picPersonal;
+        private PictureBox picPersonalSelection;
         private System.Windows.Forms.Timer tmrHamburgerMenu;
         private Panel panelPersonal;
         private Label lblClose;

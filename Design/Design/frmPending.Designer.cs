@@ -49,7 +49,6 @@
             picPendingSelection = new PictureBox();
             picMissingSelection = new PictureBox();
             picAccomplishedSelection = new PictureBox();
-            pictureBox19 = new PictureBox();
             pictureBox20 = new PictureBox();
             picPersonalSelection = new PictureBox();
             tmrHamburgerMenu = new System.Windows.Forms.Timer(components);
@@ -79,7 +78,6 @@
             ((System.ComponentModel.ISupportInitialize)picPendingSelection).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picMissingSelection).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picAccomplishedSelection).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox19).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox20).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picPersonalSelection).BeginInit();
             panelPersonal.SuspendLayout();
@@ -353,18 +351,6 @@
             picAccomplishedSelection.TabStop = false;
             picAccomplishedSelection.Click += picAccomplishedSelection_Click;
             // 
-            // pictureBox19
-            // 
-            pictureBox19.BackgroundImage = (Image)resources.GetObject("pictureBox19.BackgroundImage");
-            pictureBox19.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox19.Location = new Point(391, 204);
-            pictureBox19.Margin = new Padding(4, 5, 4, 5);
-            pictureBox19.Name = "pictureBox19";
-            pictureBox19.Size = new Size(239, 89);
-            pictureBox19.TabIndex = 38;
-            pictureBox19.TabStop = false;
-            pictureBox19.Visible = false;
-            // 
             // pictureBox20
             // 
             pictureBox20.BackgroundImage = (Image)resources.GetObject("pictureBox20.BackgroundImage");
@@ -523,7 +509,6 @@
             Controls.Add(flowLayoutPanelPendingAssignments);
             Controls.Add(picPersonalSelection);
             Controls.Add(pictureBox20);
-            Controls.Add(pictureBox19);
             Controls.Add(picAccomplishedSelection);
             Controls.Add(picMissingSelection);
             Controls.Add(picPendingSelection);
@@ -554,7 +539,6 @@
             ((System.ComponentModel.ISupportInitialize)picPendingSelection).EndInit();
             ((System.ComponentModel.ISupportInitialize)picMissingSelection).EndInit();
             ((System.ComponentModel.ISupportInitialize)picAccomplishedSelection).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox19).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox20).EndInit();
             ((System.ComponentModel.ISupportInitialize)picPersonalSelection).EndInit();
             panelPersonal.ResumeLayout(false);
@@ -584,7 +568,6 @@
         private PictureBox picPendingSelection;
         private PictureBox picMissingSelection;
         private PictureBox picAccomplishedSelection;
-        private PictureBox pictureBox19;
         private PictureBox pictureBox20;
         private PictureBox picPersonalSelection;
         private System.Windows.Forms.Timer tmrHamburgerMenu;

@@ -33,7 +33,7 @@ namespace Design
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                throw;
             }
             return result;
         }

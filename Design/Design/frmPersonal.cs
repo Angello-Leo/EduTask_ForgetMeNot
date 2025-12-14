@@ -144,7 +144,7 @@ namespace Design
 
         private void picPendingSelection_Click(object sender, EventArgs e)
         {
-
+            n.Pending(this);
         }
 
         private void lblClose_Click(object sender, EventArgs e)
