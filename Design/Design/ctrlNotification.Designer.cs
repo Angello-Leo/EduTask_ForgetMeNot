@@ -71,7 +71,6 @@
             Controls.Add(lblMessage);
             Name = "ctrlNotification";
             Size = new Size(927, 150);
-            Load += ctrlNotification_Load;
             ResumeLayout(false);
             PerformLayout();
         }

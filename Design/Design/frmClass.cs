@@ -15,6 +15,7 @@ namespace Design
     public partial class Class : Form
     {
         private frmDashBoard _dashboard;
+        UiTransition n = new UiTransition();
         private int _classId;
         private string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
 
@@ -40,18 +41,18 @@ namespace Design
             LoadPositions();
             LoadClassInfo();
 
-            timerCheckStudents.Interval = 1000;
-            timerCheckStudents.Tick += timerCheckStudents_Tick;
-            timerCheckStudents.Start();
+            tmrCheckStudents.Interval = 1000;
+            tmrCheckStudents.Tick += tmrCheckStudents_Tick;
+            tmrCheckStudents.Start();
 
         }
         private bool panelIsExpanded = false;
         private int panelMaxWidth = 200;
         private int slideSpeed = 10;
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void picHamburgerMenu_Click(object sender, EventArgs e)
         {
-            timer1.Start();
+            tmrHamburgerMenu.Start();
         }
 
         private void Class_Load(object sender, EventArgs e)
@@ -61,12 +62,12 @@ namespace Design
             SetupAnnouncementPosting();
             dgvCandidates.SelectionChanged += dgvCandidates_SelectionChanged;
 
-            timerCheckStudents.Tick += timerCheckStudents_Tick;
-            timerCheckStudents.Interval = 1000;
-            timerCheckStudents.Start();
+            tmrCheckStudents.Tick += tmrCheckStudents_Tick;
+            tmrCheckStudents.Interval = 1000;
+            tmrCheckStudents.Start();
 
-            timerCheckVotes.Tick += timerCheckVotes_Tick;
-            timerCheckVotes.Interval = 1000;
+            tmrCheckVotes.Tick += tmrCheckVotes_Tick;
+            tmrCheckVotes.Interval = 1000;
 
             SetPlaceholderText();
             dtpDueDateTime.Format = DateTimePickerFormat.Custom;
@@ -74,7 +75,7 @@ namespace Design
             dtpDueDateTime.ShowUpDown = true;
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void tmrHamburgerMenu_Tick(object sender, EventArgs e)
         {
             if (panelIsExpanded == false)
             {
@@ -87,7 +88,7 @@ namespace Design
                 {
                     panel1.Width = panelMaxWidth;
                     panelIsExpanded = true;
-                    timer1.Stop();
+                    tmrHamburgerMenu.Stop();
                 }
             }
             else
@@ -99,7 +100,7 @@ namespace Design
                     panel1.Width = 0;
                     panel1.Visible = false;
                     panelIsExpanded = false;
-                    timer1.Stop();
+                    tmrHamburgerMenu.Stop();
                 }
             }
         }
@@ -145,14 +146,14 @@ namespace Design
             };
         }
 
-        private void timerCheckStudents_Tick(object sender, EventArgs e)
+        private void tmrCheckStudents_Tick(object sender, EventArgs e)
         {
             int joined = CountStudents();
             lblStatusMessage.Text = $"Waiting for all students to join ({joined}/{_maxStudents})…";
 
             if (joined >= _maxStudents)
             {
-                timerCheckStudents.Stop();
+                tmrCheckStudents.Stop();
 
                 // Hide status and start election
                 panelStatus.Visible = false;
@@ -491,12 +492,12 @@ namespace Design
             }
         }
 
-        private void timerCheckVotes_Tick(object sender, EventArgs e)
+        private void tmrCheckVotes_Tick(object sender, EventArgs e)
         {
             if (currentPositionIndex >= positions.Count)
             {
                 // All positions are done
-                timerCheckVotes.Stop();
+                tmrCheckVotes.Stop();
                 return;
             }
 
@@ -509,7 +510,7 @@ namespace Design
             // If all votes are in, move to the next position
             if (votes >= total)
             {
-                timerCheckVotes.Stop();
+                tmrCheckVotes.Stop();
                 ShowResults(positionId);
 
 
@@ -563,7 +564,7 @@ namespace Design
 
             lblStatusMessage.Text = "Election completed! ";
             ShowAllElectedPositions();
-            timerClearResults.Start();
+            tmrClearResults.Start();
 
         }
         private int GetOrCreateElectionId()
@@ -602,9 +603,9 @@ namespace Design
             }
         }
 
-        private void timerClearResults_Tick(object sender, EventArgs e)
+        private void tmrClearResults_Tick(object sender, EventArgs e)
         {
-            timerClearResults.Stop();
+            tmrClearResults.Stop();
 
             // Clear the display
             lblWinner.Text = "";
@@ -622,12 +623,9 @@ namespace Design
         }
 
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void picNotification_Click(object sender, EventArgs e)
         {
-            //notif
-            frmNotification f4 = new frmNotification();
-            f4.Show();
-            this.Hide();
+            n.Notification(this);
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
@@ -646,23 +644,17 @@ namespace Design
             }
         }
 
-        private void pictureBox8_Click(object sender, EventArgs e)
+        private void picFlashcard_Click(object sender, EventArgs e)
         {
-            //ff
-            frmFlashcard f5 = new frmFlashcard();
-            f5.Show();
-            this.Hide();
+            n.Flashcards(this);
         }
 
-        private void pictureBox12_Click(object sender, EventArgs e)
+        private void picFlashcardIcon_Click(object sender, EventArgs e)
         {
-            //ff
-            frmFlashcard f5 = new frmFlashcard();
-            f5.Show();
-            this.Hide();
+           n.Flashcards(this);
         }
 
-        private void pictureBox9_Click(object sender, EventArgs e)
+        private void picHome_Click(object sender, EventArgs e)
         {
             //home
             _dashboard?.LoadClasses();
@@ -670,7 +662,7 @@ namespace Design
             this.Close();
         }
 
-        private void pictureBox5_Click(object sender, EventArgs e)
+        private void picHomeIcon_Click(object sender, EventArgs e)
         {
             //home
             _dashboard?.LoadClasses();
@@ -679,20 +671,14 @@ namespace Design
         }
 
 
-        private void pictureBox17_Click(object sender, EventArgs e)
+        private void picPeople_Click(object sender, EventArgs e)
         {
             LoadCandidates();
             dgvShowStudents.Visible = true;
             dgvShowStudents.BringToFront();
-            
         }
 
-        private void lblClassName_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox10_Click(object sender, EventArgs e)
+        private void picPending_Click(object sender, EventArgs e)
         {
             frmPending f7 = new frmPending();
             Debug.WriteLine(GetInfo.ClassID);
@@ -700,25 +686,19 @@ namespace Design
             this.Hide();
         }
 
-        private void pictureBox6_Click(object sender, EventArgs e)
+        private void picPendingIcon_Click(object sender, EventArgs e)
         {
-            frmPending f7 = new frmPending();
-            f7.Show();
-            this.Hide();
+            n.Pending(this);
         }
 
-        private void pictureBox11_Click(object sender, EventArgs e)
+        private void picSchedule_Click(object sender, EventArgs e)
         {
-            frmCallendar c = new frmCallendar();
-            c.Show();
-            this.Hide();
+           n.Schedule(this);
         }
 
-        private void pictureBox7_Click(object sender, EventArgs e)
+        private void picScheduleIcon_Click(object sender, EventArgs e)
         {
-            frmCallendar c = new frmCallendar();
-            c.Show();
-            this.Hide();
+            n.Schedule(this);
         }
 
         public void LoadAnnouncements()
@@ -937,16 +917,6 @@ namespace Design
             }
         }
 
-        private void txtAnnouncementTitle_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panelCreateAnnouncement_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void chkSetDueDate_CheckedChanged(object sender, EventArgs e)
         {
             if (chkSetDueDate.Checked == true)
@@ -956,15 +926,10 @@ namespace Design
             else { dtpDueDateTime.Visible = false; }
         }
 
-        private void pictureBox18_Click(object sender, EventArgs e)
+        private void picClass_Click(object sender, EventArgs e)
         {
             dgvShowStudents.Visible = false;
             flowLayoutPanelAnnouncements.BringToFront();
-        }
-
-        private void dgvShowStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 }

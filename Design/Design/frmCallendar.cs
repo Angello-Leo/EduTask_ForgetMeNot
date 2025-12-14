@@ -13,6 +13,7 @@ namespace Design
 {
     public partial class frmCallendar : Form
     {
+        UiTransition n = new UiTransition();
         private string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
 
         public frmCallendar()
@@ -25,23 +26,12 @@ namespace Design
         private int panelMaxWidth = 170;
         private int slideSpeed = 98;
 
-        private void pictureBox21_Click(object sender, EventArgs e)
+        private void picHome_Click(object sender, EventArgs e)
         {
-            /*//add schedule
-            frmAddSchedule form11 = new frmAddSchedule();
-            form11.Show();
-            this.Hide();*/
+            n.Home(this);
         }
 
-        private void pictureBox5_Click(object sender, EventArgs e)
-        {
-            //home
-            frmDashBoard f1 = new frmDashBoard();
-            f1.Show();
-            this.Hide();
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
+        private void tmrHamburgerMenu_Tick(object sender, EventArgs e)
         {
             if (panelIsExpanded)
             {
@@ -51,7 +41,7 @@ namespace Design
                     panel1.Visible = false;
                     panel1.Width = 0;
                     panelIsExpanded = false;
-                    timer1.Stop();
+                    tmrHamburgerMenu.Stop();
                 }
             }
             else
@@ -62,95 +52,65 @@ namespace Design
                     panel1.Visible = true;
                     panel1.Width = panelMaxWidth;
                     panelIsExpanded = true;
-                    timer1.Stop();
+                    tmrHamburgerMenu.Stop();
                 }
 
             }
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void picHamburgerMenu_Click(object sender, EventArgs e)
         {
-            timer1.Start();
+            tmrHamburgerMenu.Start();
         }
 
-        private void pictureBox9_Click(object sender, EventArgs e)
+        private void picHomeIcon_Click(object sender, EventArgs e)
         {
-            //home
-            frmDashBoard f1 = new frmDashBoard();
-            f1.Show();
-            this.Hide();
+            n.Home(this);
         }
 
-        private void pictureBox10_Click(object sender, EventArgs e)
+        private void picPending_Click(object sender, EventArgs e)
         {
-            //pending
-            frmPending f7 = new frmPending();
-            f7.Show();
-            this.Hide();
+            n.Pending(this);
         }
 
-        private void pictureBox6_Click(object sender, EventArgs e)
+        private void picPendingIcon_Click(object sender, EventArgs e)
         {
-            //pending
-            frmPending f7 = new frmPending();
-            f7.Show();
-            this.Hide(); ;
+           n.Pending(this);
         }
 
-        private void pictureBox11_Click(object sender, EventArgs e)
+        private void picSchedule_Click(object sender, EventArgs e)
         {
-            //sched
-            frmCallendar f10 = new frmCallendar();
-            f10.Show();
-            this.Hide();
+            n.Schedule(this);
         }
 
-        private void pictureBox7_Click(object sender, EventArgs e)
+        private void picScheduleIcon_Click(object sender, EventArgs e)
         {
-            //sched
-            frmCallendar f10 = new frmCallendar();
-            f10.Show();
-            this.Hide();
+            n.Schedule(this);
         }
 
-        private void pictureBox12_Click(object sender, EventArgs e)
+        private void picFlashcard_Click(object sender, EventArgs e)
         {
-            //ff
-            frmFlashcard f5 = new frmFlashcard();
-            f5.Show();
-            this.Hide();
+            n.Flashcards(this);
         }
 
-        private void pictureBox8_Click(object sender, EventArgs e)
+        private void picFlashcardIcon_Click(object sender, EventArgs e)
         {
-            //ff
-            frmFlashcard f5 = new frmFlashcard();
-            f5.Show();
-            this.Hide();
+           n.Flashcards(this);
         }
 
-        private void pictureBox20_Click(object sender, EventArgs e)
+        private void picPendingSelection_Click(object sender, EventArgs e)
         {
-            //pending
-            frmPending f7 = new frmPending();
-            f7.Show();
-            this.Hide();
+            n.Pending(this);
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void picNotification_Click(object sender, EventArgs e)
         {
-            //notif
-            frmNotification f4 = new frmNotification();
-            f4.Show();
-            this.Hide();
+            n.Notification(this);
         }
 
-        private void pictureBox3_Click(object sender, EventArgs e)
+        private void picAddClass_Click(object sender, EventArgs e)
         {
-            //add class
-            frmCreateClass f2 = new frmCreateClass();
-            f2.Show();
-            this.Hide();
+            n.AddClass(this);
         }
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
@@ -202,11 +162,6 @@ namespace Design
                     }
                 }
             }
-        }
-
-        private void frmCallendar_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

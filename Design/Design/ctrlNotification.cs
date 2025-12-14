@@ -23,11 +23,6 @@ namespace Design
             this.AutoSize = false; // explicitly
             this.Height = 150;
         }
-
-        private void ctrlNotification_Load(object sender, EventArgs e)
-        {
-
-        }
         public void LoadNotificationData(int notificationId, string message, DateTime createdAt, string type, bool isRead)
         {
             NotificationId = notificationId;

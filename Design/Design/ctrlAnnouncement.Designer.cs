@@ -104,7 +104,6 @@
             lblDueDate.Size = new Size(84, 20);
             lblDueDate.TabIndex = 6;
             lblDueDate.Text = "Created by:";
-            lblDueDate.Click += label1_Click;
             // 
             // btnCloseSubmission
             // 
@@ -131,7 +130,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(724, 173);
             panel1.TabIndex = 8;
-            panel1.Paint += panel1_Paint;
             // 
             // ctrlAnnouncement
             // 
@@ -141,7 +139,6 @@
             Controls.Add(panel1);
             Name = "ctrlAnnouncement";
             Size = new Size(778, 203);
-            Load += ctrlAnnouncement_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);

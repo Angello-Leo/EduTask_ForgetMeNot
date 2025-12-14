@@ -25,11 +25,6 @@ namespace Design
             InitializeComponent();
         }
 
-        private void ctrlAnnouncement_Load(object sender, EventArgs e)
-        {
-
-        }
-
         public void LoadAnnouncementData(
     int announcementId,
     int classId,
@@ -201,12 +196,6 @@ namespace Design
             }
         }
 
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnCloseSubmission_Click(object sender, EventArgs e)
         {
             if (AnnouncementId == 0)
@@ -259,11 +248,6 @@ namespace Design
 
                 MessageBox.Show("Submission closed. Students who didn't mark as done are now marked as missing.");
             }
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
 
         }
     }
