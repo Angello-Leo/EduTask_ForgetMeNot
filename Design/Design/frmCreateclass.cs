@@ -222,16 +222,12 @@ namespace Design
         }
         private void picHome_Click(object sender, EventArgs e)
         {
-            _dashboard?.LoadClasses(); // reload the dashboard
-            _dashboard?.Show();        // make it visible
-            this.Hide();
+            n.Home(this);
         }
 
         private void picHomeIcon_Click(object sender, EventArgs e)
         {
-            _dashboard?.LoadClasses(); // reload the dashboard
-            _dashboard?.Show();        // make it visible
-            this.Hide();
+            n.Home(this);
         }
 
         private void picPending_Click(object sender, EventArgs e)
