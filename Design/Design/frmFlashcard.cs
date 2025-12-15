@@ -17,6 +17,7 @@ namespace Design
         {
             InitializeComponent();
             panel1.Visible = false;
+            lblUsername.Text = GetInfo.Username;
         }
         private bool panelIsExpanded = false;
         private int panelMaxWidth = 200;
@@ -77,7 +78,7 @@ namespace Design
 
         private void picFlashcard_Click(object sender, EventArgs e)
         {
-           n.Flashcards(this);
+            n.Flashcards(this);
         }
 
         private void picFlashcardIcon_Click(object sender, EventArgs e)
@@ -113,6 +114,11 @@ namespace Design
         private void picPendingIcon_Click(object sender, EventArgs e)
         {
             n.Pending(this);
+        }
+
+        private void frmFlashcard_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

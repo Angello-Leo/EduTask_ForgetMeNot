@@ -241,7 +241,7 @@ namespace Design
 
         private void picSchedule_Click(object sender, EventArgs e)
         {
-           n.Schedule(this);
+            n.Schedule(this);
         }
 
         private void picScheduleIcon_Click(object sender, EventArgs e)
@@ -251,7 +251,7 @@ namespace Design
 
         private void picPendingIcon_Click(object sender, EventArgs e)
         {
-           n.Pending(this);
+            n.Pending(this);
         }
 
         private void picFlashcard_Click(object sender, EventArgs e)
@@ -262,6 +262,11 @@ namespace Design
         private void picFlashcardIcon_Click(object sender, EventArgs e)
         {
             n.Flashcards(this);
+        }
+
+        private void frmCreateClass_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

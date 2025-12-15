@@ -21,6 +21,7 @@ namespace Design
         public frmCreatequiz()
         {
             InitializeComponent();
+            lblUsername.Text = GetInfo.Username;
             panel1.Visible = false;
         }
         public frmCreatequiz(int setCard, int setTime)
@@ -206,6 +207,11 @@ namespace Design
         private void picScheduleIcon_Click(object sender, EventArgs e)
         {
             n.Schedule(this);
+        }
+
+        private void frmCreatequiz_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

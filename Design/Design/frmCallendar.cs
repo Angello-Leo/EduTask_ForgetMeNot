@@ -19,6 +19,7 @@ namespace Design
         public frmCallendar()
         {
             InitializeComponent();
+            lblUsername.Text = GetInfo.Username;
             panel1.Width = 60;
             panel1.Visible = true;
         }
@@ -75,7 +76,7 @@ namespace Design
 
         private void picPendingIcon_Click(object sender, EventArgs e)
         {
-           n.Pending(this);
+            n.Pending(this);
         }
 
         private void picSchedule_Click(object sender, EventArgs e)
@@ -95,7 +96,7 @@ namespace Design
 
         private void picFlashcardIcon_Click(object sender, EventArgs e)
         {
-           n.Flashcards(this);
+            n.Flashcards(this);
         }
 
         private void picPendingSelection_Click(object sender, EventArgs e)
@@ -162,6 +163,11 @@ namespace Design
                     }
                 }
             }
+        }
+
+        private void frmCallendar_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
