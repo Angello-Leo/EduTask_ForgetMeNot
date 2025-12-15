@@ -98,10 +98,7 @@ namespace Design
 
         private void picAccomplishedSelection_Click(object sender, EventArgs e)
         {
-            //accomplished
-            frmAccomplished f7 = new frmAccomplished();
-            f7.Show();
-            this.Hide();
+            n.Accomplished(this);
         }
 
         private void picNotification_Click(object sender, EventArgs e)
@@ -127,9 +124,7 @@ namespace Design
         }
         private void picPersonalSelection_Click(object sender, EventArgs e)
         {
-            frmPersonal fp = new frmPersonal();
-            fp.Show();
-            this.Hide();
+            n.Personal(this);
         }
 
         private void picSchedule_Click(object sender, EventArgs e)

@@ -21,7 +21,7 @@ namespace Design
         public frmPersonal()
         {
             InitializeComponent();
-            s.LoadPersonalTasks(flowLayoutPanelPendingAssignments);
+            LoadPersonalTasks();
             panel1.Width = 60;
             panel1.Visible = true;
             lblUsername.Text = GetInfo.Username;
@@ -107,25 +107,19 @@ namespace Design
 
         private void picMissingSelection_Click(object sender, EventArgs e)
         {
-            //missing
-            frmMissing m = new frmMissing();
-            m.Show();
-            this.Hide();
+            n.Missing(this);
         }
 
         private void picAccomplishedSelection_Click(object sender, EventArgs e)
         {
-            //accomplished
-            frmAccomplished f9 = new frmAccomplished();
-            f9.Show();
-            this.Hide();
+           n.Accomplished(this);
         }
         private void ShowPersonalPanel()
         {
             panelPersonal.Visible = true;
             panelPersonal.BringToFront();
             flowLayoutPanelPendingAssignments.Controls.Clear();
-            s.LoadPersonalTasks(flowLayoutPanelPendingAssignments);
+            LoadPersonalTasks();
         }
 
         private void picPersonalSelection_Click(object sender, EventArgs e)
@@ -150,7 +144,7 @@ namespace Design
         private void lblClose_Click(object sender, EventArgs e)
         {
             panelPersonal.Visible = false;
-            s.LoadPersonalTasks(flowLayoutPanelPendingAssignments);
+            LoadPersonalTasks();
         }
 
         private void btnSaveTask_Click_1(object sender, EventArgs e)
@@ -165,7 +159,7 @@ namespace Design
                 return;
             }
 
-            int result = s.SaveTask(txtTaskTitle.Text, txtTaskContent.Text, dtpTaskDueDate.Value, GetInfo.UserID, conString);
+            int result = SaveTask(txtTaskTitle.Text, txtTaskContent.Text, dtpTaskDueDate.Value, GetInfo.UserID, conString);
             if (result > 0)
             {
                 MessageBox.Show("Task created successfully!");
@@ -173,7 +167,7 @@ namespace Design
                 txtTaskTitle.Clear();
                 txtTaskTitle.Clear();
                 dtpTaskDueDate.Value = DateTime.Now; // Reset to current date
-                s.LoadPersonalTasks(flowLayoutPanelPendingAssignments); // Refresh the list of personal tasks
+                LoadPersonalTasks(); // Refresh the list of personal tasks
             }
             else
             {
@@ -274,6 +268,87 @@ namespace Design
             }
 
             flowLayoutPanelPendingAssignments.Refresh();  // Refresh to show loaded tasks
+        }
+        private void LoadPersonalTasks()
+        {
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(conString))
+                {
+                    con.Open();
+                    string query = @"
+                    SELECT task_id, title, content, due_datetime, created_at, status
+                    FROM personal_tasks
+                    WHERE user_id = @uid AND status = 'pending'
+                    ORDER BY created_at DESC;";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var taskCard = new ctrlAnnouncement();
+
+                                DateTime? due = reader["due_datetime"] != DBNull.Value
+                                    ? reader.GetDateTime("due_datetime")
+                                    : (DateTime?)null;
+
+                                taskCard.LoadAnnouncementData(
+                                    announcementId: reader.GetInt32("task_id"),
+                                    classId: 0,
+                                    title: reader.GetString("title"),
+                                    content: reader.GetString("content"),
+                                    createdAt: reader.GetDateTime("created_at"),
+                                    isDone: false,
+                                    username: "",
+                                    creatorRole: "",
+                                    dueDateTime: due,
+                                    isPersonalTask: true   // <-- IMPORTANT!
+                                );
+
+                                taskCard.BackColor = Color.LightGreen;
+
+                                flowLayoutPanelPendingAssignments.Controls.Add(taskCard);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading personal tasks: " + ex.Message);
+            }
+        }
+        private int SaveTask(string title, string content, DateTime? dueDate, int userID, string conString)
+        {
+            int result = 0;
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(conString))
+                {
+                    con.Open();
+                    string query = @"
+                INSERT INTO personal_tasks (user_id, title, content, due_datetime, created_at)
+                VALUES (@user_id, @title, @content, @due_datetime, NOW());";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@user_id", userID);
+                        cmd.Parameters.AddWithValue("@title", title);
+                        cmd.Parameters.AddWithValue("@content", content);
+                        cmd.Parameters.AddWithValue("@due_datetime", (object)dueDate ?? DBNull.Value);
+                        result = cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return result;
         }
         private void btnShowAccomplished_Click(object sender, EventArgs e)
         {

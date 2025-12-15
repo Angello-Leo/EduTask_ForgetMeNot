@@ -105,13 +105,9 @@ namespace Design
             n.Flashcards(this);
         }
 
-        private void pictureBox17_Click(object sender, EventArgs e)
+        private void picMissingSelection_Click(object sender, EventArgs e)
         {
-            //missing
-            int currentClassId = GetInfo.ClassID;
-            frmMissing f7 = new frmMissing();
-            f7.Show();
-            this.Hide();
+            n.Missing(this);
         }
 
         private void picNotification_Click(object sender, EventArgs e)
@@ -130,16 +126,14 @@ namespace Design
             lblUsername.Text = GetInfo.Username;
         }
 
-        private void pictureBox18_Click(object sender, EventArgs e)
+        private void picAccomplishedSelection_Click(object sender, EventArgs e)
         {
             s.LoadAccomplishedAnnouncement(flowLayoutPanelAccomplished);
 
         }
         private void picPersonalSelection_Click(object sender, EventArgs e)
         {
-            frmPersonal fp = new frmPersonal();
-            fp.Show();
-            this.Hide();
+            n.Personal(this);
         }
     }
 }

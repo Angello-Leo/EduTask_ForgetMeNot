@@ -327,7 +327,7 @@
             picMissingSelection.Size = new Size(239, 89);
             picMissingSelection.TabIndex = 42;
             picMissingSelection.TabStop = false;
-            picMissingSelection.Click += pictureBox17_Click;
+            picMissingSelection.Click += picMissingSelection_Click;
             // 
             // picAccomplishedSelection
             // 
@@ -340,7 +340,7 @@
             picAccomplishedSelection.Size = new Size(239, 89);
             picAccomplishedSelection.TabIndex = 43;
             picAccomplishedSelection.TabStop = false;
-            picAccomplishedSelection.Click += pictureBox18_Click;
+            picAccomplishedSelection.Click += picAccomplishedSelection_Click;
             // 
             // pictureBox20
             // 

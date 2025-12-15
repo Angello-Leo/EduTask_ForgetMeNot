@@ -116,26 +116,17 @@ namespace Design
 
         private void picMissingSelection_Click(object sender, EventArgs e)
         {
-            //missing
-            int currentClassId = GetInfo.ClassID;
-            frmMissing f7 = new frmMissing();
-            f7.Show();
-            this.Hide();
+            n.Missing(this);
         }
 
         private void picAccomplishedSelection_Click(object sender, EventArgs e)
         {
-            //accomplished
-            frmAccomplished f7 = new frmAccomplished();
-            f7.Show();
-            this.Hide();
+            n.Accomplished(this);
         }
 
         private void picPersonalSelection_Click(object sender, EventArgs e)
         {
-            frmPersonal p = new frmPersonal();
-            p.Show();
-            this.Hide();
+            n.Personal(this);
         }
 
         private void btnSaveTask_Click(object sender, EventArgs e)
@@ -150,7 +141,7 @@ namespace Design
                 return;
             }
 
-            int result = s.SaveTask(txtTaskTitle.Text, txtTaskContent.Text, dtpTaskDueDate.Value, GetInfo.UserID, conString);
+            /*int result = s.SaveTask(txtTaskTitle.Text, txtTaskContent.Text, dtpTaskDueDate.Value, GetInfo.UserID, conString);
             if (result > 0)
             {
                 MessageBox.Show("Task created successfully!");
@@ -163,7 +154,7 @@ namespace Design
             else
             {
                 MessageBox.Show("Error saving the task.");
-            }
+            }*/
             panelPersonal.Visible = false;
         }
 
@@ -171,7 +162,7 @@ namespace Design
         {
             panelPersonal.Visible = false;
             flowLayoutPanelPendingAssignments.Controls.Clear();
-            s.LoadPersonalTasks(flowLayoutPanelPendingAssignments);
+            //s.LoadPersonalTasks(flowLayoutPanelPendingAssignments);
         }
 
         private void picSchedule_Click(object sender, EventArgs e)

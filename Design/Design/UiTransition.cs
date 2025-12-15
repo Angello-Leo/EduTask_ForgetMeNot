@@ -43,5 +43,24 @@ namespace Design
             new frmCreateClass().Show();
             current.Close();
         }
+
+        public void Accomplished(Form current)
+        {
+            new frmAccomplished().Show();
+            current.Close();
+        }
+
+        public void Missing(Form current)
+        {
+            int currentClassId = GetInfo.ClassID;
+            new frmMissing().Show();
+            current.Close();
+        }
+
+        public void Personal(Form current)
+        {
+            new frmPersonal().Show();
+            current.Close();
+        }
     }
 }
