@@ -79,10 +79,10 @@
             pictureBox15.BackColor = Color.Transparent;
             pictureBox15.BackgroundImage = (Image)resources.GetObject("pictureBox15.BackgroundImage");
             pictureBox15.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox15.Location = new Point(66, -11);
-            pictureBox15.Margin = new Padding(4, 5, 4, 5);
+            pictureBox15.Location = new Point(53, -9);
+            pictureBox15.Margin = new Padding(3, 4, 3, 4);
             pictureBox15.Name = "pictureBox15";
-            pictureBox15.Size = new Size(112, 109);
+            pictureBox15.Size = new Size(90, 87);
             pictureBox15.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox15.TabIndex = 25;
             pictureBox15.TabStop = false;
@@ -93,10 +93,9 @@
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Leelawadee UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(174, 24);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(139, 19);
             label1.Name = "label1";
-            label1.Size = new Size(264, 32);
+            label1.Size = new Size(217, 28);
             label1.TabIndex = 26;
             label1.Text = "EduTask : ForgetMeNot";
             // 
@@ -114,10 +113,10 @@
             panel1.Controls.Add(picScheduleIcon);
             panel1.Controls.Add(picPendingIcon);
             panel1.Controls.Add(picHomeIcon);
-            panel1.Location = new Point(0, 74);
-            panel1.Margin = new Padding(4, 5, 4, 5);
+            panel1.Location = new Point(0, 59);
+            panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(242, 959);
+            panel1.Size = new Size(194, 767);
             panel1.TabIndex = 27;
             // 
             // panel2
@@ -125,10 +124,10 @@
             panel2.AutoScroll = true;
             panel2.BackColor = Color.Transparent;
             panel2.BackgroundImage = Properties.Resources.Untitled_design__2_;
-            panel2.Location = new Point(9, 590);
-            panel2.Margin = new Padding(4, 5, 4, 5);
+            panel2.Location = new Point(7, 472);
+            panel2.Margin = new Padding(3, 4, 3, 4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(219, 364);
+            panel2.Size = new Size(175, 291);
             panel2.TabIndex = 8;
             panel2.Visible = false;
             // 
@@ -138,10 +137,10 @@
             picFlashcard.BackgroundImage = (Image)resources.GetObject("picFlashcard.BackgroundImage");
             picFlashcard.BackgroundImageLayout = ImageLayout.Zoom;
             picFlashcard.Cursor = Cursors.Hand;
-            picFlashcard.Location = new Point(82, 409);
-            picFlashcard.Margin = new Padding(4, 5, 4, 5);
+            picFlashcard.Location = new Point(66, 327);
+            picFlashcard.Margin = new Padding(3, 4, 3, 4);
             picFlashcard.Name = "picFlashcard";
-            picFlashcard.Size = new Size(156, 86);
+            picFlashcard.Size = new Size(125, 69);
             picFlashcard.TabIndex = 18;
             picFlashcard.TabStop = false;
             picFlashcard.Click += picFlashcard_Click;
@@ -152,10 +151,10 @@
             picSchedule.BackgroundImage = (Image)resources.GetObject("picSchedule.BackgroundImage");
             picSchedule.BackgroundImageLayout = ImageLayout.Zoom;
             picSchedule.Cursor = Cursors.Hand;
-            picSchedule.Location = new Point(74, 319);
-            picSchedule.Margin = new Padding(4, 5, 4, 5);
+            picSchedule.Location = new Point(59, 255);
+            picSchedule.Margin = new Padding(3, 4, 3, 4);
             picSchedule.Name = "picSchedule";
-            picSchedule.Size = new Size(159, 79);
+            picSchedule.Size = new Size(127, 63);
             picSchedule.TabIndex = 17;
             picSchedule.TabStop = false;
             picSchedule.Click += picSchedule_Click;
@@ -166,10 +165,10 @@
             picPending.BackgroundImage = (Image)resources.GetObject("picPending.BackgroundImage");
             picPending.BackgroundImageLayout = ImageLayout.Zoom;
             picPending.Cursor = Cursors.Hand;
-            picPending.Location = new Point(74, 226);
-            picPending.Margin = new Padding(4, 5, 4, 5);
+            picPending.Location = new Point(59, 181);
+            picPending.Margin = new Padding(3, 4, 3, 4);
             picPending.Name = "picPending";
-            picPending.Size = new Size(151, 69);
+            picPending.Size = new Size(121, 55);
             picPending.TabIndex = 16;
             picPending.TabStop = false;
             picPending.Click += picPending_Click;
@@ -180,10 +179,10 @@
             picHome.BackgroundImage = (Image)resources.GetObject("picHome.BackgroundImage");
             picHome.BackgroundImageLayout = ImageLayout.Zoom;
             picHome.Cursor = Cursors.Hand;
-            picHome.Location = new Point(76, 130);
-            picHome.Margin = new Padding(4, 5, 4, 5);
+            picHome.Location = new Point(61, 104);
+            picHome.Margin = new Padding(3, 4, 3, 4);
             picHome.Name = "picHome";
-            picHome.Size = new Size(151, 69);
+            picHome.Size = new Size(121, 55);
             picHome.TabIndex = 15;
             picHome.TabStop = false;
             picHome.Click += picHome_Click;
@@ -194,10 +193,10 @@
             picFlashcardIcon.BackgroundImage = (Image)resources.GetObject("picFlashcardIcon.BackgroundImage");
             picFlashcardIcon.BackgroundImageLayout = ImageLayout.Zoom;
             picFlashcardIcon.Cursor = Cursors.Hand;
-            picFlashcardIcon.Location = new Point(9, 415);
-            picFlashcardIcon.Margin = new Padding(4, 5, 4, 5);
+            picFlashcardIcon.Location = new Point(7, 332);
+            picFlashcardIcon.Margin = new Padding(3, 4, 3, 4);
             picFlashcardIcon.Name = "picFlashcardIcon";
-            picFlashcardIcon.Size = new Size(59, 69);
+            picFlashcardIcon.Size = new Size(47, 55);
             picFlashcardIcon.TabIndex = 11;
             picFlashcardIcon.TabStop = false;
             picFlashcardIcon.Click += picFlashcardIcon_Click;
@@ -208,10 +207,10 @@
             picScheduleIcon.BackgroundImage = (Image)resources.GetObject("picScheduleIcon.BackgroundImage");
             picScheduleIcon.BackgroundImageLayout = ImageLayout.Zoom;
             picScheduleIcon.Cursor = Cursors.Hand;
-            picScheduleIcon.Location = new Point(9, 320);
-            picScheduleIcon.Margin = new Padding(4, 5, 4, 5);
+            picScheduleIcon.Location = new Point(7, 256);
+            picScheduleIcon.Margin = new Padding(3, 4, 3, 4);
             picScheduleIcon.Name = "picScheduleIcon";
-            picScheduleIcon.Size = new Size(59, 69);
+            picScheduleIcon.Size = new Size(47, 55);
             picScheduleIcon.TabIndex = 10;
             picScheduleIcon.TabStop = false;
             picScheduleIcon.Click += picScheduleIcon_Click;
@@ -222,10 +221,10 @@
             picPendingIcon.BackgroundImage = (Image)resources.GetObject("picPendingIcon.BackgroundImage");
             picPendingIcon.BackgroundImageLayout = ImageLayout.Zoom;
             picPendingIcon.Cursor = Cursors.Hand;
-            picPendingIcon.Location = new Point(9, 226);
-            picPendingIcon.Margin = new Padding(4, 5, 4, 5);
+            picPendingIcon.Location = new Point(7, 181);
+            picPendingIcon.Margin = new Padding(3, 4, 3, 4);
             picPendingIcon.Name = "picPendingIcon";
-            picPendingIcon.Size = new Size(59, 69);
+            picPendingIcon.Size = new Size(47, 55);
             picPendingIcon.TabIndex = 9;
             picPendingIcon.TabStop = false;
             picPendingIcon.Click += picPendingIcon_Click;
@@ -236,10 +235,10 @@
             picHomeIcon.BackgroundImage = (Image)resources.GetObject("picHomeIcon.BackgroundImage");
             picHomeIcon.BackgroundImageLayout = ImageLayout.Zoom;
             picHomeIcon.Cursor = Cursors.Hand;
-            picHomeIcon.Location = new Point(9, 129);
-            picHomeIcon.Margin = new Padding(4, 5, 4, 5);
+            picHomeIcon.Location = new Point(7, 103);
+            picHomeIcon.Margin = new Padding(3, 4, 3, 4);
             picHomeIcon.Name = "picHomeIcon";
-            picHomeIcon.Size = new Size(59, 69);
+            picHomeIcon.Size = new Size(47, 55);
             picHomeIcon.TabIndex = 8;
             picHomeIcon.TabStop = false;
             picHomeIcon.Click += picHomeIcon_Click;
@@ -250,11 +249,10 @@
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Malgun Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(1294, 9);
-            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Location = new Point(1035, 7);
             label2.Name = "label2";
             label2.RightToLeft = RightToLeft.Yes;
-            label2.Size = new Size(171, 45);
+            label2.Size = new Size(143, 37);
             label2.TabIndex = 31;
             label2.Text = ",Welcome";
             // 
@@ -263,10 +261,10 @@
             picAccomplishedSelection.BackgroundImage = (Image)resources.GetObject("picAccomplishedSelection.BackgroundImage");
             picAccomplishedSelection.BackgroundImageLayout = ImageLayout.Zoom;
             picAccomplishedSelection.Cursor = Cursors.Hand;
-            picAccomplishedSelection.Location = new Point(1101, 79);
-            picAccomplishedSelection.Margin = new Padding(4, 5, 4, 5);
+            picAccomplishedSelection.Location = new Point(881, 63);
+            picAccomplishedSelection.Margin = new Padding(3, 4, 3, 4);
             picAccomplishedSelection.Name = "picAccomplishedSelection";
-            picAccomplishedSelection.Size = new Size(239, 89);
+            picAccomplishedSelection.Size = new Size(191, 71);
             picAccomplishedSelection.TabIndex = 38;
             picAccomplishedSelection.TabStop = false;
             picAccomplishedSelection.Click += picAccomplishedSelection_Click;
@@ -276,10 +274,10 @@
             picMissingSelection.BackgroundImage = (Image)resources.GetObject("picMissingSelection.BackgroundImage");
             picMissingSelection.BackgroundImageLayout = ImageLayout.Zoom;
             picMissingSelection.Cursor = Cursors.Hand;
-            picMissingSelection.Location = new Point(752, 79);
-            picMissingSelection.Margin = new Padding(4, 5, 4, 5);
+            picMissingSelection.Location = new Point(602, 63);
+            picMissingSelection.Margin = new Padding(3, 4, 3, 4);
             picMissingSelection.Name = "picMissingSelection";
-            picMissingSelection.Size = new Size(239, 89);
+            picMissingSelection.Size = new Size(191, 71);
             picMissingSelection.TabIndex = 39;
             picMissingSelection.TabStop = false;
             picMissingSelection.Click += picMissingSelection_Click;
@@ -289,10 +287,10 @@
             picPendingSelection.BackgroundImage = (Image)resources.GetObject("picPendingSelection.BackgroundImage");
             picPendingSelection.BackgroundImageLayout = ImageLayout.Zoom;
             picPendingSelection.Cursor = Cursors.Hand;
-            picPendingSelection.Location = new Point(391, 79);
-            picPendingSelection.Margin = new Padding(4, 5, 4, 5);
+            picPendingSelection.Location = new Point(313, 63);
+            picPendingSelection.Margin = new Padding(3, 4, 3, 4);
             picPendingSelection.Name = "picPendingSelection";
-            picPendingSelection.Size = new Size(239, 89);
+            picPendingSelection.Size = new Size(191, 71);
             picPendingSelection.TabIndex = 40;
             picPendingSelection.TabStop = false;
             picPendingSelection.Click += picPendingSelection_Click;
@@ -301,10 +299,10 @@
             // 
             pictureBox20.BackgroundImage = (Image)resources.GetObject("pictureBox20.BackgroundImage");
             pictureBox20.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox20.Location = new Point(752, 204);
-            pictureBox20.Margin = new Padding(4, 5, 4, 5);
+            pictureBox20.Location = new Point(602, 163);
+            pictureBox20.Margin = new Padding(3, 4, 3, 4);
             pictureBox20.Name = "pictureBox20";
-            pictureBox20.Size = new Size(239, 89);
+            pictureBox20.Size = new Size(191, 71);
             pictureBox20.TabIndex = 42;
             pictureBox20.TabStop = false;
             pictureBox20.Visible = false;
@@ -314,10 +312,10 @@
             picPersonalSelection.BackgroundImage = (Image)resources.GetObject("picPersonalSelection.BackgroundImage");
             picPersonalSelection.BackgroundImageLayout = ImageLayout.Zoom;
             picPersonalSelection.Cursor = Cursors.Hand;
-            picPersonalSelection.Location = new Point(752, 202);
-            picPersonalSelection.Margin = new Padding(4, 5, 4, 5);
+            picPersonalSelection.Location = new Point(602, 162);
+            picPersonalSelection.Margin = new Padding(3, 4, 3, 4);
             picPersonalSelection.Name = "picPersonalSelection";
-            picPersonalSelection.Size = new Size(239, 89);
+            picPersonalSelection.Size = new Size(191, 71);
             picPersonalSelection.TabIndex = 43;
             picPersonalSelection.TabStop = false;
             picPersonalSelection.Click += picPersonalSelection_Click;
@@ -329,10 +327,9 @@
             // flowLayoutPanelMissing
             // 
             flowLayoutPanelMissing.AutoScroll = true;
-            flowLayoutPanelMissing.Location = new Point(399, 332);
-            flowLayoutPanelMissing.Margin = new Padding(4);
+            flowLayoutPanelMissing.Location = new Point(319, 266);
             flowLayoutPanelMissing.Name = "flowLayoutPanelMissing";
-            flowLayoutPanelMissing.Size = new Size(972, 529);
+            flowLayoutPanelMissing.Size = new Size(790, 423);
             flowLayoutPanelMissing.TabIndex = 44;
             // 
             // lblUsername
@@ -341,20 +338,20 @@
             lblUsername.BackColor = Color.Transparent;
             lblUsername.Font = new Font("Malgun Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblUsername.ForeColor = Color.White;
-            lblUsername.Location = new Point(1470, 14);
-            lblUsername.Margin = new Padding(4, 0, 4, 0);
+            lblUsername.Location = new Point(1176, 11);
             lblUsername.Name = "lblUsername";
             lblUsername.RightToLeft = RightToLeft.Yes;
-            lblUsername.Size = new Size(0, 45);
+            lblUsername.Size = new Size(0, 37);
             lblUsername.TabIndex = 45;
             // 
             // picHamburgerMenu
             // 
             picHamburgerMenu.BackColor = Color.Transparent;
             picHamburgerMenu.Image = Properties.Resources.Add_a_heading__1_;
-            picHamburgerMenu.Location = new Point(1, 15);
+            picHamburgerMenu.Location = new Point(1, 12);
+            picHamburgerMenu.Margin = new Padding(2, 2, 2, 2);
             picHamburgerMenu.Name = "picHamburgerMenu";
-            picHamburgerMenu.Size = new Size(70, 55);
+            picHamburgerMenu.Size = new Size(56, 44);
             picHamburgerMenu.TabIndex = 46;
             picHamburgerMenu.TabStop = false;
             picHamburgerMenu.Click += picHamburgerMenu_Click;
@@ -365,10 +362,10 @@
             picNotification.BackColor = Color.Transparent;
             picNotification.BackgroundImage = (Image)resources.GetObject("picNotification.BackgroundImage");
             picNotification.BackgroundImageLayout = ImageLayout.Zoom;
-            picNotification.Location = new Point(1515, 92);
-            picNotification.Margin = new Padding(4, 5, 4, 5);
+            picNotification.Location = new Point(1212, 74);
+            picNotification.Margin = new Padding(3, 4, 3, 4);
             picNotification.Name = "picNotification";
-            picNotification.Size = new Size(64, 69);
+            picNotification.Size = new Size(51, 55);
             picNotification.TabIndex = 47;
             picNotification.TabStop = false;
             picNotification.Click += picNotification_Click;
@@ -380,10 +377,10 @@
             picAddClass.BackgroundImage = (Image)resources.GetObject("picAddClass.BackgroundImage");
             picAddClass.BackgroundImageLayout = ImageLayout.Zoom;
             picAddClass.Cursor = Cursors.Hand;
-            picAddClass.Location = new Point(1489, 876);
-            picAddClass.Margin = new Padding(4, 5, 4, 5);
+            picAddClass.Location = new Point(1191, 701);
+            picAddClass.Margin = new Padding(3, 4, 3, 4);
             picAddClass.Name = "picAddClass";
-            picAddClass.Size = new Size(156, 111);
+            picAddClass.Size = new Size(125, 89);
             picAddClass.TabIndex = 48;
             picAddClass.TabStop = false;
             picAddClass.Visible = false;
@@ -391,11 +388,11 @@
             // 
             // frmMissing
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.Add_a_heading__30_;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(1658, 1026);
+            ClientSize = new Size(1326, 821);
             Controls.Add(picAddClass);
             Controls.Add(picNotification);
             Controls.Add(picHamburgerMenu);
@@ -410,7 +407,7 @@
             Controls.Add(panel1);
             Controls.Add(label1);
             Controls.Add(pictureBox15);
-            Margin = new Padding(4, 5, 4, 5);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "frmMissing";
             Text = "Form8";
             Load += frmMissing_Load;

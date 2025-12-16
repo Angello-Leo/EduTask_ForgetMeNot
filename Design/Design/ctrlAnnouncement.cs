@@ -25,6 +25,7 @@ namespace Design
         public ctrlAnnouncement()
         {
             InitializeComponent();
+
         }
 
         public void LoadAnnouncementData(
@@ -40,12 +41,15 @@ namespace Design
     bool isPersonalTask = false      // <-- new flag
 )
         {
+            string className = GetClassName(classId);
+            lblClassName.Text = className;
+
             AnnouncementId = announcementId;
             IsDone = isDone;
             _classId = classId;
             lblTitle.Text = title;
             lblContent.Text = content;
-
+           
             if (!isPersonalTask)
             {
                 lblCreatedBy.Text = $"{username} ({creatorRole})";
@@ -97,17 +101,21 @@ namespace Design
             if (isPersonalTask)
             {
                 btnMarkAsDone.Visible = !isDone;  // Only show if the task is not done
-                btnMarkAsDone.Text = isDone ? "Finished" : "Done";
+                btnMarkAsDone.Text = isDone ? "Finished" : "Mark as Done";
                 btnMarkAsDone.BackColor = isDone ? Color.LightGreen : Color.LightBlue;
                 return;
             }
 
+            // Debugging: Check if we should show the 'Mark as Done' button for non-personal tasks
             if (isMissing || !isDone)
             {
+                Debug.WriteLine($"Showing 'Mark as Done' button for status: Missing = {isMissing}, Done = {isDone}");
                 btnMarkAsDone.Visible = true;
-                btnMarkAsDone.Text = "Done";
+                btnMarkAsDone.Text = "Mark as Done";
                 btnMarkAsDone.BackColor = Color.LightBlue;
             }
+
+            // If task is done, update the button text and color
             if (isDone)
             {
                 Debug.WriteLine("Task is done. Showing 'Finished' button.");
@@ -115,7 +123,7 @@ namespace Design
                 btnMarkAsDone.BackColor = Color.LightGreen;
             }
 
-            // Show 'Edit' button for roles 
+            // Show 'Edit' button for roles like 'president' or 'vice president'
             if (currentRole == "president" || currentRole == "vice president")
             {
                 btnEdit.Visible = true;
@@ -268,10 +276,32 @@ namespace Design
             }
 
         }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private string GetClassName(int classId)
         {
+            string className = string.Empty;
 
+            // MySQL query to get the class name by class_id
+            string query = "SELECT class_name FROM classes WHERE class_id = @classId";
+
+            using (MySqlConnection con = new MySqlConnection(conString))
+            {
+                con.Open();
+                using (MySqlCommand cmd = new MySqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@classId", classId);
+
+                    // Execute the query and read the class name
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            className = reader.GetString("class_name");
+                        }
+                    }
+                }
+            }
+
+            return className;
         }
     }
 }

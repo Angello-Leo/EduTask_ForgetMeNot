@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Label lblTitle;
+            this.lblTitle = new System.Windows.Forms.Label();
             lblContent = new Label();
             lblCreatedBy = new Label();
             lblCreatedAt = new Label();
@@ -37,13 +37,18 @@
             lblDueDate = new Label();
             btnCloseSubmission = new Button();
             panel1 = new Panel();
+            lblClassName = new Label();
+            pictureBox1 = new PictureBox();
             lblTitle = new Label();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // lblTitle
             // 
             lblTitle.AutoSize = true;
+            lblTitle.BackColor = Color.FromArgb(5, 41, 15);
+            lblTitle.ForeColor = Color.White;
             lblTitle.Location = new Point(39, 19);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(38, 20);
@@ -53,6 +58,8 @@
             // lblContent
             // 
             lblContent.AutoSize = true;
+            lblContent.BackColor = Color.FromArgb(5, 41, 15);
+            lblContent.ForeColor = Color.White;
             lblContent.Location = new Point(39, 42);
             lblContent.Name = "lblContent";
             lblContent.Size = new Size(61, 20);
@@ -62,7 +69,9 @@
             // lblCreatedBy
             // 
             lblCreatedBy.AutoSize = true;
-            lblCreatedBy.Location = new Point(39, 72);
+            lblCreatedBy.BackColor = Color.FromArgb(5, 41, 15);
+            lblCreatedBy.ForeColor = Color.White;
+            lblCreatedBy.Location = new Point(39, 89);
             lblCreatedBy.Name = "lblCreatedBy";
             lblCreatedBy.Size = new Size(84, 20);
             lblCreatedBy.TabIndex = 2;
@@ -71,7 +80,9 @@
             // lblCreatedAt
             // 
             lblCreatedAt.AutoSize = true;
-            lblCreatedAt.Location = new Point(39, 101);
+            lblCreatedAt.BackColor = Color.FromArgb(5, 41, 15);
+            lblCreatedAt.ForeColor = Color.White;
+            lblCreatedAt.Location = new Point(39, 113);
             lblCreatedAt.Name = "lblCreatedAt";
             lblCreatedAt.Size = new Size(84, 20);
             lblCreatedAt.TabIndex = 3;
@@ -99,8 +110,9 @@
             // lblDueDate
             // 
             lblDueDate.AutoSize = true;
+            lblDueDate.BackColor = Color.FromArgb(5, 41, 15);
             lblDueDate.ForeColor = Color.Red;
-            lblDueDate.Location = new Point(39, 131);
+            lblDueDate.Location = new Point(39, 138);
             lblDueDate.Name = "lblDueDate";
             lblDueDate.Size = new Size(84, 20);
             lblDueDate.TabIndex = 6;
@@ -119,19 +131,41 @@
             // panel1
             // 
             panel1.BackColor = Color.PaleGreen;
+            panel1.Controls.Add(lblTitle);
+            panel1.Controls.Add(lblClassName);
             panel1.Controls.Add(lblCreatedBy);
             panel1.Controls.Add(btnCloseSubmission);
-            panel1.Controls.Add(lblTitle);
             panel1.Controls.Add(btnEdit);
             panel1.Controls.Add(btnMarkAsDone);
             panel1.Controls.Add(lblDueDate);
             panel1.Controls.Add(lblContent);
             panel1.Controls.Add(lblCreatedAt);
+            panel1.Controls.Add(pictureBox1);
             panel1.Location = new Point(27, 18);
             panel1.Name = "panel1";
             panel1.Size = new Size(724, 173);
             panel1.TabIndex = 8;
-            panel1.Paint += panel1_Paint;
+            // 
+            // lblClassName
+            // 
+            lblClassName.AutoSize = true;
+            lblClassName.BackColor = Color.FromArgb(5, 41, 15);
+            lblClassName.ForeColor = Color.White;
+            lblClassName.Location = new Point(40, 66);
+            lblClassName.Name = "lblClassName";
+            lblClassName.Size = new Size(50, 20);
+            lblClassName.TabIndex = 8;
+            lblClassName.Text = "label1";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.AnnouncementBG;
+            pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(724, 173);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 9;
+            pictureBox1.TabStop = false;
             // 
             // ctrlAnnouncement
             // 
@@ -143,6 +177,7 @@
             Size = new Size(778, 203);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -157,5 +192,7 @@
         private Label lblDueDate;
         private Button btnCloseSubmission;
         private Panel panel1;
+        private Label lblClassName;
+        private PictureBox pictureBox1;
     }
 }
