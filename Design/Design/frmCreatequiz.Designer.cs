@@ -394,7 +394,7 @@
             txtAnswer.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtAnswer.BackColor = Color.FromArgb(192, 255, 255);
             txtAnswer.Location = new Point(462, 578);
-            txtAnswer.Margin = new Padding(2, 2, 2, 2);
+            txtAnswer.Margin = new Padding(2);
             txtAnswer.Name = "txtAnswer";
             txtAnswer.Size = new Size(390, 27);
             txtAnswer.TabIndex = 40;
@@ -406,7 +406,7 @@
             picClear.BackgroundImageLayout = ImageLayout.Stretch;
             picClear.Cursor = Cursors.Hand;
             picClear.Location = new Point(318, 585);
-            picClear.Margin = new Padding(2, 2, 2, 2);
+            picClear.Margin = new Padding(2);
             picClear.Name = "picClear";
             picClear.Size = new Size(122, 80);
             picClear.TabIndex = 41;
@@ -420,7 +420,7 @@
             picSettings.BackgroundImageLayout = ImageLayout.Zoom;
             picSettings.Cursor = Cursors.Hand;
             picSettings.Location = new Point(918, 88);
-            picSettings.Margin = new Padding(2, 2, 2, 2);
+            picSettings.Margin = new Padding(2);
             picSettings.Name = "picSettings";
             picSettings.Size = new Size(83, 44);
             picSettings.TabIndex = 42;
@@ -466,6 +466,7 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "frmCreatequiz";
             Text = "Adding Cards";
+            Load += frmCreatequiz_Load;
             ((System.ComponentModel.ISupportInitialize)picHamburgerMenu).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             panel1.ResumeLayout(false);

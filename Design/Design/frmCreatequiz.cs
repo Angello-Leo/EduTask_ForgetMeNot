@@ -208,5 +208,10 @@ namespace Design
         {
             n.Schedule(this);
         }
+
+        private void frmCreatequiz_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

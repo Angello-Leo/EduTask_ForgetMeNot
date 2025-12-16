@@ -50,6 +50,7 @@ namespace Design
         public frmStartquiz(List<string> questions, List<string> answers, frmCreatequiz form, int time)
         {
             InitializeComponent();
+            lblUsername.Text = GetInfo.Username;
             this.questions = questions;
             this.answers = answers;
             createQuizForm = form;
