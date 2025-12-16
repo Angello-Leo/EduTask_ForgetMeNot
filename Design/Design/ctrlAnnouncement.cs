@@ -123,11 +123,6 @@ namespace Design
                 btnMarkAsDone.BackColor = Color.LightGreen;
             }
 
-            // Show 'Edit' button for roles like 'president' or 'vice president'
-            if (currentRole == "president" || currentRole == "vice president")
-            {
-                btnEdit.Visible = true;
-            }
 
             // Show 'Close Submission' button for 'secretary' role
             if (currentRole == "secretary")

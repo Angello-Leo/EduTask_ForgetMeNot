@@ -106,6 +106,7 @@
             btnEdit.TabIndex = 5;
             btnEdit.Text = "Edit";
             btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Visible = false;
             // 
             // lblDueDate
             // 
