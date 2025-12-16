@@ -28,7 +28,7 @@ namespace Design
         private int panelMaxWidth = 170;
         private int slideSpeed = 98;
 
-        private void picPending_Click(object sender, EventArgs e)
+        public void picPending_Click(object sender, EventArgs e)
         {
             n.Pending(this);
         }
