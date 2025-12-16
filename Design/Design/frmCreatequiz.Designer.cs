@@ -466,7 +466,6 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "frmCreatequiz";
             Text = "Adding Cards";
-            Load += frmCreatequiz_Load;
             ((System.ComponentModel.ISupportInitialize)picHamburgerMenu).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             panel1.ResumeLayout(false);

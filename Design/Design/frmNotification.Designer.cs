@@ -70,10 +70,11 @@
             flowLayoutPanelNotif.Anchor = AnchorStyles.None;
             flowLayoutPanelNotif.AutoScroll = true;
             flowLayoutPanelNotif.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanelNotif.Location = new Point(58, 127);
+            flowLayoutPanelNotif.Location = new Point(153, 136);
             flowLayoutPanelNotif.Name = "flowLayoutPanelNotif";
-            flowLayoutPanelNotif.Size = new Size(1240, 658);
+            flowLayoutPanelNotif.Size = new Size(963, 550);
             flowLayoutPanelNotif.TabIndex = 6;
+            flowLayoutPanelNotif.WrapContents = false;
             // 
             // frmNotification
             // 

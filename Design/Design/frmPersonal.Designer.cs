@@ -58,7 +58,7 @@
             lblTask = new Label();
             btnSaveTask = new Button();
             dtpTaskDueDate = new DateTimePicker();
-            txtTaskContent = new RichTextBox();
+            txtAnnouncementContent = new RichTextBox();
             txtTaskTitle = new TextBox();
             flowLayoutPanelPendingAssignments = new FlowLayoutPanel();
             lblUsername = new Label();
@@ -308,6 +308,7 @@
             picAddClass.Size = new Size(125, 89);
             picAddClass.TabIndex = 34;
             picAddClass.TabStop = false;
+            picAddClass.Visible = false;
             picAddClass.Click += picAddClass_Click;
             // 
             // picPendingSelection
@@ -387,7 +388,7 @@
             panelPersonal.Controls.Add(lblTask);
             panelPersonal.Controls.Add(btnSaveTask);
             panelPersonal.Controls.Add(dtpTaskDueDate);
-            panelPersonal.Controls.Add(txtTaskContent);
+            panelPersonal.Controls.Add(txtAnnouncementContent);
             panelPersonal.Controls.Add(txtTaskTitle);
             panelPersonal.Location = new Point(297, 263);
             panelPersonal.Name = "panelPersonal";
@@ -449,13 +450,13 @@
             dtpTaskDueDate.Size = new Size(250, 27);
             dtpTaskDueDate.TabIndex = 2;
             // 
-            // txtTaskContent
+            // txtAnnouncementContent
             // 
-            txtTaskContent.Location = new Point(73, 128);
-            txtTaskContent.Name = "txtTaskContent";
-            txtTaskContent.Size = new Size(654, 335);
-            txtTaskContent.TabIndex = 1;
-            txtTaskContent.Text = "";
+            txtAnnouncementContent.Location = new Point(73, 128);
+            txtAnnouncementContent.Name = "txtAnnouncementContent";
+            txtAnnouncementContent.Size = new Size(654, 335);
+            txtAnnouncementContent.TabIndex = 1;
+            txtAnnouncementContent.Text = "";
             // 
             // txtTaskTitle
             // 
@@ -577,7 +578,7 @@
         private Label lblTask;
         private Button btnSaveTask;
         private DateTimePicker dtpTaskDueDate;
-        private RichTextBox txtTaskContent;
+        private RichTextBox txtAnnouncementContent;
         private TextBox txtTaskTitle;
         private FlowLayoutPanel flowLayoutPanelPendingAssignments;
         private Label lblUsername;

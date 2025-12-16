@@ -116,7 +116,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(966, 471);
             panel1.TabIndex = 9;
-            panel1.Paint += panel1_Paint;
             // 
             // linkLabel1
             // 

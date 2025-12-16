@@ -115,10 +115,5 @@ namespace Design
         {
             n.Pending(this);
         }
-
-        private void frmFlashcard_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

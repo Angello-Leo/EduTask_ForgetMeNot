@@ -35,6 +35,7 @@ namespace Design
 
         private void LoadNotifications()
         {
+            flowLayoutPanelNotif.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanelNotif.Controls.Clear();
             flowLayoutPanelNotif.AutoScroll = true; // ensure scrolling
 
@@ -75,8 +76,6 @@ namespace Design
                                 type = "role";
 
                             var notifCard = new ctrlNotification();
-                            notifCard.Width = flowLayoutPanelNotif.Width - 25;
-                            notifCard.Height = 60;
                             notifCard.LoadNotificationData(notificationId, message, createdAt, type, isRead);
 
                             flowLayoutPanelNotif.Controls.Add(notifCard);
@@ -94,9 +93,7 @@ namespace Design
                 return;
             }
 
-            var notifCard = new ctrlNotification();
-            notifCard.Width = flowLayoutPanelNotif.Width - 25;
-            notifCard.Height = 60;
+            var notifCard = new ctrlNotification();;
             notifCard.LoadNotificationData(notificationId, message, createdAt, type, false);
 
             flowLayoutPanelNotif.Controls.Add(notifCard);

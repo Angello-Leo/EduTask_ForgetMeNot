@@ -259,10 +259,5 @@ namespace Design
         {
             n.Flashcards(this);
         }
-
-        private void frmCreateClass_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

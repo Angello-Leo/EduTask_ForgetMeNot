@@ -444,7 +444,6 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "frmCreateClass";
             Text = " Creating Class";
-            Load += frmCreateClass_Load;
             ((System.ComponentModel.ISupportInitialize)picHamburgerMenu).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox17).EndInit();

@@ -359,7 +359,6 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "frmFlashcard";
             Text = "Flashcards";
-            Load += frmFlashcard_Load;
             ((System.ComponentModel.ISupportInitialize)picHamburgerMenu).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             panel1.ResumeLayout(false);

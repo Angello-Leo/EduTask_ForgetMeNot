@@ -776,6 +776,9 @@ namespace Design
 
         private void SetupAnnouncementPosting()
         {
+            txtAnnouncementContent.Enter += richTextBoxAnnouncement_Enter;
+            txtAnnouncementContent.Leave += txtAnnouncementContent_Leave;
+
             string role = (GetInfo.Role ?? "").Trim().ToLower();
 
             bool canPost = role == "president" || role == "vice president";
@@ -902,6 +905,14 @@ namespace Design
             {
                 txtAnnouncementContent.Text = "";
                 txtAnnouncementContent.ForeColor = Color.Black;
+            }
+        }
+        private void txtAnnouncementContent_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtAnnouncementContent.Text))
+            {
+                txtAnnouncementContent.Text = "Enter your announcement...";
+                txtAnnouncementContent.ForeColor = Color.Gray;
             }
         }
 

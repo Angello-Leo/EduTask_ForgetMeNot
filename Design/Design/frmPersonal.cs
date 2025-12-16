@@ -26,6 +26,7 @@ namespace Design
             panel1.Visible = true;
             lblUsername.Text = GetInfo.Username;
             ShowPersonalPanel();
+            SetPlaceholderText();
 
         }
 
@@ -159,7 +160,7 @@ namespace Design
                 return;
             }
 
-            int result = SaveTask(txtTaskTitle.Text, txtTaskContent.Text, dtpTaskDueDate.Value, GetInfo.UserID, conString);
+            int result = SaveTask(txtTaskTitle.Text, txtAnnouncementContent.Text, dtpTaskDueDate.Value, GetInfo.UserID, conString);
             if (result > 0)
             {
                 MessageBox.Show("Task created successfully!");
@@ -353,6 +354,33 @@ namespace Design
         private void btnShowAccomplished_Click(object sender, EventArgs e)
         {
             LoadCompletedPersonalTasks();
+        }
+        private void SetPlaceholderText()
+        {
+            txtAnnouncementContent.Enter += richTextBoxAnnouncement_Enter;
+            txtAnnouncementContent.Leave += txtAnnouncementContent_Leave;
+
+            if (string.IsNullOrWhiteSpace(txtAnnouncementContent.Text))
+            {
+                txtAnnouncementContent.Text = "Enter your Personal Task...";
+                txtAnnouncementContent.ForeColor = Color.Gray;
+            }
+        }
+        private void richTextBoxAnnouncement_Enter(object sender, EventArgs e)
+        {
+            if (txtAnnouncementContent.Text == "Enter your Personal Task..." && txtAnnouncementContent.ForeColor == Color.Gray)
+            {
+                txtAnnouncementContent.Text = "";
+                txtAnnouncementContent.ForeColor = Color.Black;
+            }
+        }
+        private void txtAnnouncementContent_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtAnnouncementContent.Text))
+            {
+                txtAnnouncementContent.Text = "Enter your Personal Task...";
+                txtAnnouncementContent.ForeColor = Color.Gray;
+            }
         }
     }
 }
