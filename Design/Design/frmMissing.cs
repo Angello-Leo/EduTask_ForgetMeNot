@@ -15,10 +15,8 @@ namespace Design
     public partial class frmMissing : Form
     {
         private string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
-        private int _classId;
         EnablerPending s = new EnablerPending();
         UiTransition n = new UiTransition();
-
         public frmMissing()
         {
             InitializeComponent();

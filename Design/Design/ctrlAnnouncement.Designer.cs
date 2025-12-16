@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lblTitle = new Label();
+            Label lblTitle;
             lblContent = new Label();
             lblCreatedBy = new Label();
             lblCreatedAt = new Label();
@@ -37,6 +37,7 @@
             lblDueDate = new Label();
             btnCloseSubmission = new Button();
             panel1 = new Panel();
+            lblTitle = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -130,6 +131,7 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(724, 173);
             panel1.TabIndex = 8;
+            panel1.Paint += panel1_Paint;
             // 
             // ctrlAnnouncement
             // 

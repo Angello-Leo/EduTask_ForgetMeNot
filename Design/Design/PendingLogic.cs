@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,48 +26,80 @@ namespace Design
 
                     using (MySqlCommand cmd = new MySqlCommand(query, con))
                     {
-                        cmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
+                        // Add parameters
+                        cmd.Parameters.AddWithValue("@uid", GetInfo.UserID);    
+
 
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
+                            int count = 0;
+
                             while (reader.Read())
                             {
+                                count++;
+
+                                // Debug each row
+                                Debug.WriteLine($"Row {count}: ID={reader["announcement_id"]}, Title={reader["title"]}, Status={reader["status"] ?? "NULL"}, ClassID={reader["class_id"]}");
+
                                 var card = new ctrlAnnouncement();
 
+                                // Safely get due date
                                 DateTime? due = reader["due_datetime"] != DBNull.Value
                                     ? (DateTime?)reader.GetDateTime("due_datetime")
                                     : null;
 
-                                int classId = reader["class_id"] != DBNull.Value
-                                    ? Convert.ToInt32(reader["class_id"])
-                                    : 0;
+                                string status = reader["status"].ToString().Trim().ToLower();
+                                bool isDone = status == "done";  // Mark as done if the status is "done"
+                                bool isMissing = status == "missing";  // Mark as missing if the status is "missing"
 
-                                bool isDone = isDoneResolver(reader);
+                                // Handle pending tasks - if the status is neither "done" nor "missing", treat it as pending
+                                if (!isDone && !isMissing)
+                                {
+                                    isDone = false;  // It's not done if it's neither done nor missing
+                                    isMissing = false;  // It's not missing if it's neither done nor missing
+                                }
 
+                                Debug.WriteLine($"isDone for announcement {reader["announcement_id"]}: {isDone}");
+                                // Load announcement data
                                 card.LoadAnnouncementData(
                                     reader.GetInt32("announcement_id"),
-                                    classId,
-                                    reader.GetString("title"),
-                                    reader.GetString("content"),
+                                    reader.GetInt32("class_id"),
+                                    reader["title"].ToString(),
+                                    reader["content"].ToString(),
                                     reader.GetDateTime("created_at"),
                                     isDone,
-                                    reader.GetString("username"),
-                                    reader.GetString("creator_role"),
+                                    reader["username"].ToString(),
+                                    reader["creator_role"].ToString(),
                                     due
                                 );
 
                                 if (highlightColor.HasValue)
                                     card.BackColor = highlightColor.Value;
 
+                                // Update the button visibility based on the task status and user role
+                                card.SetButtonVisibility(GetInfo.Role, isDone);
+
                                 panel.Controls.Add(card);
+                            }
+
+                            // If no rows returned, show a debug message
+                            if (count == 0)
+                            {
+                                Debug.WriteLine("No rows returned by query.");
+                                MessageBox.Show("No announcements found for this class/user.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                     }
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
-                MessageBox.Show("Error loading announcements: " + ex.Message);
+                MessageBox.Show(
+                    $"MySQL Error {ex.Number}\n{ex.Message}",
+                    "Database Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
 
             panel.Visible = true;

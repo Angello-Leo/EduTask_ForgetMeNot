@@ -680,10 +680,7 @@ namespace Design
 
         private void picPending_Click(object sender, EventArgs e)
         {
-            frmPending f7 = new frmPending();
-            Debug.WriteLine(GetInfo.ClassID);
-            f7.Show();
-            this.Hide();
+            n.Pending(this);
         }
 
         private void picPendingIcon_Click(object sender, EventArgs e)

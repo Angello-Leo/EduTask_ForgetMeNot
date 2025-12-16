@@ -36,7 +36,7 @@
                 {
                     conn.Open();
 
-                    // Get stored hash and role for the username
+                    // Get user info (without class)
                     string query = "SELECT user_id, password_hash, role FROM users WHERE username=@username";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@username", username);
@@ -50,47 +50,60 @@
 
                             if (BCrypt.Net.BCrypt.Verify(password, storedHash))
                             {
-                                MessageBox.Show("Login successful!");
-
-                                // Store user info
-                                GetInfo.UserID = reader.GetInt32("user_id");   // FIXED
+                                // Store basic info
+                                GetInfo.UserID = reader.GetInt32("user_id");
                                 GetInfo.Username = username;
                                 GetInfo.Role = role;
-
                                 reader.Close();
 
-                                string electedQuery = @"SELECT position 
-                                            FROM elected_positions 
-                                            WHERE user_id = @uid 
-                                            ORDER BY id DESC 
-                                            LIMIT 1";
+                                // Get all classes for this student
+                                string classQuery = "SELECT class_id FROM class_students WHERE student_id=@uid";
+                                MySqlCommand classCmd = new MySqlCommand(classQuery, conn);
+                                classCmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
+                                using (var classReader = classCmd.ExecuteReader())
+                                {
+                                    GetInfo.ClassID.Clear();
+                                    while (classReader.Read())
+                                    {
+                                        GetInfo.ClassID.Add(classReader.GetInt32("class_id"));
+                                    }
+                                }
 
+                                if (GetInfo.ClassID.Count == 0)
+                                {
+                                    MessageBox.Show("No classes assigned to this user!");
+                                }
+
+                                // Optional: get elected position
+                                string electedQuery = @"SELECT position 
+                                                FROM elected_positions 
+                                                WHERE user_id = @uid 
+                                                ORDER BY id DESC 
+                                                LIMIT 1";
                                 MySqlCommand electedCmd = new MySqlCommand(electedQuery, conn);
                                 electedCmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
-
                                 var electedPosition = electedCmd.ExecuteScalar();
-
                                 if (electedPosition != null)
                                 {
-                                    GetInfo.Role = electedPosition.ToString();  // "vice president", "president", etc.
+                                    GetInfo.Role = electedPosition.ToString();
                                 }
-                                string notifQuery = @"
-        SELECT COUNT(*) 
-        FROM notifications n
-        LEFT JOIN class_students cs ON n.class_id = cs.class_id
-        WHERE (n.user_id = @uid OR cs.student_id = @uid)
-          AND n.is_read = 0";
 
+                                // Optional: notifications
+                                string notifQuery = @"
+                            SELECT COUNT(*) 
+                            FROM notifications n
+                            LEFT JOIN class_students cs ON n.class_id = cs.class_id
+                            WHERE (n.user_id = @uid OR cs.student_id = @uid)
+                              AND n.is_read = 0";
                                 MySqlCommand notifCmd = new MySqlCommand(notifQuery, conn);
                                 notifCmd.Parameters.AddWithValue("@uid", GetInfo.UserID);
                                 int newNotifs = Convert.ToInt32(notifCmd.ExecuteScalar());
-
                                 if (newNotifs > 0)
                                 {
                                     MessageBox.Show($"You have {newNotifs} new announcement(s)!");
-                                    // Optionally, you could even open frmNotification automatically:
                                 }
-                                System.Diagnostics.Debug.WriteLine("FINAL ROLE AFTER LOGIN = " + GetInfo.Role);
+
+                                // Open dashboard
                                 frmDashBoard dash = new frmDashBoard();
                                 this.Hide();
                                 dash.Show();

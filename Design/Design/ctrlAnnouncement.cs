@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -82,29 +84,44 @@ namespace Design
             }
         }
 
-        private void SetButtonVisibility(string currentRole, bool isDone, bool isPersonalTask = false)
+        public void SetButtonVisibility(string currentRole, bool isDone, bool isPersonalTask = false, bool isMissing = false)
         {
-            // Hide all buttons for personal tasks
+            Debug.WriteLine($"SetButtonVisibility called with: isDone = {isDone}, isPersonalTask = {isPersonalTask}, isMissing = {isMissing}");
+
+            // Initially hide all buttons
+            btnEdit.Visible = false;
+            btnCloseSubmission.Visible = false;
+            btnMarkAsDone.Visible = false;
+
+            // Handle personal task scenario
             if (isPersonalTask)
             {
-                btnEdit.Visible = false;
-                btnCloseSubmission.Visible = false;
-
-                // user can still mark a task as done
-                btnMarkAsDone.Visible = !isDone;
+                btnMarkAsDone.Visible = !isDone;  // Only show if the task is not done
+                btnMarkAsDone.Text = isDone ? "Finished" : "Done";
+                btnMarkAsDone.BackColor = isDone ? Color.LightGreen : Color.LightBlue;
                 return;
             }
 
-            // Original logic for announcements:
-            currentRole = (currentRole ?? "").Trim().ToLower();
+            if (isMissing || !isDone)
+            {
+                btnMarkAsDone.Visible = true;
+                btnMarkAsDone.Text = "Done";
+                btnMarkAsDone.BackColor = Color.LightBlue;
+            }
+            if (isDone)
+            {
+                Debug.WriteLine("Task is done. Showing 'Finished' button.");
+                btnMarkAsDone.Text = "Finished";
+                btnMarkAsDone.BackColor = Color.LightGreen;
+            }
 
-            btnEdit.Visible = false;
-            btnMarkAsDone.Visible = !isDone;
-            btnCloseSubmission.Visible = false;
-
+            // Show 'Edit' button for roles 
             if (currentRole == "president" || currentRole == "vice president")
+            {
                 btnEdit.Visible = true;
+            }
 
+            // Show 'Close Submission' button for 'secretary' role
             if (currentRole == "secretary")
             {
                 btnCloseSubmission.Visible = true;
@@ -112,6 +129,7 @@ namespace Design
                 btnCloseSubmission.Click += btnCloseSubmission_Click;
             }
         }
+
 
 
         private void btnMarkAsDone_Click(object sender, EventArgs e)
@@ -248,6 +266,11 @@ namespace Design
 
                 MessageBox.Show("Submission closed. Students who didn't mark as done are now marked as missing.");
             }
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }

@@ -18,7 +18,6 @@ namespace Design
         private string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
         EnablerPending s = new EnablerPending();
         UiTransition n = new UiTransition();
-
         public frmPending()
         {
             InitializeComponent();

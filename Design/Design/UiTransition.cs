@@ -52,7 +52,6 @@ namespace Design
 
         public void Missing(Form current)
         {
-            int currentClassId = GetInfo.ClassID;
             new frmMissing().Show();
             current.Close();
         }

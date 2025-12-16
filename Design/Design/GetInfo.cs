@@ -8,7 +8,8 @@ namespace Design
         public static int UserID { get; set; }
         public static string Username { get; set; }
         public static string Role { get; set; }
-        public static int ClassID { get; set; }
+        public static List<int> ClassID { get; set; } = new List<int>();
+
 
         // --- Notification helper ---
         private static string conString = "server=localhost;database=edutask;uid=edutask_app;pwd=Ralfh_Leo_Sheky_Cholo2025!";
