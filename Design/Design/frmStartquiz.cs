@@ -19,8 +19,8 @@ namespace Design
         // Local Fields needed for quiz functionality
         List<string> questions = new List<string>();
         List<string> answers = new List<string>();
-        Stack<string> orderedQuestions = new Stack<string>();
-        Stack<string> orderedAnswers = new Stack<string>();
+        Queue<string> orderedQuestions = new Queue<string>();
+        Queue<string> orderedAnswers = new Queue<string>();
         int totalSecs = 0;
         int remainingSecs = 0;
         frmCreatequiz createQuizForm;
@@ -117,7 +117,7 @@ namespace Design
                 e.Handled = true;
 
                 string answer = txtAnswer.Text.Trim();
-                queAnswer = orderedAnswers.Pop();
+                queAnswer = orderedAnswers.Dequeue();
 
                 // Make sure orderedAnswers is a string or convert it to string to compare
                 if (answer.ToLower() == queAnswer.ToLower())
@@ -148,8 +148,8 @@ namespace Design
 
             foreach (int index in indices)
             {
-                orderedQuestions.Push(questions[index]);
-                orderedAnswers.Push(answers[index]);
+                orderedQuestions.Enqueue(questions[index]);
+                orderedAnswers.Enqueue(answers[index]);
             }
         }
         private void GenerateQuestions()
@@ -160,7 +160,7 @@ namespace Design
                 int width = quizCard.Width;
 
                 // Create a new label for the question
-                questionLabel.Text = orderedQuestions.Pop();
+                questionLabel.Text = orderedQuestions.Dequeue();
                 questionLabel.BackColor = Color.Transparent;
                 questionLabel.ForeColor = Color.Black;
 

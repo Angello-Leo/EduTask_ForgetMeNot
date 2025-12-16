@@ -158,7 +158,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(966, 471);
             panel1.TabIndex = 13;
-            panel1.Paint += panel1_Paint;
             // 
             // linkLabel1
             // 
@@ -184,7 +183,6 @@
             Margin = new Padding(2);
             Name = "frmLogin";
             Text = "Log In";
-            Load += frmLogin_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
